@@ -1,0 +1,144 @@
+{% comment %}
+  Bundle Benefits Section
+  Displays benefits of creating a bundle/stack
+{% endcomment %}
+
+{% stylesheet %}
+.bundle-benefits {
+  padding: 2rem 0;
+  background: #f8f8f8;
+}
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+.benefit-card {
+  text-align: center;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.benefit-card__icon {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 1rem;
+  background: #333;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.5rem;
+}
+.benefit-card__title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.benefit-card__description {
+  color: #666;
+  line-height: 1.5;
+}
+{% endstylesheet %}
+
+<div class="bundle-benefits">
+  <div class="container">
+    <h2>{{ section.settings.title | default: 'Why Build a Stack?' }}</h2>
+    <p>{{ section.settings.subtitle | default: 'Create your perfect combination and save more' }}</p>
+    
+    <div class="benefits-grid">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'benefit' %}
+            <div class="benefit-card">
+              <div class="benefit-card__icon">
+                {% if block.settings.icon %}
+                  {% render 'icon', name: block.settings.icon %}
+                {% else %}
+                  ✓
+                {% endif %}
+              </div>
+              <h3 class="benefit-card__title">{{ block.settings.title }}</h3>
+              <p class="benefit-card__description">{{ block.settings.description }}</p>
+            </div>
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Bundle Benefits",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Why Build a Stack?"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Section Subtitle",
+      "default": "Create your perfect combination and save more"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Save More"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Get better value when you bundle products together"
+        },
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon name (optional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bundle Benefits",
+      "blocks": [
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "Save More",
+            "description": "Get up to 20% off when you build a stack of 3+ products"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "Personalized",
+            "description": "Choose products that match your specific health goals"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "Convenient",
+            "description": "Get everything you need in one order with free shipping"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

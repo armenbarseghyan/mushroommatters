@@ -1,0 +1,131 @@
+{% comment %}
+  Product Recipes Section
+  Displays related recipes for products
+{% endcomment %}
+
+{% stylesheet %}
+.product-recipes {
+  padding: 2rem 0;
+  border-top: 1px solid #e5e5e5;
+}
+.recipes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+.recipe-card {
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+.recipe-card:hover {
+  transform: translateY(-2px);
+}
+.recipe-card__image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+.recipe-card__content {
+  padding: 1rem;
+}
+.recipe-card__title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.recipe-card__meta {
+  font-size: 0.875rem;
+  color: #666;
+}
+{% endstylesheet %}
+
+<div class="product-recipes">
+  <div class="container">
+    <h3>{{ section.settings.title | default: 'See Recipes' }}</h3>
+    
+    <div class="recipes-grid">
+      {% comment %} Get related recipes based on product tags or metafields {% endcomment %}
+      {% assign recipe_blog = blogs[section.settings.recipe_blog] %}
+      {% if recipe_blog and product.tags.size > 0 %}
+        {% for article in recipe_blog.articles limit: section.settings.recipes_limit %}
+          {% assign show_recipe = false %}
+          {% for tag in product.tags %}
+            {% if article.tags contains tag %}
+              {% assign show_recipe = true %}
+              {% break %}
+            {% endif %}
+          {% endfor %}
+          
+          {% if show_recipe %}
+            <article class="recipe-card">
+              {% if article.image %}
+                <img src="{{ article.image | img_url: '300x200' }}" alt="{{ article.image.alt | escape }}" class="recipe-card__image">
+              {% endif %}
+              <div class="recipe-card__content">
+                <h4 class="recipe-card__title">
+                  <a href="{{ article.url }}">{{ article.title }}</a>
+                </h4>
+                <div class="recipe-card__meta">
+                  {% if article.metafields.custom.reading_time %}
+                    {{ article.metafields.custom.reading_time }} min read
+                  {% endif %}
+                </div>
+              </div>
+            </article>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    </div>
+    
+    {% if section.settings.show_view_all and recipe_blog %}
+      <div class="text-center" style="margin-top: 2rem;">
+        <a href="{{ recipe_blog.url }}" class="btn btn--secondary">
+          {{ section.settings.view_all_text | default: 'View All Recipes' }}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product Recipes",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "See Recipes"
+    },
+    {
+      "type": "blog",
+      "id": "recipe_blog",
+      "label": "Recipe Blog"
+    },
+    {
+      "type": "range",
+      "id": "recipes_limit",
+      "label": "Number of recipes to show",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Show 'View All' button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "view_all_text",
+      "label": "View All button text",
+      "default": "View All Recipes"
+    }
+  ]
+}
+{% endschema %}

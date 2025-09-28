@@ -1,0 +1,101 @@
+{% comment %}
+  Cart Recommendations Section
+  Displays recommended products in cart
+{% endcomment %}
+
+{% stylesheet %}
+.cart-recommendations {
+  padding: 2rem 0;
+  border-top: 1px solid #e5e5e5;
+}
+.recommendations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.recommendation-card {
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+}
+.recommendation-card__image {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  margin-bottom: 0.5rem;
+}
+.recommendation-card__title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.recommendation-card__price {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 1rem;
+}
+.btn--small {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  background: #333;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+}
+{% endstylesheet %}
+
+<div class="cart-recommendations">
+  <div class="container">
+    <h3>{{ section.settings.title | default: 'You might also like' }}</h3>
+    
+    <div class="recommendations-grid">
+      {% comment %} Get recommended products based on cart contents {% endcomment %}
+      {% assign recommendations = recommendations.products | default: collections.all.products %}
+      {% for product in recommendations limit: section.settings.products_limit %}
+        {% unless cart.items contains product %}
+          <div class="recommendation-card">
+            {% if product.featured_image %}
+              <img src="{{ product.featured_image | img_url: '200x150' }}" alt="{{ product.featured_image.alt | escape }}" class="recommendation-card__image">
+            {% endif %}
+            <h4 class="recommendation-card__title">{{ product.title }}</h4>
+            <div class="recommendation-card__price">
+              {{ product.price | money }}
+            </div>
+            <form action="/cart/add" method="post" enctype="multipart/form-data">
+              <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+              <button type="submit" class="btn--small">Add to Cart</button>
+            </form>
+          </div>
+        {% endunless %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Cart Recommendations",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "You might also like"
+    },
+    {
+      "type": "range",
+      "id": "products_limit",
+      "label": "Number of products to show",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "default": 4
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,69 @@
+{% comment %}
+  Pagination Section
+  Displays pagination controls for collections and blog pages
+{% endcomment %}
+
+{% stylesheet %}
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem 0;
+}
+.pagination__item {
+  padding: 0.5rem 1rem;
+  border: 1px solid #e5e5e5;
+  text-decoration: none;
+  color: #333;
+  transition: all 0.2s ease;
+}
+.pagination__item:hover,
+.pagination__item.current {
+  background: #333;
+  color: white;
+}
+.pagination__item--disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+{% endstylesheet %}
+
+{% if paginate.pages > 1 %}
+  <nav class="pagination" role="navigation" aria-label="Pagination">
+    {% if paginate.previous %}
+      <a href="{{ paginate.previous.url }}" class="pagination__item" aria-label="Previous page">
+        ← Previous
+      </a>
+    {% else %}
+      <span class="pagination__item pagination__item--disabled">← Previous</span>
+    {% endif %}
+
+    {% for part in paginate.parts %}
+      {% if part.is_link %}
+        <a href="{{ part.url }}" class="pagination__item">{{ part.title }}</a>
+      {% else %}
+        {% if part.title == paginate.current_page %}
+          <span class="pagination__item current" aria-current="page">{{ part.title }}</span>
+        {% else %}
+          <span class="pagination__item">{{ part.title }}</span>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+
+    {% if paginate.next %}
+      <a href="{{ paginate.next.url }}" class="pagination__item" aria-label="Next page">
+        Next →
+      </a>
+    {% else %}
+      <span class="pagination__item pagination__item--disabled">Next →</span>
+    {% endif %}
+  </nav>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Pagination",
+  "settings": []
+}
+{% endschema %}

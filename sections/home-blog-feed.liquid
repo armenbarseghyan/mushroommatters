@@ -1,0 +1,65 @@
+{% comment %}
+  Home Blog Feed Section
+  Displays blog posts with filtering capabilities
+{% endcomment %}
+
+{% stylesheet %}
+.home-blog-feed {
+  padding: 2rem 0;
+}
+.blog-feed__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+.blog-card {
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.blog-card__content {
+  padding: 1.5rem;
+}
+{% endstylesheet %}
+
+<div class="home-blog-feed">
+  <div class="container">
+    <h2>{{ section.settings.title | default: 'Latest from our Journal' }}</h2>
+    <div class="blog-feed__grid">
+      {% if section.settings.blog != blank %}
+        {% for article in blogs[section.settings.blog].articles limit: 6 %}
+          <article class="blog-card">
+            <div class="blog-card__content">
+              <h3><a href="{{ article.url }}">{{ article.title }}</a></h3>
+              <p>{{ article.excerpt | strip_html | truncate: 120 }}</p>
+            </div>
+          </article>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Home Blog Feed",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Latest from our Journal"
+    },
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "Blog"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Home Blog Feed"
+    }
+  ]
+}
+{% endschema %}
