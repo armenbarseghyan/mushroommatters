@@ -1,0 +1,165 @@
+.mushroom-products__header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.mushroom-products__heading {
+  font-size: 3.2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 1.5rem 0;
+  color: rgb(var(--color-foreground));
+}
+
+@media screen and (min-width: 750px) {
+  .mushroom-products__heading {
+    font-size: 4rem;
+  }
+}
+
+.mushroom-products__description {
+  font-size: 1.6rem;
+  line-height: 1.6;
+  color: rgba(var(--color-foreground), 0.7);
+  max-width: 60rem;
+  margin: 0 auto;
+}
+
+.mushroom-products__description p {
+  margin: 0 0 1rem 0;
+}
+
+.mushroom-products__description p:last-child {
+  margin-bottom: 0;
+}
+
+.mushroom-products__grid {
+  margin-bottom: 3rem;
+}
+
+.mushroom-products__footer {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+/* Custom card styling for mushroom products */
+.mushroom-products .card {
+  border-radius: 1.2rem;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mushroom-products .card:hover {
+  transform: translateY(-0.5rem);
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
+}
+
+.mushroom-products .card__media {
+  position: relative;
+  overflow: hidden;
+}
+
+.mushroom-products .card__media img {
+  transition: transform 0.3s ease;
+}
+
+.mushroom-products .card:hover .card__media img {
+  transform: scale(1.05);
+}
+
+.mushroom-products .card__content {
+  padding: 2rem;
+}
+
+.mushroom-products .card__heading {
+  font-size: 1.8rem;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-bottom: 1rem;
+}
+
+.mushroom-products .card__heading a {
+  color: rgb(var(--color-foreground));
+  text-decoration: none;
+}
+
+.mushroom-products .card__heading a:hover {
+  color: rgb(var(--color-link));
+}
+
+.mushroom-products .price {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: rgb(var(--color-foreground));
+}
+
+.mushroom-products .price-item--sale {
+  color: rgb(var(--color-error));
+}
+
+/* Product badges */
+.mushroom-products .badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background-color: rgb(var(--color-error));
+  color: rgb(var(--color-background));
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+}
+
+.mushroom-products .badge--sale {
+  background-color: rgb(var(--color-error));
+}
+
+.mushroom-products .badge--new {
+  background-color: rgb(var(--color-success));
+}
+
+.mushroom-products .badge--hit {
+  background-color: rgb(var(--color-accent));
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 749px) {
+  .mushroom-products__heading {
+    font-size: 2.8rem;
+  }
+  
+  .mushroom-products__description {
+    font-size: 1.4rem;
+  }
+  
+  .mushroom-products .card__content {
+    padding: 1.5rem;
+  }
+  
+  .mushroom-products .card__heading {
+    font-size: 1.6rem;
+  }
+}
+
+/* Animation for grid items */
+.mushroom-products .grid__item {
+  opacity: 0;
+  transform: translateY(2rem);
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.mushroom-products .grid__item:nth-child(1) { animation-delay: 0.1s; }
+.mushroom-products .grid__item:nth-child(2) { animation-delay: 0.2s; }
+.mushroom-products .grid__item:nth-child(3) { animation-delay: 0.3s; }
+.mushroom-products .grid__item:nth-child(4) { animation-delay: 0.4s; }
+.mushroom-products .grid__item:nth-child(5) { animation-delay: 0.5s; }
+.mushroom-products .grid__item:nth-child(6) { animation-delay: 0.6s; }
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

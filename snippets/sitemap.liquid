@@ -1,0 +1,65 @@
+{%- comment -%}
+  Sitemap for Mushroom Matters
+  Generates XML sitemap for better SEO
+{%- endcomment -%}
+
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Homepage -->
+  <url>
+    <loc>{{ shop.url }}</loc>
+    <lastmod>{{ shop.updated_at | date: '%Y-%m-%d' }}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Products -->
+  {%- for product in collections.all.products -%}
+    <url>
+      <loc>{{ shop.url }}{{ product.url }}</loc>
+      <lastmod>{{ product.updated_at | date: '%Y-%m-%d' }}</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.8</priority>
+    </url>
+  {%- endfor -%}
+
+  <!-- Collections -->
+  {%- for collection in collections -%}
+    {%- unless collection.handle == 'all' -%}
+      <url>
+        <loc>{{ shop.url }}{{ collection.url }}</loc>
+        <lastmod>{{ collection.updated_at | date: '%Y-%m-%d' }}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+      </url>
+    {%- endunless -%}
+  {%- endfor -%}
+
+  <!-- Pages -->
+  {%- for page in pages -%}
+    <url>
+      <loc>{{ shop.url }}{{ page.url }}</loc>
+      <lastmod>{{ page.updated_at | date: '%Y-%m-%d' }}</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.6</priority>
+    </url>
+  {%- endfor -%}
+
+  <!-- Blog Articles -->
+  {%- for article in blog.articles -%}
+    <url>
+      <loc>{{ shop.url }}{{ article.url }}</loc>
+      <lastmod>{{ article.updated_at | date: '%Y-%m-%d' }}</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.5</priority>
+    </url>
+  {%- endfor -%}
+
+  <!-- Search Page -->
+  <url>
+    <loc>{{ shop.url }}/search</loc>
+    <lastmod>{{ 'now' | date: '%Y-%m-%d' }}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.4</priority>
+  </url>
+</urlset>

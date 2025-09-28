@@ -1,0 +1,168 @@
+{{ 'component-mushroom-hero.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="mushroom-hero section-{{ section.id }}-padding color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width">
+    <div class="mushroom-hero__content">
+      <div class="mushroom-hero__text">
+        {%- if section.settings.heading != blank -%}
+          <h1 class="mushroom-hero__heading h0">
+            {{ section.settings.heading }}
+          </h1>
+        {%- endif -%}
+        
+        {%- if section.settings.subheading != blank -%}
+          <p class="mushroom-hero__subheading">
+            {{ section.settings.subheading }}
+          </p>
+        {%- endif -%}
+        
+        {%- if section.settings.description != blank -%}
+          <div class="mushroom-hero__description">
+            {{ section.settings.description }}
+          </div>
+        {%- endif -%}
+        
+        {%- if section.settings.button_label != blank -%}
+          <div class="mushroom-hero__button">
+            <a href="{{ section.settings.button_link }}" class="button button--primary">
+              {{ section.settings.button_label }}
+            </a>
+          </div>
+        {%- endif -%}
+      </div>
+      
+      {%- if section.settings.image != blank -%}
+        <div class="mushroom-hero__image">
+          {%- assign image_alt = section.settings.image.alt | default: section.settings.heading | escape -%}
+          {%- assign image_height = section.settings.image_width | divided_by: section.settings.image.aspect_ratio -%}
+          {% capture sizes %}(max-width: {{ section.settings.image_width | times: 2 }}px) 50vw, {{ section.settings.image_width }}px{% endcapture %}
+          {% capture widths %}{{ section.settings.image_width }}, {{ section.settings.image_width | times: 1.5 | round }}, {{ section.settings.image_width | times: 2 }}{% endcapture %}
+          {{ section.settings.image | image_url: width: 800 | image_tag:
+            class: 'mushroom-hero__image-element',
+            widths: widths,
+            height: image_height,
+            width: section.settings.image_width,
+            alt: image_alt,
+            sizes: sizes,
+            loading: 'eager'
+          }}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Mushroom Hero",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Premium Mushroom Extracts"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Lion's Mane, Reishi, Cordyceps"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Discover the power of medicinal mushrooms with our premium extracts. Carefully sourced and expertly processed for maximum potency.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Hero image"
+    },
+    {
+      "type": "range",
+      "id": "image_width",
+      "min": 200,
+      "max": 800,
+      "step": 10,
+      "unit": "px",
+      "label": "Image width",
+      "default": 400
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "Mushroom Hero"
+    }
+  ]
+}
+{% endschema %}

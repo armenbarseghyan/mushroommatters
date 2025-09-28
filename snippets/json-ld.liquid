@@ -1,0 +1,151 @@
+{%- comment -%}
+  JSON-LD structured data for SEO
+  Supports Organization, Product, BreadcrumbList schemas
+{%- endcomment -%}
+
+{%- liquid
+  assign json_ld_organization = false
+  assign json_ld_product = false
+  assign json_ld_breadcrumb = false
+  
+  if template contains 'index'
+    assign json_ld_organization = true
+  endif
+  
+  if template contains 'product'
+    assign json_ld_product = true
+    assign json_ld_breadcrumb = true
+  endif
+  
+  if template contains 'collection'
+    assign json_ld_breadcrumb = true
+  endif
+-%}
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  {%- if json_ld_organization -%}
+  "@type": "Organization",
+  "name": "{{ shop.name | escape }}",
+  "url": "{{ shop.url }}",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "{{ settings.logo | image_url: width: 600 }}"
+  },
+  "description": "{{ shop.description | escape }}",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "{{ shop.address.street }}",
+    "addressLocality": "{{ shop.address.city }}",
+    "addressRegion": "{{ shop.address.province }}",
+    "postalCode": "{{ shop.address.zip }}",
+    "addressCountry": "{{ shop.address.country }}"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "{{ shop.phone }}",
+    "contactType": "customer service",
+    "email": "{{ shop.email }}"
+  },
+  "sameAs": [
+    {%- if settings.social_facebook_link != blank -%}"{{ settings.social_facebook_link }}"{%- endif -%}
+    {%- if settings.social_instagram_link != blank -%},"{{ settings.social_instagram_link }}"{%- endif -%}
+    {%- if settings.social_twitter_link != blank -%},"{{ settings.social_twitter_link }}"{%- endif -%}
+    {%- if settings.social_youtube_link != blank -%},"{{ settings.social_youtube_link }}"{%- endif -%}
+  ]
+  {%- endif -%}
+  
+  {%- if json_ld_product -%}
+  {%- unless json_ld_organization -%},{%- endunless -%}
+  "@type": "Product",
+  "name": "{{ product.title | escape }}",
+  "description": "{{ product.description | strip_html | escape }}",
+  "image": [
+    {%- for image in product.images -%}
+      "{{ image | image_url: width: 1200 }}"{%- unless forloop.last -%},{%- endunless -%}
+    {%- endfor -%}
+  ],
+  "brand": {
+    "@type": "Brand",
+    "name": "{{ product.vendor | escape }}"
+  },
+  "category": "{{ product.type | escape }}",
+  "sku": "{{ product.selected_or_first_available_variant.sku | escape }}",
+  "mpn": "{{ product.selected_or_first_available_variant.sku | escape }}",
+  "offers": {
+    "@type": "Offer",
+    "url": "{{ shop.url }}{{ product.url }}",
+    "priceCurrency": "{{ cart.currency.iso_code }}",
+    "price": "{{ product.price | money_without_currency | remove: ',' }}",
+    "availability": "{% if product.available %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}",
+    "seller": {
+      "@type": "Organization",
+      "name": "{{ shop.name | escape }}"
+    }
+  },
+  {%- if product.metafields.custom.extraction_method != blank -%}
+  "additionalProperty": [
+    {
+      "@type": "PropertyValue",
+      "name": "Extraction Method",
+      "value": "{{ product.metafields.custom.extraction_method | escape }}"
+    }
+    {%- if product.metafields.custom.beta_glucans_percent != blank -%},
+    {
+      "@type": "PropertyValue",
+      "name": "Beta-glucans",
+      "value": "{{ product.metafields.custom.beta_glucans_percent }}%"
+    }
+    {%- endif -%}
+    {%- if product.metafields.custom.origin != blank -%},
+    {
+      "@type": "PropertyValue",
+      "name": "Origin",
+      "value": "{{ product.metafields.custom.origin | escape }}"
+    }
+    {%- endif -%}
+  ],
+  {%- endif -%}
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "{{ product.metafields.reviews.rating.value | default: '4.5' }}",
+    "reviewCount": "{{ product.metafields.reviews.rating_count.value | default: '1' }}"
+  }
+  {%- endif -%}
+  
+  {%- if json_ld_breadcrumb -%}
+  {%- unless json_ld_organization or json_ld_product -%},{%- endunless -%}
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "{{ shop.url }}"
+    }
+    {%- if template contains 'product' -%}
+    ,{
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Products",
+      "item": "{{ shop.url }}/collections/all"
+    }
+    ,{
+      "@type": "ListItem",
+      "position": 3,
+      "name": "{{ product.title | escape }}",
+      "item": "{{ shop.url }}{{ product.url }}"
+    }
+    {%- elsif template contains 'collection' -%}
+    ,{
+      "@type": "ListItem",
+      "position": 2,
+      "name": "{{ collection.title | escape }}",
+      "item": "{{ shop.url }}{{ collection.url }}"
+    }
+    {%- endif -%}
+  ]
+  {%- endif -%}
+}
+</script>

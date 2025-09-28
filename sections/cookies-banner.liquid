@@ -1,0 +1,277 @@
+{{ 'component-cookies-banner.css' | asset_url | stylesheet_tag }}
+
+<div class="cookies-banner{% if section.settings.show_banner == false %} cookies-banner--hidden{% endif %}" id="cookies-banner">
+  <div class="cookies-banner__content">
+    <div class="cookies-banner__text">
+      <h3 class="cookies-banner__title">
+        {{ 'sections.cookies_banner.title' | t }}
+      </h3>
+      <p class="cookies-banner__description">
+        {{ 'sections.cookies_banner.description' | t }}
+      </p>
+    </div>
+    
+    <div class="cookies-banner__actions">
+      <button type="button" class="cookies-banner__button cookies-banner__button--accept" id="accept-cookies">
+        {{ 'sections.cookies_banner.accept' | t }}
+      </button>
+      <button type="button" class="cookies-banner__button cookies-banner__button--decline" id="decline-cookies">
+        {{ 'sections.cookies_banner.decline' | t }}
+      </button>
+      <a href="{{ section.settings.privacy_policy_url }}" class="cookies-banner__link">
+        {{ 'sections.cookies_banner.privacy_policy' | t }}
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  class CookiesBanner {
+    constructor() {
+      this.banner = document.getElementById('cookies-banner');
+      this.acceptButton = document.getElementById('accept-cookies');
+      this.declineButton = document.getElementById('decline-cookies');
+      this.storageKey = 'mushroom-matters-cookies-consent';
+      this.init();
+    }
+
+    init() {
+      // Check if user has already made a choice
+      const consent = this.getConsent();
+      if (consent !== null) {
+        this.hideBanner();
+        this.loadScripts(consent);
+        return;
+      }
+
+      // Show banner if no consent given
+      this.showBanner();
+      this.bindEvents();
+    }
+
+    bindEvents() {
+      this.acceptButton.addEventListener('click', () => {
+        this.setConsent(true);
+        this.hideBanner();
+        this.loadScripts(true);
+      });
+
+      this.declineButton.addEventListener('click', () => {
+        this.setConsent(false);
+        this.hideBanner();
+        this.loadScripts(false);
+      });
+    }
+
+    showBanner() {
+      if (this.banner) {
+        this.banner.classList.remove('cookies-banner--hidden');
+        this.banner.classList.add('cookies-banner--visible');
+      }
+    }
+
+    hideBanner() {
+      if (this.banner) {
+        this.banner.classList.remove('cookies-banner--visible');
+        this.banner.classList.add('cookies-banner--hidden');
+      }
+    }
+
+    setConsent(accepted) {
+      const consent = {
+        accepted: accepted,
+        timestamp: new Date().toISOString(),
+        version: '1.0'
+      };
+      
+      localStorage.setItem(this.storageKey, JSON.stringify(consent));
+      
+      // Track consent event
+      if (window.dataLayer) {
+        window.dataLayer.push({
+          event: 'cookie_consent',
+          consent_accepted: accepted,
+          consent_timestamp: consent.timestamp
+        });
+      }
+    }
+
+    getConsent() {
+      try {
+        const stored = localStorage.getItem(this.storageKey);
+        if (stored) {
+          const consent = JSON.parse(stored);
+          // Check if consent is not older than 1 year
+          const oneYearAgo = new Date();
+          oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+          
+          if (new Date(consent.timestamp) > oneYearAgo) {
+            return consent.accepted;
+          }
+        }
+      } catch (e) {
+        console.warn('Error reading cookie consent:', e);
+      }
+      return null;
+    }
+
+    loadScripts(accepted) {
+      if (!accepted) {
+        // Disable non-essential scripts
+        this.disableAnalytics();
+        this.disableMarketing();
+        return;
+      }
+
+      // Load essential scripts
+      this.loadAnalytics();
+      this.loadMarketing();
+    }
+
+    loadAnalytics() {
+      // Google Analytics
+      if (window.gtag) {
+        window.gtag('consent', 'update', {
+          analytics_storage: 'granted'
+        });
+      }
+
+      // Meta Pixel
+      if (window.fbq) {
+        window.fbq('consent', 'grant');
+      }
+    }
+
+    loadMarketing() {
+      // Enable marketing cookies
+      if (window.gtag) {
+        window.gtag('consent', 'update', {
+          ad_storage: 'granted',
+          ad_user_data: 'granted',
+          ad_personalization: 'granted'
+        });
+      }
+    }
+
+    disableAnalytics() {
+      // Disable analytics
+      if (window.gtag) {
+        window.gtag('consent', 'update', {
+          analytics_storage: 'denied'
+        });
+      }
+
+      if (window.fbq) {
+        window.fbq('consent', 'revoke');
+      }
+    }
+
+    disableMarketing() {
+      // Disable marketing cookies
+      if (window.gtag) {
+        window.gtag('consent', 'update', {
+          ad_storage: 'denied',
+          ad_user_data: 'denied',
+          ad_personalization: 'denied'
+        });
+      }
+    }
+  }
+
+  // Initialize when DOM is ready
+  document.addEventListener('DOMContentLoaded', () => {
+    new CookiesBanner();
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Cookies Banner",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Banner Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_banner",
+      "label": "Show cookies banner",
+      "default": true,
+      "info": "Banner will be hidden if user has already given consent"
+    },
+    {
+      "type": "url",
+      "id": "privacy_policy_url",
+      "label": "Privacy policy URL",
+      "default": "/pages/privacy-policy"
+    },
+    {
+      "type": "header",
+      "content": "Banner Content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Banner title",
+      "default": "We use cookies"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Banner description",
+      "default": "<p>We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic. By clicking \"Accept All\", you consent to our use of cookies.</p>"
+    },
+    {
+      "type": "text",
+      "id": "accept_text",
+      "label": "Accept button text",
+      "default": "Accept All"
+    },
+    {
+      "type": "text",
+      "id": "decline_text",
+      "label": "Decline button text",
+      "default": "Decline"
+    },
+    {
+      "type": "text",
+      "id": "privacy_link_text",
+      "label": "Privacy policy link text",
+      "default": "Privacy Policy"
+    },
+    {
+      "type": "header",
+      "content": "Banner Styling"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "select",
+      "id": "banner_position",
+      "label": "Banner position",
+      "options": [
+        {
+          "value": "bottom",
+          "label": "Bottom"
+        },
+        {
+          "value": "top",
+          "label": "Top"
+        }
+      ],
+      "default": "bottom"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Cookies Banner"
+    }
+  ]
+}
+{% endschema %}

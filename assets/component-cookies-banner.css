@@ -1,0 +1,228 @@
+.cookies-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: rgb(var(--color-background));
+  border-top: 1px solid rgba(var(--color-foreground), 0.1);
+  box-shadow: 0 -0.5rem 2rem rgba(0, 0, 0, 0.1);
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+
+.cookies-banner--visible {
+  transform: translateY(0);
+}
+
+.cookies-banner--hidden {
+  transform: translateY(100%);
+  display: none;
+}
+
+.cookies-banner__content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem;
+  max-width: 120rem;
+  margin: 0 auto;
+  gap: 2rem;
+}
+
+.cookies-banner__text {
+  flex: 1;
+  min-width: 0;
+}
+
+.cookies-banner__title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  color: rgb(var(--color-foreground));
+}
+
+.cookies-banner__description {
+  font-size: 1.4rem;
+  line-height: 1.5;
+  margin: 0;
+  color: rgba(var(--color-foreground), 0.8);
+}
+
+.cookies-banner__description p {
+  margin: 0;
+}
+
+.cookies-banner__actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-shrink: 0;
+}
+
+.cookies-banner__button {
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 0.8rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 10rem;
+}
+
+.cookies-banner__button--accept {
+  background-color: rgb(var(--color-link));
+  color: rgb(var(--color-background));
+}
+
+.cookies-banner__button--accept:hover {
+  background-color: rgba(var(--color-link), 0.8);
+  transform: translateY(-0.1rem);
+}
+
+.cookies-banner__button--decline {
+  background-color: transparent;
+  color: rgb(var(--color-foreground));
+  border: 1px solid rgba(var(--color-foreground), 0.3);
+}
+
+.cookies-banner__button--decline:hover {
+  background-color: rgba(var(--color-foreground), 0.05);
+  border-color: rgba(var(--color-foreground), 0.5);
+}
+
+.cookies-banner__link {
+  font-size: 1.4rem;
+  color: rgb(var(--color-link));
+  text-decoration: underline;
+  text-underline-offset: 0.3rem;
+  transition: color 0.3s ease;
+}
+
+.cookies-banner__link:hover {
+  color: rgba(var(--color-link), 0.8);
+}
+
+/* Top position variant */
+.cookies-banner--top {
+  top: 0;
+  bottom: auto;
+  border-top: none;
+  border-bottom: 1px solid rgba(var(--color-foreground), 0.1);
+  box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.1);
+}
+
+.cookies-banner--top.cookies-banner--hidden {
+  transform: translateY(-100%);
+}
+
+/* Responsive design */
+@media screen and (max-width: 749px) {
+  .cookies-banner__content {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 1.5rem;
+    gap: 1.5rem;
+  }
+
+  .cookies-banner__actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .cookies-banner__button {
+    width: 100%;
+    min-width: auto;
+  }
+
+  .cookies-banner__link {
+    text-align: center;
+    padding: 0.5rem 0;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .cookies-banner__title {
+    font-size: 1.6rem;
+  }
+
+  .cookies-banner__description {
+    font-size: 1.3rem;
+  }
+
+  .cookies-banner__button {
+    font-size: 1.3rem;
+    padding: 0.8rem 1.5rem;
+  }
+
+  .cookies-banner__link {
+    font-size: 1.3rem;
+  }
+}
+
+/* Animation for banner appearance */
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.cookies-banner--visible {
+  animation: slideUp 0.3s ease-out;
+}
+
+.cookies-banner--top.cookies-banner--visible {
+  animation: slideDown 0.3s ease-out;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .cookies-banner {
+    background-color: rgb(var(--color-background));
+    border-color: rgba(var(--color-foreground), 0.2);
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .cookies-banner {
+    border-width: 2px;
+  }
+
+  .cookies-banner__button--decline {
+    border-width: 2px;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .cookies-banner {
+    transition: none;
+  }
+
+  .cookies-banner--visible {
+    animation: none;
+  }
+
+  .cookies-banner__button {
+    transition: none;
+  }
+}

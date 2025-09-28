@@ -1,0 +1,151 @@
+{{ 'component-product-metafields.css' | asset_url | stylesheet_tag }}
+
+<div class="product-metafields">
+  {%- if product.metafields.custom.extraction_method != blank -%}
+    <div class="metafield-item">
+      <h4 class="metafield-label">{{ 'products.product.extraction_method' | t }}</h4>
+      <p class="metafield-value">{{ product.metafields.custom.extraction_method }}</p>
+    </div>
+  {%- endif -%}
+
+  {%- if product.metafields.custom.beta_glucans_percent != blank -%}
+    <div class="metafield-item">
+      <h4 class="metafield-label">{{ 'products.product.beta_glucans' | t }}</h4>
+      <p class="metafield-value">{{ product.metafields.custom.beta_glucans_percent }}%</p>
+    </div>
+  {%- endif -%}
+
+  {%- if product.metafields.custom.alcohol_percent != blank -%}
+    <div class="metafield-item">
+      <h4 class="metafield-label">{{ 'products.product.alcohol_percent' | t }}</h4>
+      <p class="metafield-value">{{ product.metafields.custom.alcohol_percent }}% {{ 'products.product.vol' | t }}</p>
+    </div>
+  {%- endif -%}
+
+  {%- if product.metafields.custom.ingredients != blank -%}
+    <div class="metafield-item">
+      <h4 class="metafield-label">{{ 'products.product.ingredients' | t }}</h4>
+      <div class="metafield-value">{{ product.metafields.custom.ingredients }}</div>
+    </div>
+  {%- endif -%}
+
+  {%- if product.metafields.custom.dosage != blank -%}
+    <div class="metafield-item">
+      <h4 class="metafield-label">{{ 'products.product.dosage' | t }}</h4>
+      <div class="metafield-value">{{ product.metafields.custom.dosage }}</div>
+    </div>
+  {%- endif -%}
+
+  {%- if product.metafields.custom.servings != blank -%}
+    <div class="metafield-item">
+      <h4 class="metafield-label">{{ 'products.product.servings' | t }}</h4>
+      <p class="metafield-value">{{ product.metafields.custom.servings }} {{ 'products.product.servings_count' | t }}</p>
+    </div>
+  {%- endif -%}
+
+  {%- if product.metafields.custom.origin != blank -%}
+    <div class="metafield-item">
+      <h4 class="metafield-label">{{ 'products.product.origin' | t }}</h4>
+      <p class="metafield-value">{{ product.metafields.custom.origin }}</p>
+    </div>
+  {%- endif -%}
+
+  {%- if product.metafields.custom.coa_url != blank -%}
+    <div class="metafield-item">
+      <h4 class="metafield-label">{{ 'products.product.certificates' | t }}</h4>
+      <p class="metafield-value">
+        <a href="{{ product.metafields.custom.coa_url }}" target="_blank" rel="noopener">
+          {{ 'products.product.view_certificates' | t }}
+        </a>
+      </p>
+    </div>
+  {%- endif -%}
+
+  {%- if product.metafields.custom.warnings != blank -%}
+    <div class="metafield-item metafield-warnings">
+      <h4 class="metafield-label">{{ 'products.product.warnings' | t }}</h4>
+      <div class="metafield-value">{{ product.metafields.custom.warnings }}</div>
+    </div>
+  {%- endif -%}
+
+  {%- if product.metafields.custom.taste_notes != blank -%}
+    <div class="metafield-item">
+      <h4 class="metafield-label">{{ 'products.product.taste_notes' | t }}</h4>
+      <p class="metafield-value">{{ product.metafields.custom.taste_notes }}</p>
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Product Metafields",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Product Metafields Display"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_extraction_method",
+      "label": "Show extraction method",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_beta_glucans",
+      "label": "Show beta-glucans percentage",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_alcohol_percent",
+      "label": "Show alcohol percentage",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_ingredients",
+      "label": "Show ingredients",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dosage",
+      "label": "Show dosage instructions",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_servings",
+      "label": "Show servings count",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_origin",
+      "label": "Show origin",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_certificates",
+      "label": "Show certificates",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_warnings",
+      "label": "Show warnings",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_taste_notes",
+      "label": "Show taste notes",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

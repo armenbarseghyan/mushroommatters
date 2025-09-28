@@ -1,0 +1,251 @@
+{{ 'component-mushroom-search.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="mushroom-search section-{{ section.id }}-padding color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width">
+    {%- if section.settings.heading != blank -%}
+      <div class="mushroom-search__header">
+        <h1 class="mushroom-search__heading">
+          {{ section.settings.heading }}
+        </h1>
+        {%- if section.settings.description != blank -%}
+          <div class="mushroom-search__description">
+            {{ section.settings.description }}
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="mushroom-search__content">
+      <!-- Search Form -->
+      <form class="mushroom-search__form" action="{{ routes.search_url }}" method="get">
+        <div class="mushroom-search__input-wrapper">
+          <input 
+            type="search" 
+            name="q" 
+            class="mushroom-search__input" 
+            placeholder="{{ 'general.search.search' | t }}"
+            value="{{ search.terms | escape }}"
+            autocomplete="off"
+          >
+          <button type="submit" class="mushroom-search__button">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M21 21L16.514 16.506L21 21ZM19 10.5C19 15.194 15.194 19 10.5 19C5.806 19 2 15.194 2 10.5C2 5.806 5.806 2 10.5 2C15.194 2 19 5.806 19 10.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="visually-hidden">{{ 'general.search.search' | t }}</span>
+          </button>
+        </div>
+      </form>
+
+      <!-- Filters -->
+      <div class="mushroom-search__filters">
+        <div class="mushroom-search__filter-group">
+          <h3 class="mushroom-search__filter-title">{{ 'sections.mushroom_search.filters.mushroom_type' | t }}</h3>
+          <div class="mushroom-search__filter-options">
+            <label class="mushroom-search__filter-option">
+              <input type="checkbox" name="filter[product_type]" value="Экстракт Lion's Mane">
+              <span class="mushroom-search__filter-label">{{ 'sections.mushroom_search.filters.lions_mane' | t }}</span>
+            </label>
+            <label class="mushroom-search__filter-option">
+              <input type="checkbox" name="filter[product_type]" value="Экстракт Reishi">
+              <span class="mushroom-search__filter-label">{{ 'sections.mushroom_search.filters.reishi' | t }}</span>
+            </label>
+            <label class="mushroom-search__filter-option">
+              <input type="checkbox" name="filter[product_type]" value="Экстракт Cordyceps">
+              <span class="mushroom-search__filter-label">{{ 'sections.mushroom_search.filters.cordyceps' | t }}</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="mushroom-search__filter-group">
+          <h3 class="mushroom-search__filter-title">{{ 'sections.mushroom_search.filters.volume' | t }}</h3>
+          <div class="mushroom-search__filter-options">
+            <label class="mushroom-search__filter-option">
+              <input type="checkbox" name="filter[options.volume_ml]" value="30 мл">
+              <span class="mushroom-search__filter-label">30 мл</span>
+            </label>
+            <label class="mushroom-search__filter-option">
+              <input type="checkbox" name="filter[options.volume_ml]" value="60 мл">
+              <span class="mushroom-search__filter-label">60 мл</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="mushroom-search__filter-group">
+          <h3 class="mushroom-search__filter-title">{{ 'sections.mushroom_search.filters.price' | t }}</h3>
+          <div class="mushroom-search__filter-options">
+            <label class="mushroom-search__filter-option">
+              <input type="checkbox" name="filter[price]" value="0-2000">
+              <span class="mushroom-search__filter-label">{{ 'sections.mushroom_search.filters.price_under_2000' | t }}</span>
+            </label>
+            <label class="mushroom-search__filter-option">
+              <input type="checkbox" name="filter[price]" value="2000-4000">
+              <span class="mushroom-search__filter-label">{{ 'sections.mushroom_search.filters.price_2000_4000' | t }}</span>
+            </label>
+            <label class="mushroom-search__filter-option">
+              <input type="checkbox" name="filter[price]" value="4000-6000">
+              <span class="mushroom-search__filter-label">{{ 'sections.mushroom_search.filters.price_4000_6000' | t }}</span>
+            </label>
+            <label class="mushroom-search__filter-option">
+              <input type="checkbox" name="filter[price]" value="6000+">
+              <span class="mushroom-search__filter-label">{{ 'sections.mushroom_search.filters.price_over_6000' | t }}</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="mushroom-search__filter-group">
+          <h3 class="mushroom-search__filter-title">{{ 'sections.mushroom_search.filters.beta_glucans' | t }}</h3>
+          <div class="mushroom-search__filter-options">
+            <label class="mushroom-search__filter-option">
+              <input type="checkbox" name="filter[metafields.custom.beta_glucans_percent]" value="0-10">
+              <span class="mushroom-search__filter-label">{{ 'sections.mushroom_search.filters.beta_glucans_under_10' | t }}</span>
+            </label>
+            <label class="mushroom-search__filter-option">
+              <input type="checkbox" name="filter[metafields.custom.beta_glucans_percent]" value="10-20">
+              <span class="mushroom-search__filter-label">{{ 'sections.mushroom_search.filters.beta_glucans_10_20' | t }}</span>
+            </label>
+            <label class="mushroom-search__filter-option">
+              <input type="checkbox" name="filter[metafields.custom.beta_glucans_percent]" value="20-30">
+              <span class="mushroom-search__filter-label">{{ 'sections.mushroom_search.filters.beta_glucans_20_30' | t }}</span>
+            </label>
+            <label class="mushroom-search__filter-option">
+              <input type="checkbox" name="filter[metafields.custom.beta_glucans_percent]" value="30+">
+              <span class="mushroom-search__filter-label">{{ 'sections.mushroom_search.filters.beta_glucans_over_30' | t }}</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Search Results -->
+      <div class="mushroom-search__results">
+        {%- if search.performed -%}
+          <div class="mushroom-search__results-header">
+            <h2 class="mushroom-search__results-title">
+              {{ 'sections.mushroom_search.results.title' | t: terms: search.terms }}
+            </h2>
+            <p class="mushroom-search__results-count">
+              {{ 'sections.mushroom_search.results.count' | t: count: search.results_count }}
+            </p>
+          </div>
+
+          {%- if search.results_count > 0 -%}
+            <div class="mushroom-search__results-grid">
+              {%- for product in search.results -%}
+                <div class="mushroom-search__result-item">
+                  {% render 'card-product',
+                    card_product: product,
+                    media_aspect_ratio: 'square',
+                    image_shape: 'default',
+                    show_secondary_image: false,
+                    show_vendor: false,
+                    show_rating: false,
+                    lazy_load: true,
+                    show_quick_add: 'none',
+                    section_id: section.id
+                  %}
+                </div>
+              {%- endfor -%}
+            </div>
+          {%- else -%}
+            <div class="mushroom-search__no-results">
+              <div class="mushroom-search__no-results-icon">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M21 21L16.514 16.506L21 21ZM19 10.5C19 15.194 15.194 19 10.5 19C5.806 19 2 15.194 2 10.5C2 5.806 5.806 2 10.5 2C15.194 2 19 5.806 19 10.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <h3 class="mushroom-search__no-results-title">
+                {{ 'sections.mushroom_search.no_results.title' | t }}
+              </h3>
+              <p class="mushroom-search__no-results-text">
+                {{ 'sections.mushroom_search.no_results.text' | t }}
+              </p>
+              <div class="mushroom-search__no-results-actions">
+                <a href="{{ routes.all_products_collection_url }}" class="button button--primary">
+                  {{ 'sections.mushroom_search.no_results.browse_all' | t }}
+                </a>
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Mushroom Search",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Search Products"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Find the perfect mushroom extract for your needs.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "Mushroom Search"
+    }
+  ]
+}
+{% endschema %}

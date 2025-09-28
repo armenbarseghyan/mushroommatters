@@ -1,0 +1,22 @@
+User-agent: *
+Allow: /
+
+# Disallow admin and checkout pages
+Disallow: /admin/
+Disallow: /checkout/
+Disallow: /cart/
+Disallow: /account/
+Disallow: /orders/
+Disallow: /search?*
+
+# Allow important pages
+Allow: /collections/
+Allow: /products/
+Allow: /pages/
+Allow: /blogs/
+
+# Sitemap
+Sitemap: {{ shop.url }}/sitemap.xml
+
+# Crawl delay (optional)
+Crawl-delay: 1

@@ -1,0 +1,161 @@
+.mushroom-hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.mushroom-hero__content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: center;
+  min-height: 60vh;
+}
+
+@media screen and (min-width: 750px) {
+  .mushroom-hero__content {
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+  }
+}
+
+.mushroom-hero__text {
+  text-align: center;
+}
+
+@media screen and (min-width: 750px) {
+  .mushroom-hero__text {
+    text-align: left;
+  }
+}
+
+.mushroom-hero__heading {
+  font-size: 3.2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 1.5rem 0;
+  color: rgb(var(--color-foreground));
+}
+
+@media screen and (min-width: 750px) {
+  .mushroom-hero__heading {
+    font-size: 4.8rem;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .mushroom-hero__heading {
+    font-size: 6.4rem;
+  }
+}
+
+.mushroom-hero__subheading {
+  font-size: 1.8rem;
+  font-weight: 500;
+  line-height: 1.4;
+  margin: 0 0 2rem 0;
+  color: rgba(var(--color-foreground), 0.8);
+}
+
+@media screen and (min-width: 750px) {
+  .mushroom-hero__subheading {
+    font-size: 2.2rem;
+  }
+}
+
+.mushroom-hero__description {
+  font-size: 1.6rem;
+  line-height: 1.6;
+  margin: 0 0 3rem 0;
+  color: rgba(var(--color-foreground), 0.7);
+}
+
+.mushroom-hero__description p {
+  margin: 0 0 1rem 0;
+}
+
+.mushroom-hero__description p:last-child {
+  margin-bottom: 0;
+}
+
+.mushroom-hero__button {
+  margin-top: 2rem;
+}
+
+.mushroom-hero__image {
+  position: relative;
+  text-align: center;
+}
+
+.mushroom-hero__image-element {
+  width: 100%;
+  height: auto;
+  border-radius: 1.2rem;
+  box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.1);
+}
+
+@media screen and (min-width: 750px) {
+  .mushroom-hero__image-element {
+    max-width: 50rem;
+  }
+}
+
+/* Animation for hero elements */
+.mushroom-hero__heading,
+.mushroom-hero__subheading,
+.mushroom-hero__description,
+.mushroom-hero__button {
+  opacity: 0;
+  transform: translateY(2rem);
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.mushroom-hero__heading {
+  animation-delay: 0.1s;
+}
+
+.mushroom-hero__subheading {
+  animation-delay: 0.2s;
+}
+
+.mushroom-hero__description {
+  animation-delay: 0.3s;
+}
+
+.mushroom-hero__button {
+  animation-delay: 0.4s;
+}
+
+.mushroom-hero__image {
+  opacity: 0;
+  transform: translateX(2rem);
+  animation: fadeInRight 0.8s ease-out 0.5s forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInRight {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 749px) {
+  .mushroom-hero__content {
+    min-height: 50vh;
+  }
+  
+  .mushroom-hero__heading {
+    font-size: 2.8rem;
+  }
+  
+  .mushroom-hero__subheading {
+    font-size: 1.6rem;
+  }
+}

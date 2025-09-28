@@ -1,0 +1,74 @@
+.product-metafields {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background-color: rgb(var(--color-background));
+  border: 1px solid rgba(var(--color-foreground), 0.1);
+  border-radius: 0.8rem;
+}
+
+.metafield-item {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(var(--color-foreground), 0.05);
+}
+
+.metafield-item:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.metafield-label {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  color: rgb(var(--color-foreground));
+}
+
+.metafield-value {
+  font-size: 1.4rem;
+  line-height: 1.6;
+  margin: 0;
+  color: rgba(var(--color-foreground), 0.8);
+}
+
+.metafield-value a {
+  color: rgb(var(--color-link));
+  text-decoration: underline;
+  text-underline-offset: 0.3rem;
+}
+
+.metafield-value a:hover {
+  color: rgba(var(--color-link), 0.8);
+}
+
+.metafield-warnings {
+  background-color: rgba(var(--color-error), 0.05);
+  border: 1px solid rgba(var(--color-error), 0.2);
+  border-radius: 0.4rem;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.metafield-warnings .metafield-label {
+  color: rgb(var(--color-error));
+}
+
+@media screen and (min-width: 750px) {
+  .product-metafields {
+    padding: 2rem;
+  }
+  
+  .metafield-item {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+  }
+  
+  .metafield-label {
+    font-size: 1.6rem;
+  }
+  
+  .metafield-value {
+    font-size: 1.6rem;
+  }
+}

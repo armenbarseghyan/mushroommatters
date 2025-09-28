@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mushroom Matters - Premium Mushroom Extracts</title>
+    <link rel="stylesheet" href="assets/component-mushroom-hero.css">
+    <link rel="stylesheet" href="assets/component-mushroom-products.css">
+    <link rel="stylesheet" href="assets/component-mushroom-reviews.css">
+    <link rel="stylesheet" href="assets/component-mushroom-search.css">
+    <link rel="stylesheet" href="assets/component-product-metafields.css">
+    <link rel="stylesheet" href="assets/component-cookies-banner.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .page-width {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .header {
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header__content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 0;
+        }
+        
+        .header__logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .header__nav {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .header__nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .header__nav a:hover {
+            color: #3498db;
+        }
+        
+        .header__icons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .button {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .button:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        .button--primary {
+            background: #e74c3c;
+        }
+        
+        .button--primary:hover {
+            background: #c0392b;
+        }
+        
+        .section {
+            padding: 4rem 0;
+        }
+        
+        .color-scheme-1 {
+            background: #f8f9fa;
+        }
+        
+        .color-scheme-2 {
+            background: #fff;
+        }
+        
+        .gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .h0 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+        
+        .h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .header__content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .header__nav {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            
+            .h0 {
+                font-size: 2.5rem;
+            }
+            
+            .h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="page-width">
+            <div class="header__content">
+                <div class="header__logo">🍄 Mushroom Matters</div>
+                <nav class="header__nav">
+                    <a href="#products">Продукты</a>
+                    <a href="#about">О нас</a>
+                    <a href="#reviews">Отзывы</a>
+                    <a href="#contact">Контакты</a>
+                </nav>
+                <div class="header__icons">
+                    <a href="#" class="button">Войти</a>
+                    <a href="#" class="button button--primary">Корзина (0)</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="mushroom-hero section color-scheme-2">
+        <div class="page-width">
+            <div class="mushroom-hero__content">
+                <div class="mushroom-hero__text">
+                    <h1 class="mushroom-hero__heading h0">
+                        Premium Mushroom Extracts
+                    </h1>
+                    <p class="mushroom-hero__subheading">
+                        Lion's Mane, Reishi, Cordyceps
+                    </p>
+                    <div class="mushroom-hero__description">
+                        <p>Discover the power of medicinal mushrooms with our premium extracts. Carefully sourced and expertly processed for maximum potency.</p>
+                    </div>
+                    <div class="mushroom-hero__button">
+                        <a href="#products" class="button button--primary">Shop Now</a>
+                    </div>
+                </div>
+                <div class="mushroom-hero__image">
+                    <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&h=400&fit=crop" alt="Mushroom extracts" style="width: 100%; border-radius: 12px; box-shadow: 0 20px 40px rgba(0,0,0,0.1);">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="mushroom-products section color-scheme-1" id="products">
+        <div class="page-width">
+            <div class="mushroom-products__header">
+                <h2 class="mushroom-products__heading h1">Our Premium Extracts</h2>
+                <div class="mushroom-products__description">
+                    <p>High-quality mushroom extracts with dual extraction method for maximum bioavailability.</p>
+                </div>
+            </div>
+            
+            <div class="mushroom-products__grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin: 3rem 0;">
+                <!-- Product 1 -->
+                <div class="mushroom-products__result-item" style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.1); transition: transform 0.3s;">
+                    <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop" alt="Lion's Mane Extract" style="width: 100%; height: 200px; object-fit: cover;">
+                    <div style="padding: 1.5rem;">
+                        <h3 class="h3">Lion's Mane Extract</h3>
+                        <p style="color: #666; margin: 0.5rem 0;">Dual extraction method</p>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
+                            <span style="font-size: 1.2rem; font-weight: 600; color: #e74c3c;">2,999 ₽</span>
+                            <button class="button button--primary" style="padding: 8px 16px; font-size: 0.9rem;">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="mushroom-products__result-item" style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.1); transition: transform 0.3s;">
+                    <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop" alt="Reishi Extract" style="width: 100%; height: 200px; object-fit: cover;">
+                    <div style="padding: 1.5rem;">
+                        <h3 class="h3">Reishi Extract</h3>
+                        <p style="color: #666; margin: 0.5rem 0;">Immune support</p>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
+                            <span style="font-size: 1.2rem; font-weight: 600; color: #e74c3c;">3,499 ₽</span>
+                            <button class="button button--primary" style="padding: 8px 16px; font-size: 0.9rem;">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="mushroom-products__result-item" style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.1); transition: transform 0.3s;">
+                    <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop" alt="Cordyceps Extract" style="width: 100%; height: 200px; object-fit: cover;">
+                    <div style="padding: 1.5rem;">
+                        <h3 class="h3">Cordyceps Extract</h3>
+                        <p style="color: #666; margin: 0.5rem 0;">Energy & endurance</p>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
+                            <span style="font-size: 1.2rem; font-weight: 600; color: #e74c3c;">3,299 ₽</span>
+                            <button class="button button--primary" style="padding: 8px 16px; font-size: 0.9rem;">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="mushroom-reviews section color-scheme-2" id="reviews">
+        <div class="page-width">
+            <div class="mushroom-reviews__header">
+                <h2 class="mushroom-reviews__heading h1">Customer Reviews</h2>
+                <div class="mushroom-reviews__description">
+                    <p>See what our customers say about our premium mushroom extracts.</p>
+                </div>
+            </div>
+            
+            <div class="mushroom-reviews__content">
+                <div class="mushroom-reviews__placeholder">
+                    <div class="mushroom-reviews__placeholder-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L15.09 8.26L22 9L17 14L18.18 21L12 17.77L5.82 21L7 14L2 9L8.91 8.26L12 2Z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <h3 class="mushroom-reviews__placeholder-heading">Judge.me Reviews</h3>
+                    <p class="mushroom-reviews__placeholder-text">Integration with Judge.me for displaying customer reviews.</p>
+                    <div class="mushroom-reviews__placeholder-actions">
+                        <a href="#" class="button button--primary">View Reviews</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="mushroom-search section color-scheme-1">
+        <div class="page-width">
+            <div class="mushroom-search__header">
+                <h2 class="mushroom-search__heading h1">Search Products</h2>
+                <div class="mushroom-search__description">
+                    <p>Find the perfect mushroom extract for your needs.</p>
+                </div>
+            </div>
+            
+            <div class="mushroom-search__form">
+                <div class="mushroom-search__input-wrapper">
+                    <input type="search" class="mushroom-search__input" placeholder="Search for mushroom extracts...">
+                    <button type="submit" class="mushroom-search__button">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 21L16.514 16.506L21 21ZM19 10.5C19 15.194 15.194 19 10.5 19C5.806 19 2 15.194 2 10.5C2 5.806 5.806 2 10.5 2C15.194 2 19 5.806 19 10.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="mushroom-search__filters">
+                <div class="mushroom-search__filter-group">
+                    <h3 class="mushroom-search__filter-title">Mushroom Type</h3>
+                    <div class="mushroom-search__filter-options">
+                        <label class="mushroom-search__filter-option">
+                            <input type="checkbox" name="filter[product_type]" value="Lion's Mane">
+                            <span class="mushroom-search__filter-label">Lion's Mane</span>
+                        </label>
+                        <label class="mushroom-search__filter-option">
+                            <input type="checkbox" name="filter[product_type]" value="Reishi">
+                            <span class="mushroom-search__filter-label">Reishi</span>
+                        </label>
+                        <label class="mushroom-search__filter-option">
+                            <input type="checkbox" name="filter[product_type]" value="Cordyceps">
+                            <span class="mushroom-search__filter-label">Cordyceps</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="mushroom-search__filter-group">
+                    <h3 class="mushroom-search__filter-title">Volume</h3>
+                    <div class="mushroom-search__filter-options">
+                        <label class="mushroom-search__filter-option">
+                            <input type="checkbox" name="filter[volume]" value="30ml">
+                            <span class="mushroom-search__filter-label">30 мл</span>
+                        </label>
+                        <label class="mushroom-search__filter-option">
+                            <input type="checkbox" name="filter[volume]" value="60ml">
+                            <span class="mushroom-search__filter-label">60 мл</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cookies Banner -->
+    <div class="cookies-banner" id="cookies-banner">
+        <div class="cookies-banner__content">
+            <div class="cookies-banner__text">
+                <h3 class="cookies-banner__title">We use cookies</h3>
+                <p class="cookies-banner__description">
+                    We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic. By clicking "Accept All", you consent to our use of cookies.
+                </p>
+            </div>
+            <div class="cookies-banner__actions">
+                <button type="button" class="cookies-banner__button cookies-banner__button--accept">Accept All</button>
+                <button type="button" class="cookies-banner__button cookies-banner__button--decline">Decline</button>
+                <a href="#" class="cookies-banner__link">Privacy Policy</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simple cookies banner functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const banner = document.getElementById('cookies-banner');
+            const acceptBtn = document.querySelector('.cookies-banner__button--accept');
+            const declineBtn = document.querySelector('.cookies-banner__button--decline');
+            
+            // Check if user has already made a choice
+            if (localStorage.getItem('cookies-consent')) {
+                banner.style.display = 'none';
+            }
+            
+            acceptBtn.addEventListener('click', function() {
+                localStorage.setItem('cookies-consent', 'accepted');
+                banner.style.display = 'none';
+            });
+            
+            declineBtn.addEventListener('click', function() {
+                localStorage.setItem('cookies-consent', 'declined');
+                banner.style.display = 'none';
+            });
+        });
+    </script>
+</body>
+</html>
