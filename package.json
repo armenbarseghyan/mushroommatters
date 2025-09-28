@@ -1,0 +1,46 @@
+{
+  "name": "dirtea-skeleton-theme",
+  "version": "1.0.0",
+  "description": "DIRTEA Shopify theme built on Skeleton Theme architecture",
+  "main": "index.js",
+  "scripts": {
+    "dev": "shopify theme dev",
+    "build": "shopify theme push",
+    "deploy": "shopify theme push --live",
+    "pull": "shopify theme pull",
+    "check": "shopify theme check",
+    "lint:css": "stylelint 'assets/css/**/*.css'",
+    "lint:js": "eslint 'assets/js/**/*.js'",
+    "format": "prettier --write 'assets/**/*.{css,js,liquid}'",
+    "validate": "npm run lint:css && npm run lint:js && npm run check"
+  },
+  "keywords": [
+    "shopify",
+    "theme",
+    "skeleton",
+    "dirtea",
+    "mushroom",
+    "ecommerce"
+  ],
+  "author": "DIRTEA Team",
+  "license": "MIT",
+  "devDependencies": {
+    "@shopify/cli": "^3.0.0",
+    "@shopify/theme": "^3.0.0",
+    "eslint": "^8.0.0",
+    "prettier": "^3.0.0",
+    "stylelint": "^15.0.0",
+    "stylelint-config-standard": "^34.0.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/armenbarseghyan/mushroommatters.git"
+  },
+  "bugs": {
+    "url": "https://github.com/armenbarseghyan/mushroommatters/issues"
+  },
+  "homepage": "https://github.com/armenbarseghyan/mushroommatters#readme"
+}

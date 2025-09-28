@@ -10,38 +10,6 @@
         "show_close_button": true
       }
     },
-    "header": {
-      "type": "header-mega",
-      "settings": {
-        "sticky": true,
-        "show_search": true,
-        "show_cart": true
-      },
-      "blocks": {
-        "menu_products": {
-          "type": "menu_column",
-          "settings": {
-            "title": "Shop by Product",
-            "menu": "main-menu-products"
-          }
-        },
-        "menu_benefits": {
-          "type": "menu_column", 
-          "settings": {
-            "title": "Shop by Benefit",
-            "menu": "main-menu-benefits"
-          }
-        },
-        "menu_mushrooms": {
-          "type": "menu_column",
-          "settings": {
-            "title": "Shop by Mushroom", 
-            "menu": "main-menu-mushrooms"
-          }
-        }
-      },
-      "block_order": ["menu_products", "menu_benefits", "menu_mushrooms"]
-    },
     "hero": {
       "type": "home-hero",
       "settings": {
@@ -170,7 +138,6 @@
   },
   "order": [
     "announcement_bar",
-    "header", 
     "hero",
     "tiles",
     "build_stack",

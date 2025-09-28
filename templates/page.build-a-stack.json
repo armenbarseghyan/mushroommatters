@@ -1,13 +1,5 @@
 {
   "sections": {
-    "header": {
-      "type": "header-mega",
-      "settings": {
-        "sticky": true,
-        "show_search": true,
-        "show_cart": true
-      }
-    },
     "bundle_builder": {
       "type": "bundle-builder",
       "settings": {
@@ -64,7 +56,6 @@
     }
   },
   "order": [
-    "header",
     "bundle_builder",
     "bundle_benefits",
     "footer"

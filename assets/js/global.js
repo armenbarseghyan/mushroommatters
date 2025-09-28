@@ -1,12 +1,21 @@
-// DIRTEA Global JavaScript
+/**
+ * DIRTEA Global JavaScript
+ * Main theme initialization and global functionality
+ */
+
+import { Utils } from './utils.js';
+
 class DirteaTheme {
   constructor() {
+    this.utils = Utils;
+    this.components = new Map();
     this.init();
   }
 
   init() {
     this.setupEventListeners();
     this.initializeComponents();
+    this.setupPerformanceOptimizations();
   }
 
   setupEventListeners() {
@@ -24,6 +33,66 @@ class DirteaTheme {
     // Initialize any global components here
     this.setupLazyLoading();
     this.setupSmoothScrolling();
+  }
+
+  setupPerformanceOptimizations() {
+    // Preload critical resources
+    this.preloadCriticalResources();
+    
+    // Setup intersection observer for lazy loading
+    this.setupIntersectionObserver();
+    
+    // Optimize images
+    this.optimizeImages();
+  }
+
+  preloadCriticalResources() {
+    // Preload critical CSS
+    const criticalCSS = document.createElement('link');
+    criticalCSS.rel = 'preload';
+    criticalCSS.href = '{{ "css/theme.css" | asset_url }}';
+    criticalCSS.as = 'style';
+    criticalCSS.onload = () => criticalCSS.rel = 'stylesheet';
+    document.head.appendChild(criticalCSS);
+  }
+
+  setupIntersectionObserver() {
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const element = entry.target;
+            element.classList.add('in-view');
+            observer.unobserve(element);
+          }
+        });
+      }, {
+        rootMargin: '50px 0px',
+        threshold: 0.1
+      });
+
+      // Observe all lazy elements
+      document.querySelectorAll('[data-lazy]').forEach(el => {
+        observer.observe(el);
+      });
+    }
+  }
+
+  optimizeImages() {
+    // Convert images to WebP if supported
+    if (this.supportsWebP()) {
+      document.querySelectorAll('img[data-src]').forEach(img => {
+        const src = img.getAttribute('data-src');
+        if (src && !src.includes('.webp')) {
+          img.setAttribute('data-src', src.replace(/\.(jpg|jpeg|png)$/i, '.webp'));
+        }
+      });
+    }
+  }
+
+  supportsWebP() {
+    const canvas = document.createElement('canvas');
+    return canvas.toDataURL('image/webp').indexOf('data:image/webp') === 0;
   }
 
   handleCartUpdate(event) {

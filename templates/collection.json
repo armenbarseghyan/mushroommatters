@@ -1,13 +1,5 @@
 {
   "sections": {
-    "header": {
-      "type": "header-mega",
-      "settings": {
-        "sticky": true,
-        "show_search": true,
-        "show_cart": true
-      }
-    },
     "collection_hero": {
       "type": "collection-hero",
       "settings": {
@@ -52,7 +44,6 @@
     }
   },
   "order": [
-    "header",
     "collection_hero",
     "collection_filters", 
     "product_grid",

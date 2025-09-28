@@ -1,13 +1,5 @@
 {
   "sections": {
-    "header": {
-      "type": "header-mega",
-      "settings": {
-        "sticky": true,
-        "show_search": true,
-        "show_cart": true
-      }
-    },
     "cart_main": {
       "type": "main-cart",
       "settings": {
@@ -35,7 +27,6 @@
     }
   },
   "order": [
-    "header",
     "cart_main",
     "cart_recommendations",
     "footer"

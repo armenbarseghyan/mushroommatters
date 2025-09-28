@@ -1,11 +1,5 @@
 {
   "sections": {
-    "header": {
-      "type": "header-mega",
-      "settings": {
-        "sticky": true
-      }
-    },
     "product_main": {
       "type": "main-product",
       "settings": {
@@ -37,7 +31,6 @@
     }
   },
   "order": [
-    "header",
     "product_main",
     "product_reviews",
     "related_products", 
