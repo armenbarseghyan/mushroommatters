@@ -67,7 +67,14 @@
       <p class="hero-subtitle">{{ section.settings.subtitle | default: 'Discover the power of adaptogenic mushrooms with our premium collection of gummies, powders, and blends designed for your daily wellness routine.' }}</p>
       
       {% if section.settings.hero_image %}
-        <img src="{{ section.settings.hero_image | img_url: '600x300' }}" alt="{{ section.settings.title }}" class="hero-image">
+        <img 
+          src="{{ section.settings.hero_image | image_url: width: 600 }}" 
+          alt="{{ section.settings.hero_image.alt | default: section.settings.title | escape }}" 
+          class="hero-image"
+          width="600"
+          height="300"
+          loading="eager"
+        >
       {% endif %}
       
       <div class="hero-actions">

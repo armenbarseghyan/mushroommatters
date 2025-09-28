@@ -12,7 +12,8 @@
           <img src="{{ settings.logo | image_url: width: settings.logo_width }}" 
                alt="{{ shop.name }}" 
                width="{{ settings.logo_width }}"
-               height="auto">
+               height="{{ settings.logo_width | divided_by: 2 }}"
+               loading="eager">
         {%- else -%}
           {{ shop.name }}
         {%- endif -%}
@@ -53,8 +54,11 @@
                     <div class="megamenu__promo">
                       <a href="{{ block.settings.promo_url | default: '#' }}" class="megamenu__promo-link">
                         <img src="{{ block.settings.promo_image | image_url: width: 300 }}" 
-                             alt="{{ block.settings.promo_alt | default: block.settings.promo_title }}"
-                             class="megamenu__promo-image">
+                             alt="{{ block.settings.promo_image.alt | default: block.settings.promo_title | escape }}"
+                             class="megamenu__promo-image"
+                             width="300"
+                             height="200"
+                             loading="lazy">
                         {%- if block.settings.promo_title != blank -%}
                           <div class="megamenu__promo-content">
                             <h5 class="megamenu__promo-title">{{ block.settings.promo_title }}</h5>

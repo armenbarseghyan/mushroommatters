@@ -86,7 +86,14 @@
           {% when 'tile' %}
             <div class="tile">
               {% if block.settings.image %}
-                <img src="{{ block.settings.image | img_url: '400x300' }}" alt="{{ block.settings.title }}" class="tile__image">
+                <img 
+                  src="{{ block.settings.image | image_url: width: 400 }}" 
+                  alt="{{ block.settings.image.alt | default: block.settings.title | escape }}" 
+                  class="tile__image"
+                  width="400"
+                  height="300"
+                  loading="lazy"
+                >
               {% endif %}
               
               <div class="tile__content">
