@@ -3,142 +3,37 @@
     "header": {
       "type": "header-mega",
       "settings": {
-        "sticky": true,
-        "show_search": true,
-        "show_cart": true
+        "sticky": true
       }
     },
     "product_main": {
       "type": "main-product",
       "settings": {
         "show_vendor": false,
-        "show_sku": true,
-        "show_rating": true,
-        "show_share_buttons": true,
-        "enable_sticky_add_to_cart": true,
-        "show_pickup_availability": true,
-        "show_dynamic_checkout": true
-      },
-      "blocks": {
-        "title": {
-          "type": "title",
-          "settings": {}
-        },
-        "price": {
-          "type": "price",
-          "settings": {
-            "show_taxes_notice": true
-          }
-        },
-        "variant_picker": {
-          "type": "variant_picker",
-          "settings": {
-            "picker_type": "button"
-          }
-        },
-        "quantity_selector": {
-          "type": "quantity_selector",
-          "settings": {}
-        },
-        "subscription_toggle": {
-          "type": "subscription_toggle",
-          "settings": {
-            "show_benefits": true
-          }
-        },
-        "buy_buttons": {
-          "type": "buy_buttons",
-          "settings": {
-            "show_dynamic_checkout": true,
-            "show_gift_card_recipient": false
-          }
-        },
-        "description": {
-          "type": "description",
-          "settings": {}
-        },
-        "benefits": {
-          "type": "benefits",
-          "settings": {
-            "show_benefits": true
-          }
-        },
-        "ingredients": {
-          "type": "ingredients",
-          "settings": {
-            "show_ingredients": true
-          }
-        },
-        "how_to_use": {
-          "type": "how_to_use",
-          "settings": {
-            "show_how_to_use": true
-          }
-        },
-        "taste": {
-          "type": "taste",
-          "settings": {
-            "show_taste": true
-          }
-        },
-        "nutrition": {
-          "type": "nutrition",
-          "settings": {
-            "show_nutrition": true
-          }
-        },
-        "faq": {
-          "type": "faq",
-          "settings": {
-            "show_faq": true
-          }
-        }
-      },
-      "block_order": [
-        "title",
-        "price", 
-        "variant_picker",
-        "quantity_selector",
-        "subscription_toggle",
-        "buy_buttons",
-        "description",
-        "benefits",
-        "ingredients", 
-        "how_to_use",
-        "taste",
-        "nutrition",
-        "faq"
-      ]
+        "show_sku": false
+      }
     },
     "product_reviews": {
       "type": "product-reviews",
       "settings": {
-        "show_reviews": true,
-        "reviews_provider": "shopify"
+        "reviews_count": "24"
       }
     },
     "related_products": {
       "type": "related-products",
       "settings": {
-        "heading": "You might also like",
-        "products_to_show": 4,
-        "show_vendor": false,
-        "show_rating": true
+        "products_limit": 4
       }
     },
     "recipes": {
       "type": "product-recipes",
       "settings": {
-        "heading": "Recipes with this product",
-        "recipes_to_show": 3
+        "recipes_limit": 3
       }
     },
     "footer": {
       "type": "footer",
-      "settings": {
-        "show_newsletter": true,
-        "show_social": true
-      }
+      "settings": {}
     }
   },
   "order": [
