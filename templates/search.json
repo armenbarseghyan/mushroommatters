@@ -1,0 +1,21 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-search",
+      "settings": {
+        "show_vendor": false,
+        "show_rating": true,
+        "show_quick_add": true,
+        "products_per_page": 24
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "footer"
+  ]
+}

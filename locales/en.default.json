@@ -22,17 +22,28 @@
       "refresh_page": "Choosing a selection results in a full page refresh.",
       "link_messages": {
         "new_window": "Opens in a new window."
-      }
+      },
+      "star_reviews_info": "{{ rating_value }} out of {{ rating_max }} stars",
+      "total_reviews": "Based on {{ review_count }} reviews"
     },
     "share": {
       "success_message": "Link copied to clipboard"
+    },
+    "search": {
+      "search": "Search",
+      "placeholder": "Search products...",
+      "submit": "Submit search",
+      "no_results": "No results found",
+      "results_with_count": "{{ count }} results for \"{{ terms }}\"",
+      "suggestions": "Popular searches"
     }
   },
   "sections": {
     "header": {
       "announcement": "Announcement",
       "menu": "Menu",
-      "cart": "Cart"
+      "cart": "Cart",
+      "search": "Search"
     },
     "footer": {
       "newsletter": {
@@ -251,6 +262,37 @@
       "caffeine_free": "Caffeine Free",
       "vegan": "Vegan",
       "organic": "Organic"
+    }
+  },
+  "templates": {
+    "search": {
+      "no_results": "No results found",
+      "no_results_title": "No results found",
+      "no_results_message": "Try adjusting your search to find what you're looking for.",
+      "results_with_count": {
+        "one": "{{ count }} result for \"{{ terms }}\"",
+        "other": "{{ count }} results for \"{{ terms }}\""
+      },
+      "suggestions": "Try searching for"
+    },
+    "404": {
+      "title": "Page not found",
+      "subtext": "The page you requested does not exist."
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to cart",
+      "sold_out": "Sold out",
+      "unavailable": "Unavailable",
+      "value_unavailable": "{{ option_value }} - Unavailable",
+      "quick_add": "Quick add",
+      "on_sale": "Sale",
+      "off": "Off",
+      "variants_count": {
+        "one": "{{ count }} variant",
+        "other": "{{ count }} variants"
+      }
     }
   }
 }

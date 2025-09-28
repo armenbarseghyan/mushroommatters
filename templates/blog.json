@@ -1,0 +1,22 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-blog",
+      "settings": {
+        "show_image": true,
+        "show_date": true,
+        "show_author": true,
+        "show_excerpt": true,
+        "posts_per_page": 6
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "footer"
+  ]
+}
