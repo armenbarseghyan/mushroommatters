@@ -2,7 +2,9 @@
   <div class="product-tile__image">
     {%- if block.settings.image != blank -%}
       <img src="{{ block.settings.image | image_url: width: 400 }}" 
-           alt="{{ block.settings.title }}"
+           alt="{{ block.settings.image.alt | default: block.settings.title | escape }}"
+           width="400"
+           height="400"
            loading="lazy"
            class="product-tile__img">
     {%- else -%}
