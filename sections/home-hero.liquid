@@ -72,10 +72,22 @@
       
       <div class="hero-actions">
         {% if section.settings.primary_button_text != blank and section.settings.primary_button_url != blank %}
-          <a href="{{ section.settings.primary_button_url }}" class="hero-cta">{{ section.settings.primary_button_text }}</a>
+          <a href="{{ section.settings.primary_button_url }}" 
+             class="hero-cta" 
+             data-hero-cta 
+             data-action="shop" 
+             data-url="{{ section.settings.primary_button_url }}">
+            {{ section.settings.primary_button_text }}
+          </a>
         {% endif %}
         {% if section.settings.secondary_button_text != blank and section.settings.secondary_button_url != blank %}
-          <a href="{{ section.settings.secondary_button_url }}" class="hero-cta hero-cta--secondary">{{ section.settings.secondary_button_text }}</a>
+          <a href="{{ section.settings.secondary_button_url }}" 
+             class="hero-cta hero-cta--secondary" 
+             data-hero-cta 
+             data-action="learn" 
+             data-url="{{ section.settings.secondary_button_url }}">
+            {{ section.settings.secondary_button_text }}
+          </a>
         {% endif %}
       </div>
     </div>

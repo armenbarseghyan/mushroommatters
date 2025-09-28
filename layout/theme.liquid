@@ -29,7 +29,7 @@
 
     {% render 'meta-tags' %}
 
-    <script src="{{ 'js/global.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
     {{ content_for_header }}
 
     {%- liquid
@@ -214,7 +214,7 @@
       }
     {% endstyle %}
 
-    {{ 'css/critical.css' | asset_url | stylesheet_tag }}
+    {{ 'critical.css' | asset_url | stylesheet_tag }}
 
     {%- unless settings.type_body_font.system? -%}
       <link rel="preload" as="font" href="{{ settings.type_body_font | font_url }}" type="font/woff2" crossorigin>

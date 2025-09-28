@@ -93,7 +93,11 @@
         </div>
       </div>
       
-      <a href="{{ section.settings.button_url | default: '/pages/build-a-stack' }}" class="btn--white">
+      <a href="{{ section.settings.button_url | default: '/pages/build-a-stack' }}" 
+         class="btn--white" 
+         data-bundle-cta 
+         data-action="build" 
+         data-url="{{ section.settings.button_url | default: '/pages/build-a-stack' }}">
         {{ section.settings.button_text | default: 'Start Building' }}
       </a>
     </div>
