@@ -102,7 +102,12 @@
         {% for product in collections[section.settings.collection].products limit: 12 %}
           <div class="bundle-product" data-product-id="{{ product.id }}" data-price="{{ product.price }}">
             {% if product.featured_image %}
-              <img src="{{ product.featured_image | img_url: '300x300' }}" alt="{{ product.featured_image.alt | escape }}" class="bundle-product__image">
+              <img src="{{ product.featured_image | image_url: width: 300 }}" 
+                   alt="{{ product.featured_image.alt | escape }}" 
+                   class="bundle-product__image"
+                   width="300"
+                   height="300"
+                   loading="lazy">
             {% endif %}
             
             <h3>{{ product.title }}</h3>

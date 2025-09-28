@@ -26,7 +26,9 @@
     },
     "accessibility": {
       "skip_to_text": "Skip to content",
+      "close": "Close",
       "refresh_page": "Choosing a selection results in a full page refresh.",
+      "refresh_page_message": "Link messages, new window",
       "link_messages": {
         "new_window": "Opens in a new window."
       },

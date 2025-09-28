@@ -51,9 +51,19 @@
       {% endif %}
       
       {% if collection.metafields.custom.hero_media %}
-        <img src="{{ collection.metafields.custom.hero_media | img_url: '400x200' }}" alt="{{ collection.title }}" class="collection-hero__image">
+        <img src="{{ collection.metafields.custom.hero_media | image_url: width: 400 }}" 
+             alt="{{ collection.title }}" 
+             class="collection-hero__image"
+             width="400"
+             height="200"
+             loading="eager">
       {% elsif collection.image %}
-        <img src="{{ collection.image | img_url: '400x200' }}" alt="{{ collection.title }}" class="collection-hero__image">
+        <img src="{{ collection.image | image_url: width: 400 }}" 
+             alt="{{ collection.title }}" 
+             class="collection-hero__image"
+             width="400"
+             height="200"
+             loading="eager">
       {% endif %}
     </div>
   </div>

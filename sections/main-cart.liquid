@@ -89,7 +89,12 @@
           {% for item in cart.items %}
             <div class="cart-item">
               {% if item.image %}
-                <img src="{{ item.image | img_url: '160x160' }}" alt="{{ item.image.alt | escape }}" class="cart-item__image">
+                <img src="{{ item.image | image_url: width: 160 }}" 
+                     alt="{{ item.image.alt | escape }}" 
+                     class="cart-item__image"
+                     width="160"
+                     height="160"
+                     loading="lazy">
               {% endif %}
               
               <div class="cart-item__details">

@@ -60,7 +60,12 @@
         {% unless cart.items contains product %}
           <div class="recommendation-card">
             {% if product.featured_image %}
-              <img src="{{ product.featured_image | img_url: '200x150' }}" alt="{{ product.featured_image.alt | escape }}" class="recommendation-card__image">
+              <img src="{{ product.featured_image | image_url: width: 200 }}" 
+                   alt="{{ product.featured_image.alt | escape }}" 
+                   class="recommendation-card__image"
+                   width="200"
+                   height="150"
+                   loading="lazy">
             {% endif %}
             <h4 class="recommendation-card__title">{{ product.title }}</h4>
             <div class="recommendation-card__price">

@@ -62,7 +62,12 @@
           {% if show_recipe %}
             <article class="recipe-card">
               {% if article.image %}
-                <img src="{{ article.image | img_url: '300x200' }}" alt="{{ article.image.alt | escape }}" class="recipe-card__image">
+                <img src="{{ article.image | image_url: width: 300 }}" 
+                     alt="{{ article.image.alt | escape }}" 
+                     class="recipe-card__image"
+                     width="300"
+                     height="200"
+                     loading="lazy">
               {% endif %}
               <div class="recipe-card__content">
                 <h4 class="recipe-card__title">

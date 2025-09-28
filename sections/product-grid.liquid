@@ -74,7 +74,12 @@
         {% for product in collections[section.settings.collection].products limit: section.settings.products_limit %}
           <div class="product-card">
             {% if product.featured_image %}
-              <img src="{{ product.featured_image | img_url: '300x300' }}" alt="{{ product.featured_image.alt | escape }}" class="product-card__image">
+              <img src="{{ product.featured_image | image_url: width: 300 }}" 
+                   alt="{{ product.featured_image.alt | escape }}" 
+                   class="product-card__image"
+                   width="300"
+                   height="300"
+                   loading="lazy">
             {% endif %}
             
             <div class="product-card__content">
