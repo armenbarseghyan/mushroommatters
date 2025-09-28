@@ -5,11 +5,19 @@
 
 echo "🚀 Deploying DIRTEA theme to Shopify..."
 
-# Push to Git first
-echo "📦 Pushing to Git repository..."
-git add .
-git commit -m "🔄 Auto-deploy: $(date '+%Y-%m-%d %H:%M:%S')"
-git push origin main
+# Pull latest changes first to avoid conflicts
+echo "⬇️ Pulling latest changes from Git..."
+git pull origin main --rebase
+
+# Check if there are any changes to commit
+if [[ -n $(git status --porcelain) ]]; then
+    echo "📦 Committing and pushing changes to Git..."
+    git add .
+    git commit -m "🔄 Auto-deploy: $(date '+%Y-%m-%d %H:%M:%S')"
+    git push origin main
+else
+    echo "ℹ️ No local changes to commit"
+fi
 
 # Push to Shopify theme
 echo "🛍️ Pushing to Shopify theme (mushroommatters/main)..."
