@@ -24,7 +24,8 @@
         "new_window": "Opens in a new window."
       },
       "star_reviews_info": "{{ rating_value }} out of {{ rating_max }} stars",
-      "total_reviews": "Based on {{ review_count }} reviews"
+      "total_reviews": "Based on {{ review_count }} reviews",
+      "close": "Close"
     },
     "share": {
       "success_message": "Link copied to clipboard"
@@ -242,7 +243,14 @@
       "free_gift_progress": "Spend £{{ amount }} to get a Free Gift",
       "free_gift_unlocked": "You've unlocked Free Gift!",
       "empty": "Your cart is empty",
-      "continue_shopping": "Continue Shopping"
+      "continue_shopping": "Continue Shopping",
+      "notification": {
+        "item_added": "Item added to cart",
+        "view_cart": "View cart",
+        "continue_shopping": "Continue shopping",
+        "free_shipping_achieved": "You've qualified for free shipping!",
+        "free_shipping_remaining": "Spend {{ amount }} more for free shipping"
+      }
     },
     "filters": {
       "benefit": "Benefit",
