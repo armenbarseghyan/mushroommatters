@@ -1,0 +1,1081 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "DIRTEA Skeleton",
+    "theme_version": "1.0.0",
+    "theme_author": "DIRTEA Team",
+    "theme_documentation_url": "https://github.com/dirtea/skeleton-theme",
+    "theme_support_url": "https://github.com/dirtea/skeleton-theme/issues"
+  },
+  {
+    "name": "Global",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Announcement Bar"
+      },
+      {
+        "type": "checkbox",
+        "id": "announcement_bar_enabled",
+        "label": "Enable announcement bar",
+        "default": true
+      },
+      {
+        "type": "range",
+        "id": "announcement_bar_rotation_speed",
+        "label": "Message rotation speed (seconds)",
+        "min": 3,
+        "max": 10,
+        "step": 1,
+        "default": 5,
+        "info": "How long each message is displayed"
+      },
+      {
+        "type": "header",
+        "content": "Logo"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo image"
+      },
+      {
+        "type": "range",
+        "id": "logo_width",
+        "label": "Logo width (px)",
+        "min": 50,
+        "max": 300,
+        "step": 10,
+        "default": 100
+      },
+      {
+        "type": "header",
+        "content": "Favicon"
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon image",
+        "info": "32x32px recommended"
+      }
+    ]
+  },
+  {
+    "name": "Commerce",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Free Shipping & Gifts"
+      },
+      {
+        "type": "number",
+        "id": "free_shipping_threshold",
+        "label": "Free shipping threshold (£)",
+        "default": 50,
+        "info": "Minimum order value for free shipping"
+      },
+      {
+        "type": "number",
+        "id": "free_gift_threshold",
+        "label": "Free gift threshold (£)",
+        "default": 100,
+        "info": "Minimum order value for free gift"
+      },
+      {
+        "type": "product",
+        "id": "free_gift_product",
+        "label": "Free gift product",
+        "info": "Product to give as free gift"
+      },
+      {
+        "type": "header",
+        "content": "Subscription & Bundle Discounts"
+      },
+      {
+        "type": "range",
+        "id": "subscription_discount_percentage",
+        "label": "Subscription discount (%)",
+        "min": 5,
+        "max": 30,
+        "step": 5,
+        "default": 20,
+        "info": "Discount percentage for subscription orders"
+      },
+      {
+        "type": "range",
+        "id": "bundle_discount_percentage",
+        "label": "Bundle discount (%)",
+        "min": 10,
+        "max": 25,
+        "step": 5,
+        "default": 15,
+        "info": "Discount percentage for bundle orders"
+      },
+      {
+        "type": "header",
+        "content": "Cart Settings"
+      },
+      {
+        "type": "select",
+        "id": "cart_type",
+        "label": "Cart type",
+        "options": [
+          { "value": "drawer", "label": "Drawer" },
+          { "value": "page", "label": "Page" },
+          { "value": "notification", "label": "Notification" }
+        ],
+        "default": "drawer"
+      }
+    ]
+  },
+  {
+    "name": "Markets",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Region & Currency"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_region_selector",
+        "label": "Show region selector",
+        "default": true,
+        "info": "Display region/currency selector in header"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_currency_selector",
+        "label": "Show currency selector",
+        "default": true,
+        "info": "Display currency selector in header"
+      },
+      {
+        "type": "text",
+        "id": "default_currency",
+        "label": "Default currency",
+        "default": "GBP",
+        "info": "Default currency code (GBP, USD, EUR, etc.)"
+      }
+    ]
+  },
+  {
+    "name": "Visual",
+    "settings": [
+      {
+        "type": "header",
+        "content": "DIRTEA Standard Features"
+      },
+      {
+        "type": "text",
+        "id": "standard_features_title",
+        "label": "Standard features title",
+        "default": "DIRTEA Standard"
+      },
+      {
+        "type": "richtext",
+        "id": "standard_features_description",
+        "label": "Standard features description",
+        "default": "<p>Our commitment to quality and sustainability</p>"
+      },
+      {
+        "type": "header",
+        "content": "Standard Feature Icons"
+      },
+      {
+        "type": "text",
+        "id": "standard_feature_1_icon",
+        "label": "Feature 1 icon (emoji or text)",
+        "default": "🌱"
+      },
+      {
+        "type": "text",
+        "id": "standard_feature_1_label",
+        "label": "Feature 1 label",
+        "default": "0g Sugar"
+      },
+      {
+        "type": "text",
+        "id": "standard_feature_1_description",
+        "label": "Feature 1 description",
+        "default": "No added sugar"
+      },
+      {
+        "type": "text",
+        "id": "standard_feature_2_icon",
+        "label": "Feature 2 icon (emoji or text)",
+        "default": "🔥"
+      },
+      {
+        "type": "text",
+        "id": "standard_feature_2_label",
+        "label": "Feature 2 label",
+        "default": "≤20 kcal"
+      },
+      {
+        "type": "text",
+        "id": "standard_feature_2_description",
+        "label": "Feature 2 description",
+        "default": "Low calorie"
+      },
+      {
+        "type": "text",
+        "id": "standard_feature_3_icon",
+        "label": "Feature 3 icon (emoji or text)",
+        "default": "💊"
+      },
+      {
+        "type": "text",
+        "id": "standard_feature_3_label",
+        "label": "Feature 3 label",
+        "default": "3000mg"
+      },
+      {
+        "type": "text",
+        "id": "standard_feature_3_description",
+        "label": "Feature 3 description",
+        "default": "High potency"
+      },
+      {
+        "type": "text",
+        "id": "standard_feature_4_icon",
+        "label": "Feature 4 icon (emoji or text)",
+        "default": "🌿"
+      },
+      {
+        "type": "text",
+        "id": "standard_feature_4_label",
+        "label": "Feature 4 label",
+        "default": "Vegan"
+      },
+      {
+        "type": "text",
+        "id": "standard_feature_4_description",
+        "label": "Feature 4 description",
+        "default": "Plant-based"
+      },
+      {
+        "type": "text",
+        "id": "standard_feature_5_icon",
+        "label": "Feature 5 icon (emoji or text)",
+        "default": "🇬🇧"
+      },
+      {
+        "type": "text",
+        "id": "standard_feature_5_label",
+        "label": "Feature 5 label",
+        "default": "Made in UK"
+      },
+      {
+        "type": "text",
+        "id": "standard_feature_5_description",
+        "label": "Feature 5 description",
+        "default": "British made"
+      },
+      {
+        "type": "text",
+        "id": "standard_feature_6_icon",
+        "label": "Feature 6 icon (emoji or text)",
+        "default": "♻️"
+      },
+      {
+        "type": "text",
+        "id": "standard_feature_6_label",
+        "label": "Feature 6 label",
+        "default": "Eco Pack"
+      },
+      {
+        "type": "text",
+        "id": "standard_feature_6_description",
+        "label": "Feature 6 description",
+        "default": "Sustainable packaging"
+      }
+    ]
+  },
+  {
+    "name": "Integrations",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Reviews & Ratings"
+      },
+      {
+        "type": "select",
+        "id": "reviews_provider",
+        "label": "Reviews provider",
+        "options": [
+          { "value": "none", "label": "None" },
+          { "value": "trustpilot", "label": "Trustpilot" },
+          { "value": "okendo", "label": "Okendo" },
+          { "value": "yotpo", "label": "Yotpo" },
+          { "value": "judge_me", "label": "Judge.me" }
+        ],
+        "default": "none"
+      },
+      {
+        "type": "text",
+        "id": "trustpilot_business_id",
+        "label": "Trustpilot Business ID",
+        "info": "Your Trustpilot business ID"
+      },
+      {
+        "type": "text",
+        "id": "okendo_store_id",
+        "label": "Okendo Store ID",
+        "info": "Your Okendo store ID"
+      },
+      {
+        "type": "text",
+        "id": "yotpo_app_key",
+        "label": "Yotpo App Key",
+        "info": "Your Yotpo app key"
+      },
+      {
+        "type": "header",
+        "content": "Loyalty & Referrals"
+      },
+      {
+        "type": "select",
+        "id": "loyalty_provider",
+        "label": "Loyalty provider",
+        "options": [
+          { "value": "none", "label": "None" },
+          { "value": "smile", "label": "Smile.io" },
+          { "value": "loyalty_lion", "label": "LoyaltyLion" },
+          { "value": "swell", "label": "Swell" }
+        ],
+        "default": "none"
+      },
+      {
+        "type": "text",
+        "id": "smile_api_key",
+        "label": "Smile.io API Key",
+        "info": "Your Smile.io API key"
+      },
+      {
+        "type": "header",
+        "content": "Email Marketing"
+      },
+      {
+        "type": "select",
+        "id": "email_provider",
+        "label": "Email provider",
+        "options": [
+          { "value": "none", "label": "None" },
+          { "value": "klaviyo", "label": "Klaviyo" },
+          { "value": "mailchimp", "label": "Mailchimp" },
+          { "value": "shopify_email", "label": "Shopify Email" }
+        ],
+        "default": "none"
+      },
+      {
+        "type": "text",
+        "id": "klaviyo_public_key",
+        "label": "Klaviyo Public Key",
+        "info": "Your Klaviyo public API key"
+      },
+      {
+        "type": "text",
+        "id": "mailchimp_list_id",
+        "label": "Mailchimp List ID",
+        "info": "Your Mailchimp list ID"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Fonts"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_header_font",
+        "label": "Heading font",
+        "default": "assistant_n4"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_body_font",
+        "label": "Body font",
+        "default": "assistant_n4"
+      },
+      {
+        "type": "range",
+        "id": "heading_scale",
+        "label": "Heading scale",
+        "min": 100,
+        "max": 150,
+        "step": 5,
+        "default": 100,
+        "unit": "%"
+      },
+      {
+        "type": "range",
+        "id": "body_scale",
+        "label": "Body scale",
+        "min": 100,
+        "max": 130,
+        "step": 5,
+        "default": 100,
+        "unit": "%"
+      }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Color scheme"
+      },
+      {
+        "type": "color",
+        "id": "colors_text",
+        "label": "Text",
+        "default": "#121212"
+      },
+      {
+        "type": "color",
+        "id": "colors_background_1",
+        "label": "Background 1",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "colors_background_2",
+        "label": "Background 2",
+        "default": "#F3F3F3"
+      },
+      {
+        "type": "color",
+        "id": "colors_accent_1",
+        "label": "Accent 1",
+        "default": "#2E7D32"
+      },
+      {
+        "type": "color",
+        "id": "colors_accent_2",
+        "label": "Accent 2",
+        "default": "#4CAF50"
+      },
+      {
+        "type": "color",
+        "id": "colors_solid_button_labels",
+        "label": "Solid button labels",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "colors_outline_button_labels",
+        "label": "Outline button labels",
+        "default": "#2E7D32"
+      }
+    ]
+  },
+  {
+    "name": "Layout",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Page width"
+      },
+      {
+        "type": "range",
+        "id": "page_width",
+        "label": "Page width",
+        "min": 1000,
+        "max": 1600,
+        "step": 10,
+        "default": 1200,
+        "unit": "px"
+      },
+      {
+        "type": "header",
+        "content": "Spacing"
+      },
+      {
+        "type": "range",
+        "id": "spacing_sections",
+        "label": "Spacing between sections",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "default": 28,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "spacing_grid_vertical",
+        "label": "Vertical grid spacing",
+        "min": 4,
+        "max": 40,
+        "step": 4,
+        "default": 20,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "spacing_grid_horizontal",
+        "label": "Horizontal grid spacing",
+        "min": 4,
+        "max": 40,
+        "step": 4,
+        "default": 20,
+        "unit": "px"
+      }
+    ]
+  },
+  {
+    "name": "Buttons",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Button style"
+      },
+      {
+        "type": "range",
+        "id": "buttons_radius",
+        "label": "Button radius",
+        "min": 0,
+        "max": 40,
+        "step": 2,
+        "default": 4,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "buttons_border_thickness",
+        "label": "Button border thickness",
+        "min": 0,
+        "max": 5,
+        "step": 1,
+        "default": 1,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "buttons_border_opacity",
+        "label": "Button border opacity",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "default": 100,
+        "unit": "%"
+      },
+      {
+        "type": "range",
+        "id": "buttons_shadow_opacity",
+        "label": "Button shadow opacity",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "default": 0,
+        "unit": "%"
+      }
+    ]
+  },
+  {
+    "name": "Inputs",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Input style"
+      },
+      {
+        "type": "range",
+        "id": "inputs_radius",
+        "label": "Input radius",
+        "min": 0,
+        "max": 40,
+        "step": 2,
+        "default": 4,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "inputs_border_thickness",
+        "label": "Input border thickness",
+        "min": 0,
+        "max": 5,
+        "step": 1,
+        "default": 1,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "inputs_border_opacity",
+        "label": "Input border opacity",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "default": 55,
+        "unit": "%"
+      },
+      {
+        "type": "range",
+        "id": "inputs_shadow_opacity",
+        "label": "Input shadow opacity",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "default": 0,
+        "unit": "%"
+      }
+    ]
+  },
+  {
+    "name": "Product cards",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Product card style"
+      },
+      {
+        "type": "range",
+        "id": "card_image_padding",
+        "label": "Card image padding",
+        "min": 0,
+        "max": 20,
+        "step": 1,
+        "default": 0,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "card_corner_radius",
+        "label": "Card corner radius",
+        "min": 0,
+        "max": 40,
+        "step": 2,
+        "default": 0,
+        "unit": "px"
+      },
+      {
+        "type": "select",
+        "id": "card_text_alignment",
+        "label": "Card text alignment",
+        "options": [
+          { "value": "left", "label": "Left" },
+          { "value": "center", "label": "Center" },
+          { "value": "right", "label": "Right" }
+        ],
+        "default": "left"
+      },
+      {
+        "type": "range",
+        "id": "card_border_thickness",
+        "label": "Card border thickness",
+        "min": 0,
+        "max": 5,
+        "step": 1,
+        "default": 0,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "card_border_opacity",
+        "label": "Card border opacity",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "default": 10,
+        "unit": "%"
+      },
+      {
+        "type": "range",
+        "id": "card_shadow_opacity",
+        "label": "Card shadow opacity",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "default": 0,
+        "unit": "%"
+      }
+    ]
+  },
+  {
+    "name": "Collection cards",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Collection card style"
+      },
+      {
+        "type": "range",
+        "id": "collection_card_image_padding",
+        "label": "Collection card image padding",
+        "min": 0,
+        "max": 20,
+        "step": 1,
+        "default": 0,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "collection_card_corner_radius",
+        "label": "Collection card corner radius",
+        "min": 0,
+        "max": 40,
+        "step": 2,
+        "default": 0,
+        "unit": "px"
+      },
+      {
+        "type": "select",
+        "id": "collection_card_text_alignment",
+        "label": "Collection card text alignment",
+        "options": [
+          { "value": "left", "label": "Left" },
+          { "value": "center", "label": "Center" },
+          { "value": "right", "label": "Right" }
+        ],
+        "default": "center"
+      },
+      {
+        "type": "range",
+        "id": "collection_card_border_thickness",
+        "label": "Collection card border thickness",
+        "min": 0,
+        "max": 5,
+        "step": 1,
+        "default": 0,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "collection_card_border_opacity",
+        "label": "Collection card border opacity",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "default": 10,
+        "unit": "%"
+      },
+      {
+        "type": "range",
+        "id": "collection_card_shadow_opacity",
+        "label": "Collection card shadow opacity",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "default": 0,
+        "unit": "%"
+      }
+    ]
+  },
+  {
+    "name": "Blog cards",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Blog card style"
+      },
+      {
+        "type": "range",
+        "id": "blog_card_image_padding",
+        "label": "Blog card image padding",
+        "min": 0,
+        "max": 20,
+        "step": 1,
+        "default": 0,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "blog_card_corner_radius",
+        "label": "Blog card corner radius",
+        "min": 0,
+        "max": 40,
+        "step": 2,
+        "default": 0,
+        "unit": "px"
+      },
+      {
+        "type": "select",
+        "id": "blog_card_text_alignment",
+        "label": "Blog card text alignment",
+        "options": [
+          { "value": "left", "label": "Left" },
+          { "value": "center", "label": "Center" },
+          { "value": "right", "label": "Right" }
+        ],
+        "default": "left"
+      },
+      {
+        "type": "range",
+        "id": "blog_card_border_thickness",
+        "label": "Blog card border thickness",
+        "min": 0,
+        "max": 5,
+        "step": 1,
+        "default": 0,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "blog_card_border_opacity",
+        "label": "Blog card border opacity",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "default": 10,
+        "unit": "%"
+      },
+      {
+        "type": "range",
+        "id": "blog_card_shadow_opacity",
+        "label": "Blog card shadow opacity",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "default": 0,
+        "unit": "%"
+      }
+    ]
+  },
+  {
+    "name": "Badges",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Badge style"
+      },
+      {
+        "type": "range",
+        "id": "badge_corner_radius",
+        "label": "Badge corner radius",
+        "min": 0,
+        "max": 40,
+        "step": 2,
+        "default": 40,
+        "unit": "px"
+      }
+    ]
+  },
+  {
+    "name": "Media",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Media style"
+      },
+      {
+        "type": "range",
+        "id": "media_padding",
+        "label": "Media padding",
+        "min": 0,
+        "max": 20,
+        "step": 1,
+        "default": 0,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "media_border_thickness",
+        "label": "Media border thickness",
+        "min": 0,
+        "max": 5,
+        "step": 1,
+        "default": 0,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "media_border_opacity",
+        "label": "Media border opacity",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "default": 5,
+        "unit": "%"
+      },
+      {
+        "type": "range",
+        "id": "media_radius",
+        "label": "Media corner radius",
+        "min": 0,
+        "max": 40,
+        "step": 2,
+        "default": 0,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "media_shadow_opacity",
+        "label": "Media shadow opacity",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "default": 0,
+        "unit": "%"
+      }
+    ]
+  },
+  {
+    "name": "Text boxes",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Text box style"
+      },
+      {
+        "type": "range",
+        "id": "text_boxes_border_thickness",
+        "label": "Text box border thickness",
+        "min": 0,
+        "max": 5,
+        "step": 1,
+        "default": 0,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "text_boxes_border_opacity",
+        "label": "Text box border opacity",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "default": 10,
+        "unit": "%"
+      },
+      {
+        "type": "range",
+        "id": "text_boxes_radius",
+        "label": "Text box corner radius",
+        "min": 0,
+        "max": 40,
+        "step": 2,
+        "default": 0,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "text_boxes_shadow_opacity",
+        "label": "Text box shadow opacity",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "default": 0,
+        "unit": "%"
+      }
+    ]
+  },
+  {
+    "name": "Variant pills",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Variant pill style"
+      },
+      {
+        "type": "range",
+        "id": "variant_pills_radius",
+        "label": "Variant pill corner radius",
+        "min": 0,
+        "max": 40,
+        "step": 2,
+        "default": 40,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "variant_pills_border_thickness",
+        "label": "Variant pill border thickness",
+        "min": 0,
+        "max": 5,
+        "step": 1,
+        "default": 1,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "variant_pills_border_opacity",
+        "label": "Variant pill border opacity",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "default": 55,
+        "unit": "%"
+      },
+      {
+        "type": "range",
+        "id": "variant_pills_shadow_opacity",
+        "label": "Variant pill shadow opacity",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "default": 0,
+        "unit": "%"
+      }
+    ]
+  },
+  {
+    "name": "Drawer",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Drawer style"
+      },
+      {
+        "type": "range",
+        "id": "drawer_border_thickness",
+        "label": "Drawer border thickness",
+        "min": 0,
+        "max": 5,
+        "step": 1,
+        "default": 1,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "drawer_shadow_opacity",
+        "label": "Drawer shadow opacity",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "default": 0,
+        "unit": "%"
+      }
+    ]
+  },
+  {
+    "name": "Popup",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Popup style"
+      },
+      {
+        "type": "range",
+        "id": "popup_border_thickness",
+        "label": "Popup border thickness",
+        "min": 0,
+        "max": 5,
+        "step": 1,
+        "default": 1,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "popup_corner_radius",
+        "label": "Popup corner radius",
+        "min": 0,
+        "max": 40,
+        "step": 2,
+        "default": 4,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "popup_shadow_opacity",
+        "label": "Popup shadow opacity",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "default": 0,
+        "unit": "%"
+      }
+    ]
+  }
+]

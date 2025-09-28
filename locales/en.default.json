@@ -1,0 +1,247 @@
+{
+  "general": {
+    "meta": {
+      "tags": "Tagged \"{{ tags }}\"",
+      "page": "Page {{ page }}"
+    },
+    "404": {
+      "title": "Page not found",
+      "subtext": "The page you were looking for does not exist."
+    },
+    "accessibility": {
+      "skip_to_text": "Skip to content",
+      "refresh_page": "Choosing a selection results in a full page refresh.",
+      "link_messages": {
+        "new_window": "Opens in a new window."
+      }
+    },
+    "share": {
+      "success_message": "Link copied to clipboard"
+    }
+  },
+  "sections": {
+    "header": {
+      "announcement": "Announcement",
+      "menu": "Menu",
+      "cart": "Cart"
+    },
+    "footer": {
+      "newsletter": {
+        "heading": "Subscribe to our emails",
+        "subheading": "Be the first to know about new collections and exclusive offers.",
+        "email_label": "Email",
+        "email_placeholder": "Email",
+        "button_label": "Subscribe",
+        "success_message": "Thanks for subscribing"
+      }
+    },
+    "cart": {
+      "title": "Your cart",
+      "cart_count": {
+        "one": "{{ count }} item",
+        "other": "{{ count }} items"
+      },
+      "cart_error": "There was an error while updating your cart. Please try again.",
+      "cart_quantity_error_html": "You can only add {{ quantity }} of this item to your cart.",
+      "cart_note": "Order special instructions",
+      "cart_note_placeholder": "How can we help you?",
+      "continue_shopping": "Continue shopping",
+      "remove": "Remove",
+      "subtotal": "Subtotal",
+      "shipping_at_checkout": "Shipping and taxes calculated at checkout",
+      "update": "Update",
+      "checkout": "Checkout",
+      "empty": "Your cart is empty",
+      "empty_html": "Continue shopping to add items to your cart.",
+      "cart_clear": "Clear cart"
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to cart",
+      "sold_out": "Sold out",
+      "unavailable": "Unavailable",
+      "value_unavailable": "{{ option_value }} is unavailable",
+      "on_sale": "Sale",
+      "product_variant": "Variant",
+      "quantity": {
+        "label": "Quantity",
+        "input_label": "Quantity for {{ product }}",
+        "increase": "Increase quantity for {{ product }}",
+        "decrease": "Decrease quantity for {{ product }}"
+      },
+      "price": {
+        "from_price_html": "From {{ price }}",
+        "regular_price": "Regular price",
+        "sale_price": "Sale price",
+        "unit_price": "Unit price"
+      },
+      "media": {
+        "open_media": "Open media {{ index }} in gallery view",
+        "play_model": "Play 3D Viewer",
+        "play_video": "Play video"
+      },
+      "share": "Share this product",
+      "vendor": "Vendor",
+      "view_full_details": "View full details"
+    }
+  },
+  "blogs": {
+    "article": {
+      "blog": "Blog",
+      "read_more_title": "Read more: {{ title }}",
+      "on": "on",
+      "by": "by",
+      "read_more": "Read more",
+      "back_to_blog": "Back to blog",
+      "share": "Share this article",
+      "tags": "Tags:",
+      "all_topics": "All topics",
+      "by_author": "by {{ author }}",
+      "read_time": "{{ read_time }} min read",
+      "number_of_comments": "{{ count }} comment",
+      "number_of_comments_plural": "{{ count }} comments",
+      "comment_form_title": "Leave a comment",
+      "name": "Name",
+      "email": "Email",
+      "message": "Message",
+      "post": "Post comment",
+      "back_to_blog": "Back to blog",
+      "share": "Share this article",
+      "success": "Your comment was posted successfully! Thank you!",
+      "moderated": "Please note, comments need to be approved before they are published.",
+      "comment_with_count": {
+        "one": "{{ count }} comment",
+        "other": "{{ count }} comments"
+      }
+    }
+  },
+  "templates": {
+    "search": {
+      "no_results": "No results found for \"{{ terms }}\". Check the spelling or use a different word or phrase.",
+      "results_with_count": {
+        "one": "{{ count }} result for \"{{ terms }}\"",
+        "other": "{{ count }} results for \"{{ terms }}\""
+      },
+      "title": "Search results",
+      "placeholder": "Search",
+      "submit": "Search"
+    }
+  },
+  "dirtea": {
+    "announcement": {
+      "free_shipping": "Free shipping on orders over £{{ amount }}",
+      "new_collection": "New collection available now",
+      "sale": "Up to {{ discount }}% off selected items"
+    },
+    "navigation": {
+      "shop_by_product": "Shop by Product",
+      "shop_by_benefit": "Shop by Benefit", 
+      "shop_by_mushroom": "Shop by Mushroom",
+      "build_a_stack": "Build a Stack",
+      "reviews": "Reviews",
+      "journal": "Journal",
+      "recipes": "Recipes",
+      "contact": "Contact",
+      "about": "About",
+      "science": "Science"
+    },
+    "home": {
+      "hero": {
+        "title": "Premium Mushroom Extracts",
+        "subtitle": "Unlock the power of functional mushrooms with our scientifically-backed extracts",
+        "cta_primary": "Shop Now",
+        "cta_secondary": "Learn More"
+      },
+      "tiles": {
+        "products": {
+          "title": "Shop by Product",
+          "subtitle": "Find the perfect format for your lifestyle"
+        },
+        "benefits": {
+          "title": "Shop by Benefit", 
+          "subtitle": "Target specific health goals"
+        },
+        "mushrooms": {
+          "title": "Shop by Mushroom",
+          "subtitle": "Explore individual mushroom benefits"
+        }
+      },
+      "build_stack": {
+        "title": "Build a Stack & Save",
+        "subtitle": "Create your perfect combination and save up to 15%",
+        "cta": "Build Your Stack"
+      },
+      "standard": {
+        "title": "DIRTEA Standard",
+        "subtitle": "Our commitment to quality and sustainability"
+      },
+      "reviews": {
+        "title": "What Our Customers Say",
+        "subtitle": "Join thousands of satisfied customers"
+      },
+      "blog": {
+        "title": "Journal & Recipes",
+        "subtitle": "Discover the latest in mushroom science and delicious recipes"
+      }
+    },
+    "product": {
+      "subscription": {
+        "one_time": "One-time purchase",
+        "subscribe": "Subscribe & Save 20%",
+        "benefits": "Subscription Benefits",
+        "save": "Save 20%",
+        "free_shipping": "Free Shipping",
+        "flexible": "Flexible",
+        "exclusive": "Exclusive Access"
+      },
+      "benefits": "Benefits",
+      "ingredients": "Ingredients", 
+      "how_to_use": "How to Use",
+      "taste": "Taste",
+      "nutrition": "Nutrition",
+      "faq": "FAQ",
+      "reviews": "Reviews",
+      "related": "Related Products",
+      "recipes": "See Recipes"
+    },
+    "bundle": {
+      "title": "Build Your Perfect Stack",
+      "subtitle": "Select 2-5 products to create your ideal combination",
+      "min_products": "Select at least {{ count }} products",
+      "max_products": "You can select up to {{ count }} products",
+      "add_to_cart": "Add Bundle to Cart",
+      "subscribe": "Subscribe & Save 20%",
+      "subtotal": "Subtotal",
+      "discount": "Bundle Discount",
+      "total": "Total",
+      "savings": "You save £{{ amount }} with this bundle!"
+    },
+    "cart": {
+      "free_shipping_progress": "You're £{{ amount }} away from FREE SHIPPING",
+      "free_gift_progress": "Spend £{{ amount }} to get a Free Gift",
+      "free_gift_unlocked": "You've unlocked Free Gift!",
+      "empty": "Your cart is empty",
+      "continue_shopping": "Continue Shopping"
+    },
+    "filters": {
+      "benefit": "Benefit",
+      "mushroom": "Mushroom", 
+      "format": "Format",
+      "caffeine": "Caffeine",
+      "subscribe_eligible": "Subscribe Eligible",
+      "clear_all": "Clear all",
+      "apply": "Apply filters"
+    },
+    "badges": {
+      "new": "New",
+      "sale": "Sale",
+      "bestseller": "Bestseller",
+      "limited": "Limited",
+      "subscribe_eligible": "Subscribe Eligible",
+      "caffeine_free": "Caffeine Free",
+      "vegan": "Vegan",
+      "organic": "Organic"
+    }
+  }
+}

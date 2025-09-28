@@ -1,0 +1,37 @@
+{%- comment -%}
+  Renders an SVG icon
+  Accepts:
+  - name: {String} Icon name
+  - class: {String} Additional CSS classes
+{%- endcomment -%}
+
+{%- case icon -%}
+  {%- when 'cart' -%}
+    <svg class="icon icon-cart {{ class }}" viewBox="0 0 20 20" fill="none">
+      <path d="M3 3H5L5.4 5M7 13H17L21 5H5.4M7 13L5.4 5M7 13L4.7 15.3C4.3 15.7 4.6 16.5 5.1 16.5H17M17 13V17A2 2 0 0 1 15 19H9A2 2 0 0 1 7 17V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  {%- when 'search' -%}
+    <svg class="icon icon-search {{ class }}" viewBox="0 0 20 20" fill="none">
+      <path d="M19 19L13 13M15 8A7 7 0 1 1 1 8A7 7 0 0 1 15 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+  {%- when 'close' -%}
+    <svg class="icon icon-close {{ class }}" viewBox="0 0 16 16" fill="none">
+      <path d="M12 4L4 12M4 4l8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+  {%- when 'menu' -%}
+    <svg class="icon icon-menu {{ class }}" viewBox="0 0 24 24" fill="none">
+      <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+  {%- when 'arrow-down' -%}
+    <svg class="icon icon-arrow-down {{ class }}" viewBox="0 0 12 12" fill="none">
+      <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  {%- when 'star' -%}
+    <svg class="icon icon-star {{ class }}" viewBox="0 0 20 20" fill="currentColor">
+      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+    </svg>
+  {%- else -%}
+    <svg class="icon icon-placeholder {{ class }}" viewBox="0 0 20 20" fill="none">
+      <rect x="2" y="2" width="16" height="16" rx="2" stroke="currentColor" stroke-width="2"/>
+    </svg>
+{%- endcase -%}

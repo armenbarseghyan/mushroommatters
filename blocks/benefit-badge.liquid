@@ -1,0 +1,109 @@
+<div class="benefit-badge" data-benefit-badge>
+  {%- if block.settings.icon != blank -%}
+    <div class="benefit-badge__icon">
+      {{ block.settings.icon }}
+    </div>
+  {%- endif -%}
+  
+  <div class="benefit-badge__content">
+    <h4 class="benefit-badge__title">{{ block.settings.title }}</h4>
+    {%- if block.settings.description != blank -%}
+      <p class="benefit-badge__description">{{ block.settings.description }}</p>
+    {%- endif -%}
+  </div>
+</div>
+
+{% stylesheet %}
+  .benefit-badge {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.2rem;
+    padding: 1.6rem;
+    background-color: rgba(var(--color-base-accent-1), 0.1);
+    border-radius: 1.2rem;
+    border: 1px solid rgba(var(--color-base-accent-1), 0.2);
+    transition: all 0.3s ease;
+  }
+  
+  .benefit-badge:hover {
+    background-color: rgba(var(--color-base-accent-1), 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 0.4rem 1.2rem rgba(var(--color-base-accent-1), 0.1);
+  }
+  
+  .benefit-badge__icon {
+    width: 4rem;
+    height: 4rem;
+    background-color: rgb(var(--color-base-accent-1));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    flex-shrink: 0;
+  }
+  
+  .benefit-badge__content {
+    flex: 1;
+  }
+  
+  .benefit-badge__title {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+    color: rgb(var(--color-base-text));
+  }
+  
+  .benefit-badge__description {
+    font-size: 1.4rem;
+    color: rgba(var(--color-base-text), 0.7);
+    line-height: 1.5;
+    margin: 0;
+  }
+  
+  @media (max-width: 749px) {
+    .benefit-badge {
+      padding: 1.2rem;
+    }
+    
+    .benefit-badge__icon {
+      width: 3.2rem;
+      height: 3.2rem;
+      font-size: 1.6rem;
+    }
+    
+    .benefit-badge__title {
+      font-size: 1.4rem;
+    }
+    
+    .benefit-badge__description {
+      font-size: 1.2rem;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Benefit badge",
+  "settings": [
+    {
+      "type": "text",
+      "id": "icon",
+      "label": "Icon (emoji or text)",
+      "default": "🧠"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Cognitive Support"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Description",
+      "default": "Enhance focus and mental clarity"
+    }
+  ]
+}
+{% endschema %}

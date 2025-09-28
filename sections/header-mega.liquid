@@ -1,0 +1,498 @@
+<header class="header" data-header>
+  <div class="header__container">
+    <div class="header__left">
+      <button class="header__mobile-menu" data-mobile-menu-toggle aria-label="{{ 'sections.header.menu' | t }}">
+        <svg width="24" height="24" viewBox="0 0 24 24">
+          <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+      
+      <a href="{{ routes.root_url }}" class="header__logo">
+        {%- if settings.logo != blank -%}
+          <img src="{{ settings.logo | image_url: width: settings.logo_width }}" 
+               alt="{{ shop.name }}" 
+               width="{{ settings.logo_width }}"
+               height="auto">
+        {%- else -%}
+          {{ shop.name }}
+        {%- endif -%}
+      </a>
+    </div>
+    
+    <nav class="header__nav" data-desktop-nav>
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'menu_column' -%}
+          <div class="header__nav-item" data-nav-item>
+            <button class="header__nav-link" data-nav-trigger>
+              {{ block.settings.title }}
+              <svg class="header__nav-arrow" width="12" height="12" viewBox="0 0 12 12">
+                <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            
+            <div class="megamenu" data-megamenu>
+              <div class="megamenu__container">
+                <div class="megamenu__grid">
+                  {%- if block.settings.menu != blank -%}
+                    {%- assign menu = linklists[block.settings.menu] -%}
+                    <div class="megamenu__column">
+                      <h4 class="megamenu__title">{{ block.settings.title }}</h4>
+                      <ul class="megamenu__links">
+                        {%- for link in menu.links -%}
+                          <li>
+                            <a href="{{ link.url }}" class="megamenu__link">
+                              {{ link.title }}
+                            </a>
+                          </li>
+                        {%- endfor -%}
+                      </ul>
+                    </div>
+                  {%- endif -%}
+                  
+                  {%- if block.settings.promo_image != blank -%}
+                    <div class="megamenu__promo">
+                      <a href="{{ block.settings.promo_url | default: '#' }}" class="megamenu__promo-link">
+                        <img src="{{ block.settings.promo_image | image_url: width: 300 }}" 
+                             alt="{{ block.settings.promo_alt | default: block.settings.promo_title }}"
+                             class="megamenu__promo-image">
+                        {%- if block.settings.promo_title != blank -%}
+                          <div class="megamenu__promo-content">
+                            <h5 class="megamenu__promo-title">{{ block.settings.promo_title }}</h5>
+                            {%- if block.settings.promo_text != blank -%}
+                              <p class="megamenu__promo-text">{{ block.settings.promo_text }}</p>
+                            {%- endif -%}
+                          </div>
+                        {%- endif -%}
+                      </a>
+                    </div>
+                  {%- endif -%}
+                </div>
+              </div>
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </nav>
+    
+    <div class="header__right">
+      {%- if section.settings.show_search -%}
+        <button class="header__search" data-search-toggle aria-label="{{ 'sections.header.search' | t }}">
+          <svg width="20" height="20" viewBox="0 0 20 20">
+            <path d="M19 19L13 13M15 8A7 7 0 1 1 1 8A7 7 0 0 1 15 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      {%- endif -%}
+      
+      {%- if section.settings.show_cart -%}
+        <a href="{{ routes.cart_url }}" class="header__cart" data-cart-link>
+          <svg width="20" height="20" viewBox="0 0 20 20">
+            <path d="M3 3H5L5.4 5M7 13H17L21 5H5.4M7 13L5.4 5M7 13L4.7 15.3C4.3 15.7 4.6 16.5 5.1 16.5H17M17 13V17A2 2 0 0 1 15 19H9A2 2 0 0 1 7 17V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="header__cart-count" data-cart-count>0</span>
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</header>
+
+{% stylesheet %}
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: rgb(var(--color-base-background-1));
+    border-bottom: 1px solid rgba(var(--color-base-text), 0.1);
+    transition: all 0.3s ease;
+  }
+  
+  .header__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.6rem 0;
+    max-width: var(--page-width);
+    margin: 0 auto;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+  
+  .header__left {
+    display: flex;
+    align-items: center;
+    gap: 1.6rem;
+  }
+  
+  .header__mobile-menu {
+    display: none;
+    background: none;
+    border: none;
+    color: rgb(var(--color-base-text));
+    cursor: pointer;
+    padding: 0.8rem;
+    border-radius: 0.4rem;
+    transition: background-color 0.2s ease;
+  }
+  
+  .header__mobile-menu:hover {
+    background-color: rgba(var(--color-base-text), 0.1);
+  }
+  
+  .header__logo {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: rgb(var(--color-base-accent-1));
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+  }
+  
+  .header__logo img {
+    height: auto;
+    max-height: 4rem;
+  }
+  
+  .header__nav {
+    display: flex;
+    align-items: center;
+    gap: 3.2rem;
+  }
+  
+  .header__nav-item {
+    position: relative;
+  }
+  
+  .header__nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 1.2rem 0;
+    font-weight: 500;
+    color: rgb(var(--color-base-text));
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+  
+  .header__nav-link:hover {
+    color: rgb(var(--color-base-accent-1));
+  }
+  
+  .header__nav-arrow {
+    transition: transform 0.2s ease;
+  }
+  
+  .header__nav-item:hover .header__nav-arrow {
+    transform: rotate(180deg);
+  }
+  
+  .megamenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: rgb(var(--color-base-background-1));
+    border: 1px solid rgba(var(--color-base-text), 0.1);
+    border-radius: 0 0 0.8rem 0.8rem;
+    padding: 3.2rem;
+    display: none;
+    z-index: 50;
+    box-shadow: 0 0.4rem 1.2rem rgba(var(--color-base-text), 0.1);
+  }
+  
+  .header__nav-item:hover .megamenu {
+    display: block;
+  }
+  
+  .megamenu__container {
+    max-width: 80rem;
+    margin: 0 auto;
+  }
+  
+  .megamenu__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3.2rem;
+  }
+  
+  .megamenu__title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 1.6rem;
+    color: rgb(var(--color-base-accent-1));
+  }
+  
+  .megamenu__links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .megamenu__links li {
+    margin-bottom: 0.8rem;
+  }
+  
+  .megamenu__link {
+    color: rgb(var(--color-base-text));
+    text-decoration: none;
+    font-size: 1.4rem;
+    transition: color 0.2s ease;
+  }
+  
+  .megamenu__link:hover {
+    color: rgb(var(--color-base-accent-1));
+  }
+  
+  .megamenu__promo {
+    grid-column: span 1;
+  }
+  
+  .megamenu__promo-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .megamenu__promo-image {
+    width: 100%;
+    height: 20rem;
+    object-fit: cover;
+    border-radius: 0.8rem;
+    margin-bottom: 1.2rem;
+  }
+  
+  .megamenu__promo-title {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+    color: rgb(var(--color-base-text));
+  }
+  
+  .megamenu__promo-text {
+    font-size: 1.4rem;
+    color: rgba(var(--color-base-text), 0.7);
+    line-height: 1.5;
+  }
+  
+  .header__right {
+    display: flex;
+    align-items: center;
+    gap: 1.6rem;
+  }
+  
+  .header__search,
+  .header__cart {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4.4rem;
+    height: 4.4rem;
+    color: rgb(var(--color-base-text));
+    text-decoration: none;
+    border-radius: 0.8rem;
+    transition: background-color 0.2s ease;
+    position: relative;
+  }
+  
+  .header__search:hover,
+  .header__cart:hover {
+    background-color: rgba(var(--color-base-text), 0.1);
+  }
+  
+  .header__cart-count {
+    position: absolute;
+    top: -0.4rem;
+    right: -0.4rem;
+    background-color: rgb(var(--color-base-accent-1));
+    color: rgb(var(--color-base-solid-button-labels));
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    min-width: 2rem;
+  }
+  
+  @media (max-width: 749px) {
+    .header__mobile-menu {
+      display: flex;
+    }
+    
+    .header__nav {
+      display: none;
+    }
+    
+    .header__container {
+      padding-left: 1.6rem;
+      padding-right: 1.6rem;
+    }
+  }
+{% endstylesheet %}
+
+{% javascript %}
+  class HeaderMega {
+    constructor() {
+      this.header = document.querySelector('[data-header]');
+      this.mobileMenuToggle = document.querySelector('[data-mobile-menu-toggle]');
+      this.navItems = document.querySelectorAll('[data-nav-item]');
+      this.megamenus = document.querySelectorAll('[data-megamenu]');
+      this.cartLink = document.querySelector('[data-cart-link]');
+      this.cartCount = document.querySelector('[data-cart-count]');
+      
+      this.init();
+    }
+    
+    init() {
+      this.bindEvents();
+      this.updateCartCount();
+    }
+    
+    bindEvents() {
+      // Mobile menu toggle
+      this.mobileMenuToggle?.addEventListener('click', () => {
+        this.toggleMobileMenu();
+      });
+      
+      // Close megamenu when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('[data-nav-item]')) {
+          this.closeAllMegamenus();
+        }
+      });
+      
+      // Cart updates
+      document.addEventListener('cart:updated', () => {
+        this.updateCartCount();
+      });
+    }
+    
+    toggleMobileMenu() {
+      // Mobile menu implementation would go here
+      console.log('Mobile menu toggle');
+    }
+    
+    closeAllMegamenus() {
+      this.megamenus.forEach(menu => {
+        menu.style.display = 'none';
+      });
+    }
+    
+    async updateCartCount() {
+      try {
+        const response = await fetch('/cart.js');
+        const cart = await response.json();
+        
+        if (this.cartCount) {
+          this.cartCount.textContent = cart.item_count;
+          this.cartCount.style.display = cart.item_count > 0 ? 'flex' : 'none';
+        }
+      } catch (error) {
+        console.error('Error updating cart count:', error);
+      }
+    }
+  }
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    new HeaderMega();
+  });
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Header (mega)",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "sticky",
+      "label": "Sticky header",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_search",
+      "label": "Show search",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cart",
+      "label": "Show cart",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "menu_column",
+      "name": "Menu column",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Shop"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu"
+        },
+        {
+          "type": "image_picker",
+          "id": "promo_image",
+          "label": "Promo image"
+        },
+        {
+          "type": "text",
+          "id": "promo_title",
+          "label": "Promo title"
+        },
+        {
+          "type": "text",
+          "id": "promo_text",
+          "label": "Promo text"
+        },
+        {
+          "type": "url",
+          "id": "promo_url",
+          "label": "Promo link"
+        },
+        {
+          "type": "text",
+          "id": "promo_alt",
+          "label": "Promo image alt text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Header (mega)",
+      "blocks": [
+        {
+          "type": "menu_column",
+          "settings": {
+            "title": "Shop by Product"
+          }
+        },
+        {
+          "type": "menu_column",
+          "settings": {
+            "title": "Shop by Benefit"
+          }
+        },
+        {
+          "type": "menu_column",
+          "settings": {
+            "title": "Shop by Mushroom"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

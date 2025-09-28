@@ -1,0 +1,68 @@
+<div class="menu-column">
+  <h4 class="menu-column__title">{{ block.settings.title }}</h4>
+  {%- if block.settings.menu != blank -%}
+    <ul class="menu-column__links">
+      {%- for link in linklists[block.settings.menu].links -%}
+        <li class="menu-column__item">
+          <a href="{{ link.url }}" class="menu-column__link">
+            {{ link.title }}
+          </a>
+        </li>
+      {%- endfor -%}
+    </ul>
+  {%- endif -%}
+</div>
+
+{% stylesheet %}
+  .menu-column {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .menu-column__title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 1.6rem;
+    color: rgb(var(--color-base-accent-1));
+  }
+  
+  .menu-column__links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .menu-column__item {
+    margin-bottom: 0.8rem;
+  }
+  
+  .menu-column__link {
+    color: rgb(var(--color-base-text));
+    text-decoration: none;
+    font-size: 1.4rem;
+    transition: color 0.2s ease;
+  }
+  
+  .menu-column__link:hover {
+    color: rgb(var(--color-base-accent-1));
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Menu column",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Shop"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu"
+    }
+  ]
+}
+{% endschema %}

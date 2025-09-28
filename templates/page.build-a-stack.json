@@ -1,0 +1,72 @@
+{
+  "sections": {
+    "header": {
+      "type": "header-mega",
+      "settings": {
+        "sticky": true,
+        "show_search": true,
+        "show_cart": true
+      }
+    },
+    "bundle_builder": {
+      "type": "bundle-builder",
+      "settings": {
+        "title": "Build Your Perfect Stack",
+        "subtitle": "Select 2-5 products to create your ideal combination and save up to 15%",
+        "min_products": 2,
+        "max_products": 5,
+        "bundle_discount": 15,
+        "subscription_discount": 20,
+        "show_subscription_toggle": true,
+        "show_progress": true
+      }
+    },
+    "bundle_benefits": {
+      "type": "bundle-benefits",
+      "settings": {
+        "title": "Why Build a Stack?",
+        "show_benefits": true
+      },
+      "blocks": {
+        "benefit_1": {
+          "type": "benefit",
+          "settings": {
+            "icon": "💰",
+            "title": "Save Money",
+            "description": "Get up to 15% off when you bundle products together"
+          }
+        },
+        "benefit_2": {
+          "type": "benefit", 
+          "settings": {
+            "icon": "🎯",
+            "title": "Targeted Benefits",
+            "description": "Combine different mushrooms for comprehensive health support"
+          }
+        },
+        "benefit_3": {
+          "type": "benefit",
+          "settings": {
+            "icon": "📦",
+            "title": "Convenient Delivery",
+            "description": "Get all your supplements in one monthly delivery"
+          }
+        }
+      },
+      "block_order": ["benefit_1", "benefit_2", "benefit_3"]
+    },
+    "footer": {
+      "type": "footer",
+      "settings": {
+        "show_newsletter": true,
+        "show_social": true
+      }
+    }
+  },
+  "order": [
+    "header",
+    "bundle_builder",
+    "bundle_benefits",
+    "footer"
+  ]
+}
