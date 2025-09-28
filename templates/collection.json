@@ -1,39 +1,29 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "collection_hero": {
       "type": "collection-hero",
-      "settings": {
-        "show_collection_image": true,
-        "show_collection_description": true,
-        "text_alignment": "center"
-      }
+      "settings": {}
     },
     "collection_filters": {
       "type": "plp-filters",
-      "settings": {
-        "show_benefit_filter": true,
-        "show_mushroom_filter": true,
-        "show_format_filter": true,
-        "show_caffeine_filter": true,
-        "show_subscribe_filter": true,
-        "filter_style": "dropdown"
-      }
+      "settings": {}
     },
     "product_grid": {
       "type": "product-grid",
-      "settings": {
-        "products_per_page": 24,
-        "show_vendor": false,
-        "show_rating": true,
-        "show_quick_add": true,
-        "show_badges": true
-      }
+      "settings": {}
     },
     "pagination": {
       "type": "pagination",
-      "settings": {
-        "pagination_style": "numbers"
-      }
+      "settings": {}
     },
     "footer": {
       "type": "footer",
@@ -45,7 +35,7 @@
   },
   "order": [
     "collection_hero",
-    "collection_filters", 
+    "collection_filters",
     "product_grid",
     "pagination",
     "footer"

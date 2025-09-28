@@ -1,11 +1,17 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "announcement_bar": {
       "type": "announcement-bar",
       "settings": {
-        "message_1": "Free shipping on orders over £50",
-        "message_2": "New collection available now", 
-        "message_3": "Up to 20% off selected items",
         "rotation_speed": 5,
         "show_close_button": true
       }
@@ -14,39 +20,25 @@
       "type": "home-hero",
       "settings": {
         "title": "Premium Mushroom Extracts",
-        "subtitle": "Unlock the power of functional mushrooms with our scientifically-backed extracts",
-        "cta_primary_text": "Shop Now",
-        "cta_primary_url": "/collections/all",
-        "cta_secondary_text": "Learn More", 
-        "cta_secondary_url": "/pages/science",
-        "background_image": "",
-        "background_overlay": 0.3
+        "subtitle": "Unlock the power of functional mushrooms with our scientifically-backed extracts"
       }
     },
     "tiles": {
       "type": "home-tiles",
-      "settings": {
-        "title": "Shop by Category",
-        "subtitle": "Find exactly what you're looking for"
-      },
       "blocks": {
         "tile_products": {
           "type": "tile",
           "settings": {
             "title": "Shop by Product",
-            "subtitle": "Find the perfect format for your lifestyle",
             "image": "",
-            "link": "/collections/all",
             "button_text": "Shop Products"
           }
         },
         "tile_benefits": {
           "type": "tile",
           "settings": {
-            "title": "Shop by Benefit", 
-            "subtitle": "Target specific health goals",
+            "title": "Shop by Benefit",
             "image": "",
-            "link": "/collections/benefits",
             "button_text": "Shop Benefits"
           }
         },
@@ -54,62 +46,50 @@
           "type": "tile",
           "settings": {
             "title": "Shop by Mushroom",
-            "subtitle": "Explore individual mushroom benefits", 
             "image": "",
-            "link": "/collections/mushrooms",
             "button_text": "Shop Mushrooms"
           }
         }
       },
-      "block_order": ["tile_products", "tile_benefits", "tile_mushrooms"]
+      "block_order": [
+        "tile_products",
+        "tile_benefits",
+        "tile_mushrooms"
+      ],
+      "settings": {
+        "title": "Shop by Category",
+        "subtitle": "Find exactly what you're looking for"
+      }
     },
     "build_stack": {
       "type": "home-build-stack",
       "settings": {
         "title": "Build a Stack & Save",
-        "subtitle": "Create your perfect combination and save up to 15%",
-        "cta_text": "Build Your Stack",
-        "cta_url": "/pages/build-a-stack",
-        "background_color": "#F3F3F3"
+        "subtitle": "Create your perfect combination and save up to 15%"
       }
     },
     "standard": {
       "type": "home-standard",
       "settings": {
         "title": "DIRTEA Standard",
-        "subtitle": "Our commitment to quality and sustainability",
-        "show_features": true
+        "subtitle": "Our commitment to quality and sustainability"
       }
     },
     "reviews": {
       "type": "home-reviews",
       "settings": {
-        "title": "What Our Customers Say",
-        "subtitle": "Join thousands of satisfied customers",
-        "show_rating": true,
-        "rating_value": 4.8,
-        "rating_count": 1247
+        "title": "What Our Customers Say"
       }
     },
     "blog_feed": {
       "type": "home-blog-feed",
       "settings": {
         "title": "Journal & Recipes",
-        "subtitle": "Discover the latest in mushroom science and delicious recipes",
-        "blog": "journal",
-        "show_filters": true,
-        "posts_to_show": 6
+        "blog": "journal"
       }
     },
     "footer": {
       "type": "footer",
-      "settings": {
-        "show_newsletter": true,
-        "newsletter_title": "Subscribe to our emails",
-        "newsletter_subtitle": "Be the first to know about new collections and exclusive offers.",
-        "show_social": true,
-        "show_payment_icons": true
-      },
       "blocks": {
         "links_company": {
           "type": "link_list",
@@ -119,7 +99,7 @@
           }
         },
         "links_customer": {
-          "type": "link_list", 
+          "type": "link_list",
           "settings": {
             "heading": "Customer Service",
             "menu": "footer-customer"
@@ -133,7 +113,16 @@
           }
         }
       },
-      "block_order": ["links_company", "links_customer", "links_legal"]
+      "block_order": [
+        "links_company",
+        "links_customer",
+        "links_legal"
+      ],
+      "settings": {
+        "show_newsletter": true,
+        "show_social": true,
+        "show_payment_icons": true
+      }
     }
   },
   "order": [
