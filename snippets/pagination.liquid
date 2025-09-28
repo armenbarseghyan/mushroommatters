@@ -1,0 +1,204 @@
+{% comment %}
+  Pagination Snippet
+  Renders pagination for collections, blog, search results, etc.
+  
+  Parameters:
+  - paginate: paginate object (required)
+  - anchor: string (optional) - anchor link for pagination URLs
+{% endcomment %}
+
+{%- if paginate.pages > 1 -%}
+  <nav class="pagination" role="navigation" aria-label="Pagination">
+    <div class="pagination__wrapper">
+      {%- assign anchor = anchor | default: '' -%}
+      
+      {%- if paginate.previous -%}
+        <a href="{{ paginate.previous.url }}{{ anchor }}" 
+           class="pagination__item pagination__item--prev"
+           aria-label="{{ 'general.pagination.previous' | t }}">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="pagination__text">{{ 'general.pagination.previous' | t }}</span>
+        </a>
+      {%- else -%}
+        <span class="pagination__item pagination__item--prev pagination__item--disabled">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="pagination__text">{{ 'general.pagination.previous' | t }}</span>
+        </span>
+      {%- endif -%}
+      
+      <div class="pagination__list">
+        {%- for part in paginate.parts -%}
+          {%- if part.is_link -%}
+            <a href="{{ part.url }}{{ anchor }}" 
+               class="pagination__item pagination__item--number"
+               aria-label="{{ 'general.pagination.page' | t: page: part.title }}">
+              {{ part.title }}
+            </a>
+          {%- else -%}
+            {%- if part.title == paginate.current_page -%}
+              <span class="pagination__item pagination__item--number pagination__item--current" 
+                    aria-current="page"
+                    aria-label="{{ 'general.pagination.current_page' | t: page: part.title }}">
+                {{ part.title }}
+              </span>
+            {%- else -%}
+              <span class="pagination__item pagination__item--gap">{{ part.title }}</span>
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      
+      {%- if paginate.next -%}
+        <a href="{{ paginate.next.url }}{{ anchor }}" 
+           class="pagination__item pagination__item--next"
+           aria-label="{{ 'general.pagination.next' | t }}">
+          <span class="pagination__text">{{ 'general.pagination.next' | t }}</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M6 4L10 8L6 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      {%- else -%}
+        <span class="pagination__item pagination__item--next pagination__item--disabled">
+          <span class="pagination__text">{{ 'general.pagination.next' | t }}</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M6 4L10 8L6 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      {%- endif -%}
+    </div>
+    
+    <div class="pagination__info">
+      {{ 'general.pagination.showing_results' | t: 
+        current_page: paginate.current_page, 
+        total_pages: paginate.pages,
+        total_items: paginate.items
+      }}
+    </div>
+  </nav>
+{%- endif -%}
+
+<style>
+.pagination {
+  margin: 3rem 0;
+  text-align: center;
+}
+
+.pagination__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.pagination__list {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.pagination__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 40px;
+  padding: 0 0.75rem;
+  border: 1px solid rgba(var(--color-base-text), 0.2);
+  border-radius: 4px;
+  text-decoration: none;
+  color: rgb(var(--color-base-text));
+  font-weight: 500;
+  transition: all 0.2s ease;
+  gap: 0.5rem;
+}
+
+.pagination__item:hover:not(.pagination__item--disabled):not(.pagination__item--current) {
+  border-color: rgb(var(--color-base-accent-1));
+  background: rgba(var(--color-base-accent-1), 0.1);
+  color: rgb(var(--color-base-accent-1));
+}
+
+.pagination__item--current {
+  background: rgb(var(--color-base-accent-1));
+  border-color: rgb(var(--color-base-accent-1));
+  color: rgb(var(--color-base-solid-button-labels));
+  font-weight: 600;
+}
+
+.pagination__item--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.pagination__item--gap {
+  border: none;
+  background: none;
+  cursor: default;
+  color: rgba(var(--color-base-text), 0.5);
+}
+
+.pagination__item--prev,
+.pagination__item--next {
+  font-weight: 600;
+}
+
+.pagination__text {
+  font-size: 0.875rem;
+}
+
+.pagination__info {
+  font-size: 0.875rem;
+  color: rgba(var(--color-base-text), 0.7);
+  margin-top: 1rem;
+}
+
+@media (max-width: 749px) {
+  .pagination__wrapper {
+    gap: 0.25rem;
+  }
+  
+  .pagination__item {
+    min-width: 36px;
+    height: 36px;
+    padding: 0 0.5rem;
+  }
+  
+  .pagination__text {
+    display: none;
+  }
+  
+  .pagination__item--prev,
+  .pagination__item--next {
+    padding: 0;
+    width: 36px;
+  }
+  
+  .pagination__list {
+    gap: 0.125rem;
+  }
+  
+  .pagination__info {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .pagination__list {
+    max-width: 200px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  
+  .pagination__list::-webkit-scrollbar {
+    display: none;
+  }
+}
+</style>
