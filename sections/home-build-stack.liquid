@@ -1,0 +1,138 @@
+{% comment %}
+  Home Build Stack Section
+  Call-to-action section for Build a Stack page
+{% endcomment %}
+
+{% stylesheet %}
+.home-build-stack {
+  padding: 4rem 0;
+  background: linear-gradient(135deg, #333 0%, #555 100%);
+  color: white;
+  text-align: center;
+}
+.home-build-stack__content {
+  max-width: 600px;
+  margin: 0 auto;
+}
+.home-build-stack__title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+.home-build-stack__subtitle {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+  line-height: 1.5;
+}
+.home-build-stack__benefits {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 2rem;
+  margin: 3rem 0;
+}
+.benefit-item {
+  text-align: center;
+}
+.benefit-item__icon {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 1rem;
+  background: rgba(255,255,255,0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+.benefit-item__title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.benefit-item__description {
+  font-size: 0.875rem;
+  opacity: 0.8;
+}
+.btn--white {
+  background: white;
+  color: #333;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+.btn--white:hover {
+  transform: translateY(-2px);
+}
+{% endstylesheet %}
+
+<div class="home-build-stack">
+  <div class="container">
+    <div class="home-build-stack__content">
+      <h2 class="home-build-stack__title">{{ section.settings.title | default: 'Build Your Perfect Stack' }}</h2>
+      <p class="home-build-stack__subtitle">{{ section.settings.subtitle | default: 'Choose 2-5 products and save up to 20% with our personalized bundle builder' }}</p>
+      
+      <div class="home-build-stack__benefits">
+        <div class="benefit-item">
+          <div class="benefit-item__icon">💰</div>
+          <h3 class="benefit-item__title">Save More</h3>
+          <p class="benefit-item__description">Up to 20% off when you bundle</p>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-item__icon">🎯</div>
+          <h3 class="benefit-item__title">Personalized</h3>
+          <p class="benefit-item__description">Match your health goals</p>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-item__icon">🚚</div>
+          <h3 class="benefit-item__title">Free Shipping</h3>
+          <p class="benefit-item__description">On orders over £50</p>
+        </div>
+      </div>
+      
+      <a href="{{ section.settings.button_url | default: '/pages/build-a-stack' }}" class="btn--white">
+        {{ section.settings.button_text | default: 'Start Building' }}
+      </a>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Home Build Stack",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Build Your Perfect Stack"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Section Subtitle",
+      "default": "Choose 2-5 products and save up to 20% with our personalized bundle builder"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Start Building"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button URL",
+      "default": "/pages/build-a-stack"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Home Build Stack"
+    }
+  ]
+}
+{% endschema %}

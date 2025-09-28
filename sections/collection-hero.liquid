@@ -1,0 +1,74 @@
+{% comment %}
+  Collection Hero Section
+  Hero banner for collection pages
+{% endcomment %}
+
+{% stylesheet %}
+.collection-hero {
+  padding: 4rem 0;
+  background: linear-gradient(135deg, #f8f8f8 0%, #e8e8e8 100%);
+  text-align: center;
+}
+.collection-hero__content {
+  max-width: 600px;
+  margin: 0 auto;
+}
+.collection-hero__title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #333;
+}
+.collection-hero__subtitle {
+  font-size: 1.25rem;
+  color: #666;
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+.collection-hero__image {
+  width: 100%;
+  max-width: 400px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin: 2rem auto;
+}
+{% endstylesheet %}
+
+<div class="collection-hero">
+  <div class="container">
+    <div class="collection-hero__content">
+      {% if collection.metafields.custom.hero_title %}
+        <h1 class="collection-hero__title">{{ collection.metafields.custom.hero_title }}</h1>
+      {% else %}
+        <h1 class="collection-hero__title">{{ collection.title }}</h1>
+      {% endif %}
+      
+      {% if collection.metafields.custom.hero_subtitle %}
+        <p class="collection-hero__subtitle">{{ collection.metafields.custom.hero_subtitle }}</p>
+      {% elsif collection.description != blank %}
+        <p class="collection-hero__subtitle">{{ collection.description }}</p>
+      {% endif %}
+      
+      {% if collection.metafields.custom.hero_media %}
+        <img src="{{ collection.metafields.custom.hero_media | img_url: '400x200' }}" alt="{{ collection.title }}" class="collection-hero__image">
+      {% elsif collection.image %}
+        <img src="{{ collection.image | img_url: '400x200' }}" alt="{{ collection.title }}" class="collection-hero__image">
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Collection Hero",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_image",
+      "label": "Show collection image",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

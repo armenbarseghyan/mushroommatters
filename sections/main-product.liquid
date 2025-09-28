@@ -1,0 +1,317 @@
+{% comment %}
+  Main Product Section
+  Core product display section for PDP
+{% endcomment %}
+
+{% stylesheet %}
+.main-product {
+  padding: 2rem 0;
+}
+.product-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+.product-gallery {
+  position: sticky;
+  top: 2rem;
+}
+.product-gallery__main {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+.product-gallery__thumbnails {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 0.5rem;
+}
+.product-gallery__thumb {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.2s ease;
+}
+.product-gallery__thumb.active {
+  border-color: #333;
+}
+.product-info {
+  padding: 1rem 0;
+}
+.product-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #333;
+}
+.product-price {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #333;
+}
+.product-price--compare {
+  text-decoration: line-through;
+  color: #999;
+  margin-right: 0.5rem;
+}
+.product-price--sale {
+  color: #ff4444;
+}
+.product-description {
+  margin-bottom: 2rem;
+  line-height: 1.6;
+  color: #666;
+}
+.product-options {
+  margin-bottom: 2rem;
+}
+.product-option {
+  margin-bottom: 1rem;
+}
+.product-option label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.product-option select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+.subscription-toggle {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: #f8f8f8;
+  border-radius: 8px;
+}
+.subscription-toggle input[type="radio"] {
+  margin-right: 0.5rem;
+}
+.subscription-toggle label {
+  font-weight: 600;
+  cursor: pointer;
+}
+.subscription-toggle__savings {
+  background: #44ff44;
+  color: #333;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+.product-form {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.quantity-selector {
+  display: flex;
+  align-items: center;
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.quantity-selector button {
+  padding: 0.75rem;
+  background: #f8f8f8;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+.quantity-selector input {
+  width: 60px;
+  text-align: center;
+  border: none;
+  padding: 0.75rem;
+}
+.btn--add-cart {
+  flex: 1;
+  padding: 1rem 2rem;
+  background: #333;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.btn--add-cart:hover {
+  background: #555;
+}
+.product-badges {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+.badge {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  border-radius: 4px;
+  background: #f0f0f0;
+  color: #333;
+}
+.badge--subscribe {
+  background: #44ff44;
+  color: #333;
+}
+.badge--caffeine-free {
+  background: #4444ff;
+  color: white;
+}
+{% endstylesheet %}
+
+<div class="main-product">
+  <div class="container">
+    <div class="product-container">
+      <div class="product-gallery">
+        {% if product.featured_image %}
+          <img src="{{ product.featured_image | img_url: '600x600' }}" alt="{{ product.featured_image.alt | escape }}" class="product-gallery__main" id="main-image">
+        {% endif %}
+        
+        {% if product.images.size > 1 %}
+          <div class="product-gallery__thumbnails">
+            {% for image in product.images limit: 6 %}
+              <img src="{{ image | img_url: '100x100' }}" alt="{{ image.alt | escape }}" class="product-gallery__thumb" data-main="{{ image | img_url: '600x600' }}">
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+      
+      <div class="product-info">
+        <h1 class="product-title">{{ product.title }}</h1>
+        
+        <div class="product-price">
+          {% if product.compare_at_price > product.price %}
+            <span class="product-price--compare">{{ product.compare_at_price | money }}</span>
+            <span class="product-price--sale">{{ product.price | money }}</span>
+          {% else %}
+            {{ product.price | money }}
+          {% endif %}
+        </div>
+        
+        {% if product.description != blank %}
+          <div class="product-description">
+            {{ product.description }}
+          </div>
+        {% endif %}
+        
+        <div class="product-badges">
+          {% if product.metafields.custom.subscribe_eligible %}
+            <span class="badge badge--subscribe">Subscribe & Save</span>
+          {% endif %}
+          {% if product.metafields.custom.caffeine_mg == 0 %}
+            <span class="badge badge--caffeine-free">Caffeine Free</span>
+          {% endif %}
+        </div>
+        
+        {% if product.metafields.custom.subscribe_eligible %}
+          <div class="subscription-toggle">
+            <label>
+              <input type="radio" name="purchase_type" value="one-time" checked>
+              One-time purchase
+            </label>
+            <label>
+              <input type="radio" name="purchase_type" value="subscribe">
+              Subscribe & Save
+              <span class="subscription-toggle__savings">Save 15%</span>
+            </label>
+          </div>
+        {% endif %}
+        
+        <form action="/cart/add" method="post" enctype="multipart/form-data" class="product-form">
+          {% unless product.has_only_default_variant %}
+            <div class="product-options">
+              {% for option in product.options_with_values %}
+                <div class="product-option">
+                  <label for="option-{{ forloop.index }}">{{ option.name }}</label>
+                  <select name="id" id="option-{{ forloop.index }}">
+                    {% for value in option.values %}
+                      <option value="{{ product.variants[forloop.index0].id }}">{{ value }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              {% endfor %}
+            </div>
+          {% endunless %}
+          
+          <div class="quantity-selector">
+            <button type="button" onclick="changeQuantity(-1)">-</button>
+            <input type="number" name="quantity" value="1" min="1" id="quantity">
+            <button type="button" onclick="changeQuantity(1)">+</button>
+          </div>
+          
+          <button type="submit" class="btn--add-cart">Add to Cart</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% javascript %}
+// Gallery thumbnail switching
+document.querySelectorAll('.product-gallery__thumb').forEach(thumb => {
+  thumb.addEventListener('click', function() {
+    const mainImage = document.getElementById('main-image');
+    if (mainImage) {
+      mainImage.src = this.dataset.main;
+    }
+    
+    // Update active thumbnail
+    document.querySelectorAll('.product-gallery__thumb').forEach(t => t.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
+// Quantity selector
+function changeQuantity(delta) {
+  const input = document.getElementById('quantity');
+  const newValue = parseInt(input.value) + delta;
+  if (newValue >= 1) {
+    input.value = newValue;
+  }
+}
+
+// Subscription toggle
+document.querySelectorAll('input[name="purchase_type"]').forEach(radio => {
+  radio.addEventListener('change', function() {
+    if (this.value === 'subscribe') {
+      // Add subscription properties to form
+      console.log('Subscription selected');
+    }
+  });
+});
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Main Product",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show vendor",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sku",
+      "label": "Show SKU",
+      "default": false
+    }
+  ]
+}
+{% endschema %}
