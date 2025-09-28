@@ -10,13 +10,10 @@
       }
     },
     "related_articles": {
-      "type": "related-articles",
+      "type": "home-blog-feed",
       "settings": {
-        "heading": "Related Articles",
-        "articles_to_show": 3,
-        "show_image": true,
-        "show_date": true,
-        "show_author": false
+        "title": "Related Articles",
+        "posts_to_show": 3
       }
     },
     "footer": {

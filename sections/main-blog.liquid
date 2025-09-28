@@ -1,0 +1,263 @@
+{% comment %}
+  Main Blog Section
+  Blog listing page
+{% endcomment %}
+
+{% stylesheet %}
+.main-blog {
+  padding: 2rem 0;
+}
+
+.blog-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.blog-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: rgb(var(--color-base-text));
+}
+
+.blog-description {
+  font-size: 1.125rem;
+  color: rgba(var(--color-base-text), 0.7);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.article-card {
+  background: rgb(var(--color-base-background-1));
+  border-radius: 0.5rem;
+  overflow: hidden;
+  border: 1px solid rgba(var(--color-base-text), 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.article-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(var(--color-shadow), 0.15);
+}
+
+.article-card__image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.article-card__content {
+  padding: 1.5rem;
+}
+
+.article-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.875rem;
+  color: rgba(var(--color-base-text), 0.7);
+}
+
+.article-card__date,
+.article-card__author {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.article-card__title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+
+.article-card__title a {
+  color: rgb(var(--color-base-text));
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.article-card__title a:hover {
+  color: rgb(var(--color-base-accent-1));
+}
+
+.article-card__excerpt {
+  color: rgba(var(--color-base-text), 0.8);
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.article-card__link {
+  color: rgb(var(--color-base-accent-1));
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.875rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: color 0.2s ease;
+}
+
+.article-card__link:hover {
+  color: rgba(var(--color-base-accent-1), 0.8);
+}
+
+.blog-empty {
+  text-align: center;
+  padding: 4rem 0;
+}
+
+.blog-empty__title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: rgb(var(--color-base-text));
+}
+
+.blog-empty__message {
+  color: rgba(var(--color-base-text), 0.7);
+}
+
+@media (max-width: 749px) {
+  .blog-title {
+    font-size: 2rem;
+  }
+  
+  .blog-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .article-card__meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}
+{% endstylesheet %}
+
+<div class="main-blog">
+  <div class="container">
+    <header class="blog-header">
+      <h1 class="blog-title">{{ blog.title }}</h1>
+      {%- if blog.description != blank -%}
+        <p class="blog-description">{{ blog.description }}</p>
+      {%- endif -%}
+    </header>
+    
+    {%- if blog.articles.size > 0 -%}
+      {% paginate blog.articles by section.settings.posts_per_page %}
+        <div class="blog-grid">
+          {%- for article in blog.articles -%}
+            <article class="article-card">
+              {%- if section.settings.show_image and article.image -%}
+                <a href="{{ article.url }}">
+                  <img
+                    src="{{ article.image | image_url: width: 400 }}"
+                    alt="{{ article.image.alt | escape }}"
+                    class="article-card__image"
+                    width="400"
+                    height="200"
+                    loading="lazy"
+                  >
+                </a>
+              {%- endif -%}
+              
+              <div class="article-card__content">
+                <div class="article-card__meta">
+                  {%- if section.settings.show_date -%}
+                    <div class="article-card__date">
+                      {% render 'icon', name: 'calendar' %}
+                      <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
+                        {{ article.published_at | date: '%B %d, %Y' }}
+                      </time>
+                    </div>
+                  {%- endif -%}
+                  
+                  {%- if section.settings.show_author and article.author != blank -%}
+                    <div class="article-card__author">
+                      {% render 'icon', name: 'user' %}
+                      {{ article.author }}
+                    </div>
+                  {%- endif -%}
+                </div>
+                
+                <h2 class="article-card__title">
+                  <a href="{{ article.url }}">{{ article.title }}</a>
+                </h2>
+                
+                {%- if section.settings.show_excerpt -%}
+                  <div class="article-card__excerpt">
+                    {{ article.excerpt | default: article.content | strip_html | truncate: 150 }}
+                  </div>
+                {%- endif -%}
+                
+                <a href="{{ article.url }}" class="article-card__link">
+                  Read more
+                  {% render 'icon', name: 'arrow-right' %}
+                </a>
+              </div>
+            </article>
+          {%- endfor -%}
+        </div>
+        
+        {% render 'pagination', paginate: paginate %}
+      {% endpaginate %}
+    {%- else -%}
+      <div class="blog-empty">
+        <h2 class="blog-empty__title">No articles yet</h2>
+        <p class="blog-empty__message">Check back soon for new content!</p>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Blog",
+  "settings": [
+    {
+      "type": "range",
+      "id": "posts_per_page",
+      "label": "Posts per page",
+      "min": 3,
+      "max": 12,
+      "step": 3,
+      "default": 6
+    },
+    {
+      "type": "checkbox",
+      "id": "show_image",
+      "label": "Show article image",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_date",
+      "label": "Show date",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_author",
+      "label": "Show author",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_excerpt",
+      "label": "Show excerpt",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

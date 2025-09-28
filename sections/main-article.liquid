@@ -1,0 +1,274 @@
+{% comment %}
+  Main Article Section
+  Article page layout
+{% endcomment %}
+
+{% stylesheet %}
+.main-article {
+  padding: 2rem 0;
+}
+
+.article-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(var(--color-base-text), 0.1);
+}
+
+.article-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: rgb(var(--color-base-text));
+  line-height: 1.2;
+}
+
+.article-meta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  color: rgba(var(--color-base-text), 0.7);
+  font-size: 0.875rem;
+}
+
+.article-date,
+.article-author {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.article-image {
+  width: 100%;
+  max-width: 800px;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  margin: 0 auto 2rem;
+  display: block;
+}
+
+.article-content {
+  max-width: 800px;
+  margin: 0 auto;
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: rgb(var(--color-base-text));
+}
+
+.article-content h2,
+.article-content h3,
+.article-content h4 {
+  margin: 2rem 0 1rem 0;
+  color: rgb(var(--color-base-text));
+}
+
+.article-content p {
+  margin-bottom: 1.5rem;
+}
+
+.article-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  margin: 1.5rem 0;
+}
+
+.article-tags {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(var(--color-base-text), 0.1);
+}
+
+.tags-list {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.tag {
+  padding: 0.25rem 0.75rem;
+  background: rgba(var(--color-base-accent-1), 0.1);
+  color: rgb(var(--color-base-accent-1));
+  text-decoration: none;
+  border-radius: 1rem;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+}
+
+.tag:hover {
+  background: rgb(var(--color-base-accent-1));
+  color: rgb(var(--color-base-solid-button-labels));
+}
+
+.article-share {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.share-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.share-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: rgba(var(--color-base-text), 0.1);
+  color: rgb(var(--color-base-text));
+  text-decoration: none;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+}
+
+.share-button:hover {
+  background: rgb(var(--color-base-accent-1));
+  color: rgb(var(--color-base-solid-button-labels));
+}
+
+@media (max-width: 749px) {
+  .article-title {
+    font-size: 2rem;
+  }
+  
+  .article-meta {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .article-content {
+    font-size: 1rem;
+  }
+  
+  .share-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .share-button {
+    width: 100%;
+    max-width: 200px;
+    justify-content: center;
+  }
+}
+{% endstylesheet %}
+
+<article class="main-article">
+  <div class="container">
+    <header class="article-header">
+      <h1 class="article-title">{{ article.title }}</h1>
+      
+      <div class="article-meta">
+        {%- if section.settings.show_date -%}
+          <div class="article-date">
+            {% render 'icon', name: 'calendar' %}
+            <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
+              {{ article.published_at | date: '%B %d, %Y' }}
+            </time>
+          </div>
+        {%- endif -%}
+        
+        {%- if section.settings.show_author and article.author != blank -%}
+          <div class="article-author">
+            {% render 'icon', name: 'user' %}
+            {{ article.author }}
+          </div>
+        {%- endif -%}
+      </div>
+    </header>
+    
+    {%- if article.image -%}
+      <img
+        src="{{ article.image | image_url: width: 800 }}"
+        alt="{{ article.image.alt | escape }}"
+        class="article-image"
+        width="800"
+        height="400"
+        loading="eager"
+      >
+    {%- endif -%}
+    
+    <div class="article-content">
+      {{ article.content }}
+    </div>
+    
+    {%- if section.settings.show_tags and article.tags.size > 0 -%}
+      <div class="article-tags">
+        <div class="tags-list">
+          {%- for tag in article.tags -%}
+            <a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="tag">
+              {{ tag }}
+            </a>
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
+    
+    {%- if section.settings.show_share_buttons -%}
+      <div class="article-share">
+        <div class="share-buttons">
+          <a href="https://www.facebook.com/sharer/sharer.php?u={{ shop.url }}{{ article.url }}" 
+             target="_blank" 
+             class="share-button"
+             aria-label="Share on Facebook">
+            {% render 'icon', name: 'facebook' %}
+            Facebook
+          </a>
+          <a href="https://twitter.com/intent/tweet?url={{ shop.url }}{{ article.url }}&text={{ article.title | url_encode }}" 
+             target="_blank" 
+             class="share-button"
+             aria-label="Share on Twitter">
+            {% render 'icon', name: 'twitter' %}
+            Twitter
+          </a>
+          <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ shop.url }}{{ article.url }}" 
+             target="_blank" 
+             class="share-button"
+             aria-label="Share on LinkedIn">
+            {% render 'icon', name: 'linkedin' %}
+            LinkedIn
+          </a>
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</article>
+
+{% schema %}
+{
+  "name": "Article",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_date",
+      "label": "Show date",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_author",
+      "label": "Show author",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tags",
+      "label": "Show tags",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_share_buttons",
+      "label": "Show share buttons",
+      "default": true
+    }
+  ]
+}
+{% endschema %}
