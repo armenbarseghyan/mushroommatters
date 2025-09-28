@@ -60,7 +60,7 @@ dirttea-theme/
 ├── locales/
 │   └── en.default.json       # Localization (including DIRTEA-specific strings)
 ├── sections/                 # Modular sections
-│   ├── announcement-bar.liquid  # Message rotation
+│   ├── announcement-bar-new.liquid  # Message rotation (Theme Editor compatible)
 │   ├── header-mega.liquid      # Sticky header with mega menu
 │   └── footer.liquid           # Footer with blocks
 ├── snippets/                 # Helper snippets

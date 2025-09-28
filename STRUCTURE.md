@@ -42,7 +42,7 @@ dirttea-theme/
 │   └── en.default.json           # Localization strings
 │
 ├── 📄 Sections (Page Sections)
-│   ├── announcement-bar.liquid   # Message rotation
+│   ├── announcement-bar-new.liquid   # Message rotation (Theme Editor compatible)
 │   ├── header-mega.liquid        # Sticky header with mega menu
 │   ├── footer.liquid             # Footer with blocks
 │   ├── main-product.liquid        # Product page layout
