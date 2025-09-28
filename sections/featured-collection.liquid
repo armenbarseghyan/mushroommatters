@@ -1,0 +1,192 @@
+{% comment %}
+  Featured Collection Section - Shopify Theme Editor Compatible
+{% endcomment %}
+
+{% liquid
+  assign collection = collections[section.settings.collection] | default: collections.all
+  assign products_to_show = section.settings.products_to_show | default: 4
+%}
+
+<div class="featured-collection" data-section-id="{{ section.id }}">
+  <div class="container">
+    {%- if section.settings.title != blank -%}
+      <div class="featured-collection__header">
+        <h2 class="featured-collection__title">{{ section.settings.title }}</h2>
+        {%- if section.settings.subtitle != blank -%}
+          <p class="featured-collection__subtitle">{{ section.settings.subtitle }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+    
+    {%- if collection.products.size > 0 -%}
+      <div class="featured-collection__grid">
+        {%- for product in collection.products limit: products_to_show -%}
+          {% render 'product-card', 
+            product: product,
+            show_vendor: section.settings.show_vendor,
+            show_rating: section.settings.show_rating,
+            show_quick_add: section.settings.show_quick_add
+          %}
+        {%- endfor -%}
+      </div>
+      
+      {%- if section.settings.show_view_all and collection.products.size > products_to_show -%}
+        <div class="featured-collection__footer">
+          <a href="{{ collection.url }}" class="btn btn--secondary">
+            {{ 'sections.featured_collection.view_all' | t }}
+          </a>
+        </div>
+      {%- endif -%}
+    {%- else -%}
+      <div class="featured-collection__empty">
+        <p>{{ 'sections.featured_collection.empty' | t }}</p>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% stylesheet %}
+.featured-collection {
+  padding: 4rem 0;
+}
+
+.featured-collection__header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.featured-collection__title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: rgb(var(--color-base-text));
+}
+
+.featured-collection__subtitle {
+  font-size: 1.125rem;
+  color: rgba(var(--color-base-text), 0.7);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.featured-collection__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.featured-collection__footer {
+  text-align: center;
+}
+
+.featured-collection__empty {
+  text-align: center;
+  padding: 4rem 0;
+  color: rgba(var(--color-base-text), 0.7);
+}
+
+@media (max-width: 749px) {
+  .featured-collection__title {
+    font-size: 2rem;
+  }
+  
+  .featured-collection__grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Featured Collection",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Featured Products"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subheading",
+      "default": "Discover our most popular mushroom products"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "label": "Products to show",
+      "min": 2,
+      "max": 12,
+      "step": 2,
+      "default": 4
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Show 'View all' button",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Product Cards"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show vendor",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": "Show rating",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_quick_add",
+      "label": "Show quick add",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "options": [
+        {
+          "value": "background-1",
+          "label": "Background 1"
+        },
+        {
+          "value": "background-2",
+          "label": "Background 2"
+        },
+        {
+          "value": "inverse",
+          "label": "Inverse"
+        }
+      ],
+      "default": "background-1"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Collection"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,107 @@
+{
+  "sections": {
+    "hero_banner": {
+      "type": "hero-banner",
+      "settings": {
+        "title": "Premium Mushroom Extracts",
+        "subtitle": "Unlock the power of functional mushrooms with our scientifically-backed extracts",
+        "primary_button_text": "Shop Now",
+        "primary_button_url": "/collections/all",
+        "secondary_button_text": "Learn More",
+        "secondary_button_url": "/pages/about",
+        "height": "medium",
+        "text_alignment": "center"
+      }
+    },
+    "featured_collection": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Featured Products",
+        "subtitle": "Discover our most popular mushroom products",
+        "products_to_show": 4,
+        "show_view_all": true,
+        "show_vendor": false,
+        "show_rating": true,
+        "show_quick_add": true
+      }
+    },
+    "tiles": {
+      "type": "home-tiles",
+      "blocks": {
+        "tile_products": {
+          "type": "tile",
+          "settings": {
+            "title": "Shop by Product",
+            "description": "Browse our complete range of mushroom products",
+            "button_text": "Shop Products",
+            "button_url": "/collections/all",
+            "category": "products"
+          }
+        },
+        "tile_benefits": {
+          "type": "tile",
+          "settings": {
+            "title": "Shop by Benefit",
+            "description": "Find products for your specific wellness goals",
+            "button_text": "Shop Benefits",
+            "button_url": "/collections/benefits",
+            "category": "benefits"
+          }
+        },
+        "tile_mushrooms": {
+          "type": "tile",
+          "settings": {
+            "title": "Shop by Mushroom",
+            "description": "Explore individual mushroom varieties",
+            "button_text": "Shop Mushrooms",
+            "button_url": "/collections/mushrooms",
+            "category": "mushrooms"
+          }
+        }
+      },
+      "block_order": [
+        "tile_products",
+        "tile_benefits",
+        "tile_mushrooms"
+      ],
+      "settings": {
+        "title": "Shop by Category",
+        "subtitle": "Find exactly what you're looking for"
+      }
+    },
+    "build_stack": {
+      "type": "home-build-stack",
+      "settings": {
+        "title": "Build a Stack & Save",
+        "subtitle": "Create your perfect combination and save up to 15%",
+        "button_text": "Start Building",
+        "button_url": "/pages/build-a-stack"
+      }
+    },
+    "reviews": {
+      "type": "home-reviews",
+      "settings": {
+        "title": "What Our Customers Say",
+        "subtitle": "Join thousands of satisfied customers on their wellness journey"
+      }
+    },
+    "blog_feed": {
+      "type": "home-blog-feed",
+      "settings": {
+        "title": "Journal & Recipes",
+        "subtitle": "Discover mushroom science, recipes, and wellness tips",
+        "posts_to_show": 3,
+        "show_date": true,
+        "show_author": false
+      }
+    }
+  },
+  "order": [
+    "hero_banner",
+    "featured_collection",
+    "tiles",
+    "build_stack",
+    "reviews",
+    "blog_feed"
+  ]
+}

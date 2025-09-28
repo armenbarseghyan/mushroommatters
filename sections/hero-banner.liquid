@@ -1,0 +1,325 @@
+{% comment %}
+  Hero Banner Section - Shopify Theme Editor Compatible
+{% endcomment %}
+
+{% liquid
+  assign height_class = section.settings.height | default: 'medium'
+  assign text_alignment = section.settings.text_alignment | default: 'center'
+%}
+
+<div class="hero-banner hero-banner--{{ height_class }} hero-banner--{{ text_alignment }}" data-section-id="{{ section.id }}">
+  {%- if section.settings.hero_image -%}
+    <div class="hero-banner__media">
+      <img
+        src="{{ section.settings.hero_image | image_url: width: 1920 }}"
+        alt="{{ section.settings.hero_image.alt | escape }}"
+        class="hero-banner__image"
+        width="1920"
+        height="800"
+        loading="eager"
+      >
+    </div>
+  {%- endif -%}
+  
+  <div class="hero-banner__content">
+    <div class="container">
+      <div class="hero-banner__text">
+        {%- if section.settings.title != blank -%}
+          <h1 class="hero-banner__title">{{ section.settings.title }}</h1>
+        {%- endif -%}
+        
+        {%- if section.settings.subtitle != blank -%}
+          <p class="hero-banner__subtitle">{{ section.settings.subtitle }}</p>
+        {%- endif -%}
+        
+        <div class="hero-banner__buttons">
+          {%- if section.settings.primary_button_text != blank and section.settings.primary_button_url != blank -%}
+            <a href="{{ section.settings.primary_button_url }}" 
+               class="btn btn--primary hero-banner__btn"
+               data-hero-cta
+               data-action="primary"
+               data-url="{{ section.settings.primary_button_url }}">
+              {{ section.settings.primary_button_text }}
+            </a>
+          {%- endif -%}
+          
+          {%- if section.settings.secondary_button_text != blank and section.settings.secondary_button_url != blank -%}
+            <a href="{{ section.settings.secondary_button_url }}" 
+               class="btn btn--secondary hero-banner__btn"
+               data-hero-cta
+               data-action="secondary"
+               data-url="{{ section.settings.secondary_button_url }}">
+              {{ section.settings.secondary_button_text }}
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+.hero-banner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: rgb(var(--color-base-background-2));
+}
+
+.hero-banner--small {
+  min-height: 40vh;
+}
+
+.hero-banner--medium {
+  min-height: 60vh;
+}
+
+.hero-banner--large {
+  min-height: 80vh;
+}
+
+.hero-banner__media {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.hero-banner__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-banner__content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: 4rem 0;
+}
+
+.hero-banner__text {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero-banner--left .hero-banner__text {
+  margin-left: 0;
+  text-align: left;
+}
+
+.hero-banner--center .hero-banner__text {
+  text-align: center;
+}
+
+.hero-banner--right .hero-banner__text {
+  margin-right: 0;
+  text-align: right;
+}
+
+.hero-banner__title {
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+  color: rgb(var(--color-base-text));
+}
+
+.hero-banner__subtitle {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  line-height: 1.5;
+  margin-bottom: 2rem;
+  color: rgba(var(--color-base-text), 0.8);
+}
+
+.hero-banner__buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.hero-banner--center .hero-banner__buttons {
+  justify-content: center;
+}
+
+.hero-banner--left .hero-banner__buttons {
+  justify-content: flex-start;
+}
+
+.hero-banner--right .hero-banner__buttons {
+  justify-content: flex-end;
+}
+
+.hero-banner__btn {
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: var(--buttons-radius);
+  transition: all 0.2s ease;
+  display: inline-block;
+}
+
+.btn--primary {
+  background: rgb(var(--color-base-accent-1));
+  color: rgb(var(--color-base-solid-button-labels));
+  border: var(--buttons-border-width) solid rgb(var(--color-base-accent-1));
+}
+
+.btn--primary:hover {
+  background: rgba(var(--color-base-accent-1), 0.8);
+  border-color: rgba(var(--color-base-accent-1), 0.8);
+}
+
+.btn--secondary {
+  background: transparent;
+  color: rgb(var(--color-base-accent-1));
+  border: var(--buttons-border-width) solid rgb(var(--color-base-accent-1));
+}
+
+.btn--secondary:hover {
+  background: rgb(var(--color-base-accent-1));
+  color: rgb(var(--color-base-solid-button-labels));
+}
+
+@media (max-width: 749px) {
+  .hero-banner__buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .hero-banner__btn {
+    text-align: center;
+  }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Hero Banner",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Premium Mushroom Extracts"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subheading",
+      "default": "Unlock the power of functional mushrooms with our scientifically-backed extracts"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Background image"
+    },
+    {
+      "type": "header",
+      "content": "Primary Button"
+    },
+    {
+      "type": "text",
+      "id": "primary_button_text",
+      "label": "Button label",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "primary_button_url",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Secondary Button"
+    },
+    {
+      "type": "text",
+      "id": "secondary_button_text",
+      "label": "Button label",
+      "default": "Learn More"
+    },
+    {
+      "type": "url",
+      "id": "secondary_button_url",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "select",
+      "id": "height",
+      "label": "Section height",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        }
+      ],
+      "default": "medium"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "options": [
+        {
+          "value": "background-1",
+          "label": "Background 1"
+        },
+        {
+          "value": "background-2",
+          "label": "Background 2"
+        },
+        {
+          "value": "inverse",
+          "label": "Inverse"
+        }
+      ],
+      "default": "background-1"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Banner"
+    }
+  ]
+}
+{% endschema %}
