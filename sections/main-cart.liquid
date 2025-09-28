@@ -1,0 +1,160 @@
+{% comment %}
+  Main Cart Section
+  Main cart page content
+{% endcomment %}
+
+{% stylesheet %}
+.main-cart {
+  padding: 2rem 0;
+}
+.cart-items {
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.cart-item {
+  display: grid;
+  grid-template-columns: 80px 1fr auto auto;
+  gap: 1rem;
+  padding: 1rem;
+  border-bottom: 1px solid #e5e5e5;
+  align-items: center;
+}
+.cart-item:last-child {
+  border-bottom: none;
+}
+.cart-item__image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+.cart-item__details h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+}
+.cart-item__quantity {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.cart-item__quantity input {
+  width: 60px;
+  text-align: center;
+  padding: 0.25rem;
+  border: 1px solid #e5e5e5;
+}
+.cart-item__price {
+  font-weight: 600;
+}
+.cart-summary {
+  max-width: 400px;
+  margin: 2rem 0 0 auto;
+  padding: 1.5rem;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+}
+.cart-summary__row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+.cart-summary__total {
+  font-size: 1.25rem;
+  font-weight: 600;
+  border-top: 1px solid #e5e5e5;
+  padding-top: 1rem;
+  margin-top: 1rem;
+}
+.btn--checkout {
+  width: 100%;
+  padding: 1rem;
+  background: #333;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+{% endstylesheet %}
+
+<div class="main-cart">
+  <div class="container">
+    <h1>{{ section.settings.title | default: 'Your Cart' }}</h1>
+    
+    {% if cart.items.size > 0 %}
+      <form action="/cart" method="post" novalidate class="cart">
+        <div class="cart-items">
+          {% for item in cart.items %}
+            <div class="cart-item">
+              {% if item.image %}
+                <img src="{{ item.image | img_url: '160x160' }}" alt="{{ item.image.alt | escape }}" class="cart-item__image">
+              {% endif %}
+              
+              <div class="cart-item__details">
+                <h3>{{ item.product.title }}</h3>
+                {% unless item.product.has_only_default_variant %}
+                  <p>{{ item.variant.title }}</p>
+                {% endunless %}
+                {% if item.properties.size > 0 %}
+                  {% for property in item.properties %}
+                    <p><small>{{ property.first }}: {{ property.last }}</small></p>
+                  {% endfor %}
+                {% endif %}
+              </div>
+              
+              <div class="cart-item__quantity">
+                <input type="number" name="updates[]" id="updates_{{ item.key }}" value="{{ item.quantity }}" min="0">
+              </div>
+              
+              <div class="cart-item__price">
+                {{ item.final_line_price | money }}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+        
+        <div class="cart-summary">
+          <div class="cart-summary__row">
+            <span>Subtotal:</span>
+            <span>{{ cart.total_price | money }}</span>
+          </div>
+          {% if cart.total_discounts > 0 %}
+            <div class="cart-summary__row">
+              <span>Discounts:</span>
+              <span>-{{ cart.total_discounts | money }}</span>
+            </div>
+          {% endif %}
+          <div class="cart-summary__row cart-summary__total">
+            <span>Total:</span>
+            <span>{{ cart.total_price | money }}</span>
+          </div>
+          
+          <button type="submit" name="update" class="btn btn--secondary">Update Cart</button>
+          <button type="submit" name="add" value="" formaction="/cart" class="btn--checkout">Checkout</button>
+        </div>
+      </form>
+    {% else %}
+      <div class="cart-empty">
+        <h2>Your cart is empty</h2>
+        <p>Continue shopping to add items to your cart.</p>
+        <a href="{{ routes.collections_url }}" class="btn btn--primary">Continue Shopping</a>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Main Cart",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Page Title",
+      "default": "Your Cart"
+    }
+  ]
+}
+{% endschema %}

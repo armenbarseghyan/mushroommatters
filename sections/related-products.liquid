@@ -1,0 +1,123 @@
+{% comment %}
+  Related Products Section
+  Displays related products based on tags or metafields
+{% endcomment %}
+
+{% stylesheet %}
+.related-products {
+  padding: 2rem 0;
+  border-top: 1px solid #e5e5e5;
+}
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+.related-card {
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+.related-card:hover {
+  transform: translateY(-2px);
+}
+.related-card__image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+.related-card__content {
+  padding: 1rem;
+}
+.related-card__title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.related-card__price {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 1rem;
+}
+.btn--small {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  background: #333;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+}
+{% endstylesheet %}
+
+<div class="related-products">
+  <div class="container">
+    <h3>{{ section.settings.title | default: 'You might also like' }}</h3>
+    
+    <div class="related-grid">
+      {% comment %} Get related products based on product tags {% endcomment %}
+      {% assign related_products = '' | split: ',' %}
+      {% assign current_product_tags = product.tags %}
+      
+      {% for tag in current_product_tags limit: 3 %}
+        {% for related_product in collections.all.products %}
+          {% unless related_product.id == product.id %}
+            {% if related_product.tags contains tag %}
+              {% unless related_products contains related_product %}
+                {% assign related_products = related_products | concat: related_product %}
+              {% endunless %}
+            {% endif %}
+          {% endunless %}
+        {% endfor %}
+      {% endfor %}
+      
+      {% for related_product in related_products limit: section.settings.products_limit %}
+        <div class="related-card">
+          {% if related_product.featured_image %}
+            <img src="{{ related_product.featured_image | img_url: '200x150' }}" alt="{{ related_product.featured_image.alt | escape }}" class="related-card__image">
+          {% endif %}
+          
+          <div class="related-card__content">
+            <h4 class="related-card__title">
+              <a href="{{ related_product.url }}">{{ related_product.title }}</a>
+            </h4>
+            <div class="related-card__price">
+              {{ related_product.price | money }}
+            </div>
+            <form action="/cart/add" method="post" enctype="multipart/form-data">
+              <input type="hidden" name="id" value="{{ related_product.selected_or_first_available_variant.id }}">
+              <button type="submit" class="btn--small">Add to Cart</button>
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Related Products",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "You might also like"
+    },
+    {
+      "type": "range",
+      "id": "products_limit",
+      "label": "Number of products to show",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "default": 4
+    }
+  ]
+}
+{% endschema %}

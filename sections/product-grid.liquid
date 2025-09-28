@@ -1,0 +1,148 @@
+{% comment %}
+  Product Grid Section
+  Displays products in a grid layout
+{% endcomment %}
+
+{% stylesheet %}
+.product-grid {
+  padding: 2rem 0;
+}
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+.product-card {
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+.product-card:hover {
+  transform: translateY(-4px);
+}
+.product-card__image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+.product-card__content {
+  padding: 1.5rem;
+}
+.product-card__title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.product-card__price {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 1rem;
+}
+.product-card__badges {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+.badge {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  border-radius: 4px;
+  background: #f0f0f0;
+  color: #333;
+}
+.badge--sale {
+  background: #ff4444;
+  color: white;
+}
+.badge--new {
+  background: #44ff44;
+  color: #333;
+}
+{% endstylesheet %}
+
+<div class="product-grid">
+  <div class="container">
+    {% if section.settings.title != blank %}
+      <h2>{{ section.settings.title }}</h2>
+    {% endif %}
+    
+    <div class="products-grid">
+      {% if section.settings.collection != blank %}
+        {% for product in collections[section.settings.collection].products limit: section.settings.products_limit %}
+          <div class="product-card">
+            {% if product.featured_image %}
+              <img src="{{ product.featured_image | img_url: '300x300' }}" alt="{{ product.featured_image.alt | escape }}" class="product-card__image">
+            {% endif %}
+            
+            <div class="product-card__content">
+              <div class="product-card__badges">
+                {% if product.compare_at_price > product.price %}
+                  <span class="badge badge--sale">Sale</span>
+                {% endif %}
+                {% if product.tags contains 'new' %}
+                  <span class="badge badge--new">New</span>
+                {% endif %}
+                {% if product.metafields.custom.subscribe_eligible %}
+                  <span class="badge">Subscribe & Save</span>
+                {% endif %}
+              </div>
+              
+              <h3 class="product-card__title">
+                <a href="{{ product.url }}">{{ product.title }}</a>
+              </h3>
+              
+              <div class="product-card__price">
+                {% if product.compare_at_price > product.price %}
+                  <span style="text-decoration: line-through; color: #999;">{{ product.compare_at_price | money }}</span>
+                  <span style="color: #ff4444;">{{ product.price | money }}</span>
+                {% else %}
+                  {{ product.price | money }}
+                {% endif %}
+              </div>
+              
+              <form action="/cart/add" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                <button type="submit" class="btn btn--primary">Add to Cart</button>
+              </form>
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product Grid",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_limit",
+      "label": "Number of products to show",
+      "min": 4,
+      "max": 24,
+      "step": 1,
+      "default": 8
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Grid"
+    }
+  ]
+}
+{% endschema %}

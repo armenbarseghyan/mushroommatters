@@ -1,0 +1,236 @@
+{% comment %}
+  Bundle Builder Section
+  Interactive bundle/stack builder
+{% endcomment %}
+
+{% stylesheet %}
+.bundle-builder {
+  padding: 2rem 0;
+}
+.bundle-steps {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+.bundle-step {
+  padding: 0.5rem 1rem;
+  margin: 0 0.5rem;
+  border: 2px solid #e5e5e5;
+  border-radius: 20px;
+  background: white;
+  color: #666;
+  transition: all 0.2s ease;
+}
+.bundle-step.active {
+  border-color: #333;
+  background: #333;
+  color: white;
+}
+.bundle-step.completed {
+  border-color: #44ff44;
+  background: #44ff44;
+  color: #333;
+}
+.bundle-products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+.bundle-product {
+  border: 2px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.bundle-product:hover {
+  border-color: #333;
+}
+.bundle-product.selected {
+  border-color: #333;
+  background: #f8f8f8;
+}
+.bundle-product__image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+.bundle-summary {
+  background: #f8f8f8;
+  padding: 2rem;
+  border-radius: 8px;
+  margin-top: 2rem;
+}
+.bundle-summary__items {
+  margin-bottom: 1rem;
+}
+.bundle-summary__item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+.bundle-summary__total {
+  font-size: 1.25rem;
+  font-weight: 600;
+  border-top: 1px solid #e5e5e5;
+  padding-top: 1rem;
+  margin-top: 1rem;
+}
+.bundle-discount {
+  color: #44ff44;
+  font-weight: 600;
+}
+{% endstylesheet %}
+
+<div class="bundle-builder">
+  <div class="container">
+    <h1>{{ section.settings.title | default: 'Build Your Stack' }}</h1>
+    <p>{{ section.settings.subtitle | default: 'Choose 2-5 products and save up to 20%' }}</p>
+    
+    <div class="bundle-steps">
+      <div class="bundle-step active" data-step="1">1. Choose Products</div>
+      <div class="bundle-step" data-step="2">2. Review & Save</div>
+      <div class="bundle-step" data-step="3">3. Checkout</div>
+    </div>
+    
+    <div class="bundle-products">
+      {% if section.settings.collection != blank %}
+        {% for product in collections[section.settings.collection].products limit: 12 %}
+          <div class="bundle-product" data-product-id="{{ product.id }}" data-price="{{ product.price }}">
+            {% if product.featured_image %}
+              <img src="{{ product.featured_image | img_url: '300x300' }}" alt="{{ product.featured_image.alt | escape }}" class="bundle-product__image">
+            {% endif %}
+            
+            <h3>{{ product.title }}</h3>
+            <p>{{ product.price | money }}</p>
+            
+            {% if product.metafields.custom.benefits %}
+              <div class="product-benefits">
+                {% for benefit in product.metafields.custom.benefits %}
+                  <span class="badge">{{ benefit }}</span>
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+    
+    <div class="bundle-summary" id="bundle-summary" style="display: none;">
+      <h3>Your Stack</h3>
+      <div class="bundle-summary__items" id="bundle-items"></div>
+      <div class="bundle-summary__total">
+        <div class="bundle-summary__item">
+          <span>Subtotal:</span>
+          <span id="bundle-subtotal">$0.00</span>
+        </div>
+        <div class="bundle-summary__item bundle-discount">
+          <span>Bundle Discount:</span>
+          <span id="bundle-discount">-$0.00</span>
+        </div>
+        <div class="bundle-summary__item">
+          <span>Total:</span>
+          <span id="bundle-total">$0.00</span>
+        </div>
+      </div>
+      
+      <form action="/cart/add" method="post" enctype="multipart/form-data" id="bundle-form">
+        <button type="submit" class="btn btn--primary">Add Stack to Cart</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% javascript %}
+document.addEventListener('DOMContentLoaded', function() {
+  const products = document.querySelectorAll('.bundle-product');
+  const summary = document.getElementById('bundle-summary');
+  const bundleItems = document.getElementById('bundle-items');
+  const bundleSubtotal = document.getElementById('bundle-subtotal');
+  const bundleDiscount = document.getElementById('bundle-discount');
+  const bundleTotal = document.getElementById('bundle-total');
+  const bundleForm = document.getElementById('bundle-form');
+  
+  let selectedProducts = [];
+  const discountRates = { 2: 0.05, 3: 0.10, 4: 0.15, 5: 0.20 };
+  
+  products.forEach(product => {
+    product.addEventListener('click', function() {
+      const productId = this.dataset.productId;
+      const price = parseInt(this.dataset.price);
+      
+      if (this.classList.contains('selected')) {
+        this.classList.remove('selected');
+        selectedProducts = selectedProducts.filter(p => p.id !== productId);
+      } else {
+        if (selectedProducts.length < 5) {
+          this.classList.add('selected');
+          selectedProducts.push({ id: productId, price: price, title: this.querySelector('h3').textContent });
+        }
+      }
+      
+      updateSummary();
+    });
+  });
+  
+  function updateSummary() {
+    if (selectedProducts.length === 0) {
+      summary.style.display = 'none';
+      return;
+    }
+    
+    summary.style.display = 'block';
+    
+    const subtotal = selectedProducts.reduce((sum, product) => sum + product.price, 0);
+    const discountRate = discountRates[selectedProducts.length] || 0;
+    const discount = subtotal * discountRate;
+    const total = subtotal - discount;
+    
+    bundleItems.innerHTML = selectedProducts.map(product => 
+      `<div class="bundle-summary__item">
+        <span>${product.title}</span>
+        <span>${(product.price / 100).toFixed(2)}</span>
+      </div>`
+    ).join('');
+    
+    bundleSubtotal.textContent = `$${(subtotal / 100).toFixed(2)}`;
+    bundleDiscount.textContent = `-$${(discount / 100).toFixed(2)}`;
+    bundleTotal.textContent = `$${(total / 100).toFixed(2)}`;
+    
+    // Update form with selected products
+    bundleForm.innerHTML = selectedProducts.map(product => 
+      `<input type="hidden" name="items[${product.id}][id]" value="${product.id}">
+       <input type="hidden" name="items[${product.id}][quantity]" value="1">`
+    ).join('') + '<button type="submit" class="btn btn--primary">Add Stack to Cart</button>';
+  }
+});
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Bundle Builder",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Page Title",
+      "default": "Build Your Stack"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Page Subtitle",
+      "default": "Choose 2-5 products and save up to 20%"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Products Collection"
+    }
+  ]
+}
+{% endschema %}
