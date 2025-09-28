@@ -648,6 +648,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize components
   new ButtonHandlers();
   
+  // Initialize search functionality
+  new SearchHandler();
+  
+  // Initialize announcement bar
+  new AnnouncementBar();
+  
   // Initialize cart drawer if it exists
   if (document.getElementById('cart-drawer')) {
     new CartDrawer();
@@ -660,8 +666,269 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Export classes to global scope
+// Search functionality
+class SearchHandler {
+  constructor() {
+    this.searchToggle = Utils.getElement('[data-search-toggle]');
+    this.searchOverlay = null;
+    this.init();
+  }
+
+  init() {
+    if (this.searchToggle) {
+      this.searchToggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.toggleSearch();
+      });
+    }
+    this.addSearchStyles();
+  }
+
+  addSearchStyles() {
+    if (document.getElementById('search-styles')) return;
+    
+    const styles = document.createElement('style');
+    styles.id = 'search-styles';
+    styles.textContent = `
+      .search-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+      }
+      
+      .search-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+      
+      .search-overlay__content {
+        background: white;
+        padding: 2rem;
+        border-radius: 8px;
+        width: 90%;
+        max-width: 500px;
+        transform: translateY(-20px);
+        transition: transform 0.3s ease;
+      }
+      
+      .search-overlay.active .search-overlay__content {
+        transform: translateY(0);
+      }
+      
+      .search-overlay__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+      }
+      
+      .search-overlay__header h2 {
+        margin: 0;
+        font-size: 1.5rem;
+      }
+      
+      .search-overlay__close {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0.5rem;
+        border-radius: 4px;
+        transition: background 0.2s ease;
+      }
+      
+      .search-overlay__close:hover {
+        background: rgba(0, 0, 0, 0.1);
+      }
+      
+      .search-overlay__form {
+        display: flex;
+        gap: 1rem;
+      }
+      
+      .search-overlay__input {
+        flex: 1;
+        padding: 1rem;
+        border: 2px solid #ddd;
+        border-radius: 4px;
+        font-size: 1rem;
+      }
+      
+      .search-overlay__input:focus {
+        outline: none;
+        border-color: rgb(var(--color-base-accent-1));
+      }
+      
+      .search-overlay__submit {
+        padding: 1rem 2rem;
+        background: rgb(var(--color-base-accent-1));
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: background 0.2s ease;
+      }
+      
+      .search-overlay__submit:hover {
+        background: rgba(var(--color-base-accent-1), 0.8);
+      }
+    `;
+    document.head.appendChild(styles);
+  }
+
+  toggleSearch() {
+    if (!this.searchOverlay) {
+      this.createSearchOverlay();
+    }
+    
+    if (this.searchOverlay.classList.contains('active')) {
+      this.closeSearch();
+    } else {
+      this.openSearch();
+    }
+  }
+
+  createSearchOverlay() {
+    this.searchOverlay = document.createElement('div');
+    this.searchOverlay.className = 'search-overlay';
+    this.searchOverlay.innerHTML = `
+      <div class="search-overlay__content">
+        <div class="search-overlay__header">
+          <h2>Search</h2>
+          <button class="search-overlay__close" data-search-close>
+            <svg width="24" height="24" viewBox="0 0 24 24">
+              <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+        <form action="/search" method="get" class="search-overlay__form">
+          <input type="search" name="q" placeholder="Search products..." class="search-overlay__input" autocomplete="off">
+          <button type="submit" class="search-overlay__submit">Search</button>
+        </form>
+      </div>
+    `;
+    
+    document.body.appendChild(this.searchOverlay);
+    
+    // Add close functionality
+    const closeBtn = this.searchOverlay.querySelector('[data-search-close]');
+    closeBtn.addEventListener('click', () => this.closeSearch());
+    
+    // Close on overlay click
+    this.searchOverlay.addEventListener('click', (e) => {
+      if (e.target === this.searchOverlay) {
+        this.closeSearch();
+      }
+    });
+    
+    // Close on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && this.searchOverlay.classList.contains('active')) {
+        this.closeSearch();
+      }
+    });
+  }
+
+  openSearch() {
+    this.searchOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    
+    // Focus on input
+    setTimeout(() => {
+      const input = this.searchOverlay.querySelector('.search-overlay__input');
+      if (input) input.focus();
+    }, 100);
+  }
+
+  closeSearch() {
+    this.searchOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+}
+
+// Announcement Bar functionality
+class AnnouncementBar {
+  constructor() {
+    this.announcementBar = Utils.getElement('[data-announcement-bar]');
+    this.messages = Utils.getElements('[data-announcement-message]');
+    this.closeButton = Utils.getElement('[data-announcement-close]');
+    this.currentIndex = 0;
+    this.rotationSpeed = 5000; // 5 seconds default
+    this.rotationTimer = null;
+    
+    this.init();
+  }
+
+  init() {
+    if (!this.announcementBar) return;
+    
+    // Check if user previously closed the announcement bar
+    if (localStorage.getItem('announcement-bar-closed') === 'true') {
+      this.announcementBar.style.display = 'none';
+      return;
+    }
+    
+    // Setup close button
+    if (this.closeButton) {
+      this.closeButton.addEventListener('click', () => this.close());
+    }
+    
+    // Start rotation if multiple messages
+    if (this.messages.length > 1) {
+      this.startRotation();
+    }
+  }
+
+  startRotation() {
+    this.rotationTimer = setInterval(() => {
+      this.nextMessage();
+    }, this.rotationSpeed);
+  }
+
+  nextMessage() {
+    if (this.messages.length <= 1) return;
+    
+    // Hide current message
+    this.messages[this.currentIndex].classList.remove('active');
+    this.messages[this.currentIndex].removeAttribute('data-active');
+    
+    // Move to next message
+    this.currentIndex = (this.currentIndex + 1) % this.messages.length;
+    
+    // Show next message
+    this.messages[this.currentIndex].classList.add('active');
+    this.messages[this.currentIndex].setAttribute('data-active', '');
+  }
+
+  close() {
+    if (this.announcementBar) {
+      this.announcementBar.style.display = 'none';
+      
+      // Store in localStorage to remember user preference
+      localStorage.setItem('announcement-bar-closed', 'true');
+      
+      // Clear rotation timer
+      if (this.rotationTimer) {
+        clearInterval(this.rotationTimer);
+      }
+    }
+  }
+}
+
 window.DirteaTheme = DirteaTheme;
 window.CartDrawer = CartDrawer;
 window.ButtonHandlers = ButtonHandlers;
 window.HeaderMega = HeaderMega;
+window.SearchHandler = SearchHandler;
+window.AnnouncementBar = AnnouncementBar;
 window.Utils = Utils;
