@@ -17,17 +17,14 @@ dirttea-theme/
 │   ├── COMPONENTS.md             # Component documentation
 │   └── STRUCTURE.md              # This file
 │
-├── 🎨 Assets (Organized)
-│   ├── css/
-│   │   ├── critical.css          # Critical above-the-fold styles
-│   │   └── theme.css             # Additional theme styles
-│   ├── js/
-│   │   ├── global.js             # Main theme initialization
-│   │   ├── utils.js              # Utility functions
-│   │   ├── cart-drawer.js        # Cart drawer functionality
-│   │   ├── bundle-builder.js     # Bundle creation
-│   │   └── pdp-subscription.js   # Subscription toggle
-│   └── images/                   # Static images and icons
+├── 🎨 Assets
+│   ├── critical.css              # Critical above-the-fold styles
+│   ├── theme.css                 # Additional theme styles
+│   ├── global.js                 # Main theme initialization
+│   ├── utils.js                  # Utility functions
+│   ├── cart-drawer.js            # Cart drawer functionality
+│   ├── bundle-builder.js         # Bundle creation
+│   └── pdp-subscription.js       # Subscription toggle
 │
 ├── 🧩 Blocks (Reusable Components)
 │   ├── menu-column.liquid        # Mega menu column
