@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
@@ -5,15 +14,14 @@
       "settings": {
         "show_date": true,
         "show_author": true,
-        "show_share_buttons": true,
-        "show_tags": true
+        "show_tags": true,
+        "show_share_buttons": true
       }
     },
     "related_articles": {
       "type": "home-blog-feed",
       "settings": {
-        "title": "Related Articles",
-        "posts_to_show": 3
+        "title": "Related Articles"
       }
     },
     "footer": {
