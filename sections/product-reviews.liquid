@@ -1,0 +1,196 @@
+{% comment %}
+  Product Reviews Section
+  Displays product reviews and ratings
+{% endcomment %}
+
+{% stylesheet %}
+.product-reviews {
+  padding: 2rem 0;
+  border-top: 1px solid #e5e5e5;
+}
+.reviews-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.reviews-summary {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.reviews-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.reviews-stars {
+  color: #ffd700;
+  font-size: 1.25rem;
+}
+.reviews-count {
+  color: #666;
+  font-size: 0.875rem;
+}
+.reviews-grid {
+  display: grid;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+.review-item {
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.review-author {
+  font-weight: 600;
+}
+.review-date {
+  color: #666;
+  font-size: 0.875rem;
+}
+.review-rating {
+  color: #ffd700;
+}
+.review-text {
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+.review-helpful {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.875rem;
+  color: #666;
+}
+{% endstylesheet %}
+
+<div class="product-reviews">
+  <div class="container">
+    <div class="reviews-header">
+      <div class="reviews-summary">
+        <div class="reviews-rating">
+          <div class="reviews-stars">★★★★★</div>
+          <span class="reviews-count">({{ section.settings.reviews_count | default: '24' }} reviews)</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="reviews-grid">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'review' %}
+            <div class="review-item">
+              <div class="review-header">
+                <div>
+                  <div class="review-author">{{ block.settings.author }}</div>
+                  <div class="review-date">{{ block.settings.date }}</div>
+                </div>
+                <div class="review-rating">
+                  {% for i in (1..5) %}
+                    {% if i <= block.settings.rating %}★{% else %}☆{% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+              <div class="review-text">{{ block.settings.text }}</div>
+              <div class="review-helpful">
+                <span>Was this helpful? Yes ({{ block.settings.helpful_yes | default: '3' }}) No ({{ block.settings.helpful_no | default: '0' }})</span>
+              </div>
+            </div>
+        {% endcase %}
+      {% endfor %}
+    </div>
+    
+    {% comment %} App block for review widgets {% endcomment %}
+    {% for block in section.blocks %}
+      {% case block.type %}
+        {% when '@app' %}
+          {% render block %}
+      {% endcase %}
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product Reviews",
+  "settings": [
+    {
+      "type": "text",
+      "id": "reviews_count",
+      "label": "Reviews Count",
+      "default": "24"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Author Name"
+        },
+        {
+          "type": "text",
+          "id": "date",
+          "label": "Review Date"
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Review Text"
+        },
+        {
+          "type": "number",
+          "id": "helpful_yes",
+          "label": "Helpful Yes Count",
+          "default": 3
+        },
+        {
+          "type": "number",
+          "id": "helpful_no",
+          "label": "Helpful No Count",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "type": "@app"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Reviews",
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "author": "Sarah M.",
+            "date": "2 weeks ago",
+            "rating": 5,
+            "text": "Amazing quality! I feel more energized since starting my daily routine. The taste is great and no aftertaste.",
+            "helpful_yes": 5,
+            "helpful_no": 0
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

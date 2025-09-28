@@ -1,0 +1,166 @@
+{% comment %}
+  Home Standard Section
+  DIRTEA Standard features for Gummies
+{% endcomment %}
+
+{% stylesheet %}
+.home-standard {
+  padding: 3rem 0;
+  background: #f8f8f8;
+}
+.standard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+.standard-feature {
+  text-align: center;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.standard-feature__icon {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 1rem;
+  background: #333;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.5rem;
+}
+.standard-feature__title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.standard-feature__description {
+  font-size: 0.875rem;
+  color: #666;
+  line-height: 1.4;
+}
+{% endstylesheet %}
+
+<div class="home-standard">
+  <div class="container">
+    <h2>{{ section.settings.title | default: 'DIRTEA Standard' }}</h2>
+    <p>{{ section.settings.subtitle | default: 'Every gummy meets our high standards' }}</p>
+    
+    <div class="standard-grid">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'feature' %}
+            <div class="standard-feature">
+              <div class="standard-feature__icon">
+                {% if block.settings.icon %}
+                  {% render 'icon', name: block.settings.icon %}
+                {% else %}
+                  ✓
+                {% endif %}
+              </div>
+              <h3 class="standard-feature__title">{{ block.settings.title }}</h3>
+              <p class="standard-feature__description">{{ block.settings.description }}</p>
+            </div>
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Home Standard",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "DIRTEA Standard"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Section Subtitle",
+      "default": "Every gummy meets our high standards"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "0g Sugar"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "No added sugars, naturally sweet"
+        },
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon name (optional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Home Standard",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "title": "0g Sugar",
+            "description": "No added sugars, naturally sweet"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "≤20 kcal",
+            "description": "Low calorie, high nutrition"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "≤3000mg",
+            "description": "Optimal dosage per serving"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Vegan",
+            "description": "Plant-based ingredients only"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Made in UK",
+            "description": "Quality assured in Britain"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Eco Pack",
+            "description": "Sustainable packaging"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

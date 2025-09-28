@@ -1,0 +1,72 @@
+{% comment %}
+  PLP Filters Section
+  Product listing page filters
+{% endcomment %}
+
+{% stylesheet %}
+.plp-filters {
+  padding: 1rem 0;
+  border-bottom: 1px solid #e5e5e5;
+}
+.filters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.filter-group label {
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+.filter-group select {
+  padding: 0.5rem;
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+}
+{% endstylesheet %}
+
+<div class="plp-filters">
+  <div class="container">
+    <div class="filters-grid">
+      <div class="filter-group">
+        <label for="filter-benefit">Benefit</label>
+        <select id="filter-benefit" name="filter-benefit">
+          <option value="">All Benefits</option>
+          <option value="energy">Energy</option>
+          <option value="focus">Focus</option>
+          <option value="immunity">Immunity</option>
+        </select>
+      </div>
+      
+      <div class="filter-group">
+        <label for="filter-format">Format</label>
+        <select id="filter-format" name="filter-format">
+          <option value="">All Formats</option>
+          <option value="gummies">Gummies</option>
+          <option value="powder">Powder</option>
+          <option value="capsules">Capsules</option>
+        </select>
+      </div>
+      
+      <div class="filter-group">
+        <label for="filter-caffeine">Caffeine</label>
+        <select id="filter-caffeine" name="filter-caffeine">
+          <option value="">All</option>
+          <option value="caffeine-free">Caffeine Free</option>
+          <option value="with-caffeine">With Caffeine</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "PLP Filters",
+  "settings": []
+}
+{% endschema %}
