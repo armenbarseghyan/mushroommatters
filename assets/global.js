@@ -50,7 +50,7 @@ class DirteaTheme {
     // Preload critical CSS
     const criticalCSS = document.createElement('link');
     criticalCSS.rel = 'preload';
-    criticalCSS.href = '{{ "css/theme.css" | asset_url }}';
+    criticalCSS.href = '{{ "theme.css" | asset_url }}';
     criticalCSS.as = 'style';
     criticalCSS.onload = () => criticalCSS.rel = 'stylesheet';
     document.head.appendChild(criticalCSS);
