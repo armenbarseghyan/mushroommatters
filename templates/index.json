@@ -9,13 +9,6 @@
  */
 {
   "sections": {
-    "announcement_bar": {
-      "type": "announcement-bar",
-      "settings": {
-        "rotation_speed": 5,
-        "show_close_button": true
-      }
-    },
     "hero": {
       "type": "home-hero",
       "settings": {
@@ -126,7 +119,6 @@
     }
   },
   "order": [
-    "announcement_bar",
     "hero",
     "tiles",
     "build_stack",
