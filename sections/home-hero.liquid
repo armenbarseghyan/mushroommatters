@@ -1,0 +1,137 @@
+{% comment %}
+  Home Hero Section
+  Hero banner for homepage
+{% endcomment %}
+
+{% stylesheet %}
+.home-hero {
+  padding: 4rem 0;
+  background: linear-gradient(135deg, #f8f8f8 0%, #e8e8e8 100%);
+  text-align: center;
+}
+.hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.hero-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #333;
+  line-height: 1.2;
+}
+.hero-subtitle {
+  font-size: 1.25rem;
+  color: #666;
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+.hero-image {
+  width: 100%;
+  max-width: 600px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin: 2rem auto;
+}
+.hero-cta {
+  display: inline-block;
+  padding: 1rem 2rem;
+  background: #333;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1.125rem;
+  transition: background 0.2s ease;
+  margin: 0 0.5rem;
+}
+.hero-cta:hover {
+  background: #555;
+}
+.hero-cta--secondary {
+  background: transparent;
+  color: #333;
+  border: 2px solid #333;
+}
+.hero-cta--secondary:hover {
+  background: #333;
+  color: white;
+}
+{% endstylesheet %}
+
+<div class="home-hero">
+  <div class="container">
+    <div class="hero-content">
+      <h1 class="hero-title">{{ section.settings.title | default: 'Functional Mushrooms for Modern Wellness' }}</h1>
+      <p class="hero-subtitle">{{ section.settings.subtitle | default: 'Discover the power of adaptogenic mushrooms with our premium collection of gummies, powders, and blends designed for your daily wellness routine.' }}</p>
+      
+      {% if section.settings.hero_image %}
+        <img src="{{ section.settings.hero_image | img_url: '600x300' }}" alt="{{ section.settings.title }}" class="hero-image">
+      {% endif %}
+      
+      <div class="hero-actions">
+        {% if section.settings.primary_button_text != blank and section.settings.primary_button_url != blank %}
+          <a href="{{ section.settings.primary_button_url }}" class="hero-cta">{{ section.settings.primary_button_text }}</a>
+        {% endif %}
+        {% if section.settings.secondary_button_text != blank and section.settings.secondary_button_url != blank %}
+          <a href="{{ section.settings.secondary_button_url }}" class="hero-cta hero-cta--secondary">{{ section.settings.secondary_button_text }}</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Home Hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Hero Title",
+      "default": "Functional Mushrooms for Modern Wellness"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Hero Subtitle",
+      "default": "Discover the power of adaptogenic mushrooms with our premium collection of gummies, powders, and blends designed for your daily wellness routine."
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero Image"
+    },
+    {
+      "type": "text",
+      "id": "primary_button_text",
+      "label": "Primary Button Text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "text",
+      "id": "primary_button_url",
+      "label": "Primary Button URL",
+      "default": "/collections"
+    },
+    {
+      "type": "text",
+      "id": "secondary_button_text",
+      "label": "Secondary Button Text",
+      "default": "Learn More"
+    },
+    {
+      "type": "text",
+      "id": "secondary_button_url",
+      "label": "Secondary Button URL",
+      "default": "/pages/about"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Home Hero"
+    }
+  ]
+}
+{% endschema %}
